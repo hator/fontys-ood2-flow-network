@@ -3,7 +3,15 @@ package simulation.elements;
 import simulation.Settings;
 
 class AdjustableSplitter extends Splitter {
-    private float splitRatio = 0.5f;
+    private float splitRatio;
+
+    AdjustableSplitter() {
+        this(0.5f);
+    }
+
+    AdjustableSplitter(float splitRatio) {
+        this.splitRatio = splitRatio;
+    }
 
     @Override
     void applySettings(Settings settings) {

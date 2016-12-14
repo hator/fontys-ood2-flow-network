@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ElementsFlowIntegrationTest {
     @Test
-    public void twoComponentNetworkRecalculatesProperely() {
+    public void twoComponentNetworkRecalculatesProperly() {
         /* Network: Pump ---Pipeline--> Sink */
         // Given
         float maxFlow = 10.f;
