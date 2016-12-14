@@ -19,4 +19,8 @@ abstract class InputOutput {
     float getFlow() {
         return currentFlow;
     }
+
+    void deattachPipeline() {
+        pipeline = null;
+    }
 }
