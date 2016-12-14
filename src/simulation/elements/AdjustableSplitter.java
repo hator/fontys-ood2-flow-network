@@ -2,6 +2,9 @@ package simulation.elements;
 
 import simulation.Settings;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class AdjustableSplitter extends Splitter {
     private float splitRatio;
 
@@ -25,5 +28,16 @@ class AdjustableSplitter extends Splitter {
         super.applySettings(settings);
         // TODO probably check if settings.splitRatio is not null
         this.splitRatio = settings.splitRatio;
+    }
+
+    @Override
+    public List<Pipeline> getPipelines() {
+        List<Pipeline> pipelines = new ArrayList<>();
+
+        pipelines.add(input.pipeline);
+        pipelines.add(outputA.pipeline);
+        pipelines.add(outputB.pipeline);
+
+        return pipelines;
     }
 }

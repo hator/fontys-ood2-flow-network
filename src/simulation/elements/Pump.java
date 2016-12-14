@@ -1,5 +1,8 @@
 package simulation.elements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Pump extends Component {
     private Output output = new Output(this);
 
@@ -15,5 +18,14 @@ class Pump extends Component {
     @Override
     void recalculateFlow() {
         this.getOutput().recalculateFlow(this.currentFlow);
+    }
+
+    @Override
+    public List<Pipeline> getPipelines() {
+        List<Pipeline> pipelines = new ArrayList<>();
+
+        pipelines.add(output.pipeline);
+
+        return pipelines;
     }
 }
