@@ -5,17 +5,12 @@ import simulation.Settings;
 abstract class Element {
     float currentFlow;
     float maxFlow;
-    private boolean needsRecalculation = true;
+
+    abstract void recalculateFlow();
 
     float getFlow() {
-        if(needsRecalculation) {
-            currentFlow = recalculateFlow();
-            needsRecalculation = false;
-        }
         return currentFlow;
     }
-
-    abstract float recalculateFlow();
 
     Settings getSettings() {
         return new Settings(currentFlow, maxFlow, null);
@@ -24,7 +19,6 @@ abstract class Element {
     void applySettings(Settings settings) {
         this.currentFlow = settings.currentFlow;
         this.maxFlow = settings.maxFlow;
-        this.needsRecalculation = true;
     }
 
 }

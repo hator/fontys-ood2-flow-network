@@ -8,13 +8,12 @@ class Pump extends Component {
         this.maxFlow = maxFlow;
     }
 
-    @Override
-    float recalculateFlow() {
-        getOutput().setFlow(currentFlow);
-        return currentFlow; // Nothing to do, currentFlow is always up-to-date
-    }
-
     Output getOutput() {
         return output;
+    }
+
+    @Override
+    void recalculateFlow() {
+        this.getOutput().recalculateFlow(this.currentFlow);
     }
 }

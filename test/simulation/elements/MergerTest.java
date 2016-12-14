@@ -28,7 +28,8 @@ public class MergerTest {
         Pipeline pipeB = new MockFixedFlowPipeline(flowB, merger.getInputB());
 
         // When
-        merger.recalculateFlow();
+        pipeA.recalculateFlow();
+        pipeB.recalculateFlow();
 
         // Then
         assertEquals(expectedFlow, merger.getFlow(), 0.001f);

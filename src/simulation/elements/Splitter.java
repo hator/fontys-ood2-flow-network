@@ -1,7 +1,7 @@
 package simulation.elements;
 
 abstract class Splitter extends Component {
-    Input input = new Input(null);
+    Input input = new Input(this);
     Output outputA = new Output(this);
     Output outputB = new Output(this);
 

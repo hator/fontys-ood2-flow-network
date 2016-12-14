@@ -1,16 +1,17 @@
 package simulation.elements;
 
 class MockFixedFlowPipeline extends Pipeline {
-    private float setFlow;
+    private final Input input;
 
-    MockFixedFlowPipeline(float flow, Input inputA) {
-        super(null, inputA, flow);
-        this.setFlow = flow;
+    MockFixedFlowPipeline(float flow, Input input) {
+        super(new Output(null), input, flow);
         this.currentFlow = flow;
+        this.input = input;
     }
 
     @Override
-    float recalculateFlow() {
-        return this.setFlow;
+    void recalculateFlow() {
+        // trigger recalculation of the next element (input)
+        input.recalculateFlow(this.currentFlow);
     }
 }

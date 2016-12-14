@@ -25,7 +25,7 @@ public class AdjustableSplitterTest {
         Pipeline inputPipe = new MockFixedFlowPipeline(inputFlow, splitter.getInput());
 
         // When
-        splitter.recalculateFlow();
+        inputPipe.recalculateFlow();
 
         // Then
         assertEquals(inputFlow, splitter.getFlow(), 0.001f);
@@ -42,7 +42,7 @@ public class AdjustableSplitterTest {
         Pipeline inputPipe = new MockFixedFlowPipeline(inputFlow, splitter.getInput());
 
         // When
-        splitter.recalculateFlow();
+        inputPipe.recalculateFlow();
 
         // Then
         assertEquals(outputAFlow, splitter.getOutputA().getFlow(), 0.001f);

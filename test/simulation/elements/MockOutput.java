@@ -10,7 +10,7 @@ class MockOutput extends Output {
     }
 
     @Override
-    protected void recalculateFlow() {
+    protected void recalculateFlow(float previousElementFlow) {
         this.currentFlow = setFlow;
     }
 }

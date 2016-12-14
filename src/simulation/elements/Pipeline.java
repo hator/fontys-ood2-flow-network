@@ -16,12 +16,14 @@ public class Pipeline extends Element {
         this.maxFlow = maxFlow;
 
         input.attachPipeline(this);
+        output.attachPipeline(this);
     }
 
     // TODO builder or addPoint method?
 
     @Override
-    float recalculateFlow() {
-        return output.getFlow();
+    void recalculateFlow() {
+        this.currentFlow = output.getFlow();
+        input.recalculateFlow(this.currentFlow);
     }
 }

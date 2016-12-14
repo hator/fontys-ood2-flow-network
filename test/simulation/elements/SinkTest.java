@@ -27,7 +27,7 @@ public class SinkTest {
         Pipeline pipe = new MockFixedFlowPipeline(flow, sink.getInput());
 
         // When
-        sink.recalculateFlow();
+        pipe.recalculateFlow();
 
         // Then
         assertEquals(flow, sink.getFlow(), 0.001f);

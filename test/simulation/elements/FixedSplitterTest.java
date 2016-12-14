@@ -25,7 +25,7 @@ public class FixedSplitterTest {
         Pipeline inputPipe = new MockFixedFlowPipeline(inputFlow, splitter.getInput());
 
         // When
-        splitter.recalculateFlow();
+        inputPipe.recalculateFlow();
 
         // Then
         assertEquals(inputFlow, splitter.getFlow(), 0.001f);
@@ -40,7 +40,7 @@ public class FixedSplitterTest {
         Pipeline inputPipe = new MockFixedFlowPipeline(inputFlow, splitter.getInput());
 
         // When
-        splitter.recalculateFlow();
+        inputPipe.recalculateFlow();
 
         // Then
         assertEquals(outputFlow, splitter.getOutputA().getFlow(), 0.001f);

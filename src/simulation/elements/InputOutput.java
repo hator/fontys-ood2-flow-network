@@ -2,15 +2,21 @@ package simulation.elements;
 
 abstract class InputOutput {
     float currentFlow;
-    private boolean needsRecalculation = true;
+    Pipeline pipeline = null;
+    Component component;
 
-    float getFlow() {
-        if(needsRecalculation) {
-            recalculateFlow();
-            needsRecalculation = false;
-        }
-        return currentFlow;
+    InputOutput(Component component) {
+        this.component = component;
     }
 
-    protected abstract void recalculateFlow();
+    protected abstract void recalculateFlow(float previousElementFlow);
+
+    void attachPipeline(Pipeline pipeline) {
+        // TODO check if there is already a pipeline?
+        this.pipeline = pipeline;
+    }
+
+    float getFlow() {
+        return currentFlow;
+    }
 }

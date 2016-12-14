@@ -9,9 +9,11 @@ public class PumpTest {
     public void pumpReturnsSetFlow() {
         // Given
         float flow = 10.f;
+        Pump pump = new Pump(flow, flow);
 
         // When
-        Pump pump = new Pump(flow, flow);
+
+        pump.recalculateFlow();
 
         // Then
         assertEquals(flow, pump.getFlow(), 0.001f);

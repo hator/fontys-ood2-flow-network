@@ -17,7 +17,7 @@ public class ElementsFlowIntegrationTest {
         Pipeline pipeline = new Pipeline(pump.getOutput(), sink.getInput(), maxFlow);
 
         // When
-        sink.recalculateFlow();
+        pump.recalculateFlow();
 
         // Then
         assertEquals(pumpFlow, sink.getFlow(), 0.001f);

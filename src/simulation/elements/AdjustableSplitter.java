@@ -14,17 +14,16 @@ class AdjustableSplitter extends Splitter {
     }
 
     @Override
+    void recalculateFlow() {
+        currentFlow = input.getFlow();
+        outputA.recalculateFlow(splitRatio * currentFlow);
+        outputB.recalculateFlow((1 - splitRatio) * currentFlow);
+    }
+
+    @Override
     void applySettings(Settings settings) {
         super.applySettings(settings);
         // TODO probably check if settings.splitRatio is not null
         this.splitRatio = settings.splitRatio;
-    }
-
-    @Override
-    float recalculateFlow() {
-        currentFlow = input.getFlow();
-        outputA.setFlow(splitRatio * currentFlow);
-        outputB.setFlow((1 - splitRatio) * currentFlow);
-        return currentFlow;
     }
 }

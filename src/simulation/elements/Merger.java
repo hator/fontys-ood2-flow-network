@@ -1,14 +1,9 @@
 package simulation.elements;
 
 class Merger extends Component {
-    private Input inputA = new Input(null);
-    private Input inputB = new Input(null);
+    private Input inputA = new Input(this);
+    private Input inputB = new Input(this);
     private Output output = new Output(this);
-
-    @Override
-    float recalculateFlow() {
-        return inputA.getFlow() + inputB.getFlow();
-    }
 
     Input getInputA() {
         return inputA;
@@ -16,5 +11,11 @@ class Merger extends Component {
 
     Input getInputB() {
         return inputB;
+    }
+
+    @Override
+    void recalculateFlow() {
+        this.currentFlow = inputA.getFlow() + inputB.getFlow();
+        this.output.recalculateFlow(this.currentFlow);
     }
 }
