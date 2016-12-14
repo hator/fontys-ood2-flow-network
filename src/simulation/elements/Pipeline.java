@@ -26,4 +26,10 @@ public class Pipeline extends Element {
         this.currentFlow = output.getFlow();
         input.recalculateFlow(this.currentFlow);
     }
+
+    public void deattach() {
+        input.deattachPipeline();
+        input.recalculateFlow(0);
+        output.deattachPipeline();
+    }
 }
