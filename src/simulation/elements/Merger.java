@@ -18,4 +18,8 @@ class Merger extends Component {
         this.currentFlow = inputA.getFlow() + inputB.getFlow();
         this.output.recalculateFlow(this.currentFlow);
     }
+
+    Output getOutput() {
+        return output;
+    }
 }
