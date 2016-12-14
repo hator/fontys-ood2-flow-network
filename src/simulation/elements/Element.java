@@ -2,7 +2,7 @@ package simulation.elements;
 
 import simulation.Settings;
 
-abstract class Element {
+abstract public class Element {
     float currentFlow;
     float maxFlow;
 
@@ -20,5 +20,4 @@ abstract class Element {
         this.currentFlow = settings.currentFlow;
         this.maxFlow = settings.maxFlow;
     }
-
 }
