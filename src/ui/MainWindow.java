@@ -1,11 +1,15 @@
 package ui;
 
+import simulation.SimulationFacade;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 class MainWindow extends JFrame {
+
+    private SimulationFacade simulation;
 
     MainWindow() {
         super("Flow Network Simulator");
@@ -19,13 +23,15 @@ class MainWindow extends JFrame {
             }
         });
 
+        simulation = new SimulationFacade();
+
         initializeComponents();
     }
 
     private void initializeComponents() {
         setLayout(new BorderLayout());
 
-        final Diagram diagram = new Diagram();
+        final Diagram diagram = new Diagram(simulation);
         add(diagram, BorderLayout.CENTER);
 
         final Toolbox toolbox = new Toolbox(diagram::selectTool);
