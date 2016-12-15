@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 class Diagram extends JPanel {
-    private Tool currentTool = Tool.Select;
+    private Tool currentTool;
 
     Diagram() {
         Dimension dimension = new Dimension();

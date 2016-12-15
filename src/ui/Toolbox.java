@@ -20,7 +20,7 @@ class Toolbox extends JPanel {
         final GridLayout layout = new GridLayout(0, 1, 5, 5);
 
         setLayout(layout);
-        final AbstractButton selectBtn = createAndAddButton("Selection Tool", Tool.Select);
+        final AbstractButton selectionToolBtn = createAndAddButton("Selection Tool", Tool.Select);
         createAndAddButton("Removal Tool", Tool.Remove);
         createAndAddButton("Add Pump", Tool.AddPump);
         createAndAddButton("Add Sink", Tool.AddSink);
@@ -29,7 +29,7 @@ class Toolbox extends JPanel {
         createAndAddButton("Add Merger", Tool.AddMerger);
         createAndAddButton("Add Pipeline", Tool.AddPipeline);
 
-        buttonGroup.setSelected(selectBtn.getModel(), true);
+        selectButton(selectionToolBtn);
     }
 
     private JToggleButton createAndAddButton(String text, Tool tool) {
@@ -40,6 +40,11 @@ class Toolbox extends JPanel {
         buttonGroup.add(toolButton);
         add(toolButton);
         return toolButton;
+    }
+
+    private void selectButton(AbstractButton button) {
+        buttonGroup.setSelected(button.getModel(), true);
+        onButtonClicked(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, button.getActionCommand()));
     }
 
     private void onButtonClicked(ActionEvent e) {
