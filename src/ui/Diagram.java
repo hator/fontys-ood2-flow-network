@@ -1,9 +1,12 @@
 package ui;
 
+import simulation.Tool;
+
 import javax.swing.*;
 import java.awt.*;
 
 class Diagram extends JPanel {
+    private Tool currentTool = Tool.Select;
 
     Diagram() {
         Dimension dimension = new Dimension();
@@ -14,7 +17,12 @@ class Diagram extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // TODO draw the network
+    }
 
-        g.drawLine(0, 0, 100, 200);
+    // TODO add mouse click callback
+
+    void selectTool(Tool tool) {
+        this.currentTool = tool;
     }
 }

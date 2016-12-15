@@ -13,7 +13,8 @@ class MainWindow extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JOptionPane.showConfirmDialog(e.getWindow(), "GOWNO");
+                // TODO add saving dialog
+                // JOptionPane.showConfirmDialog(e.getWindow(), "Do you want to save?");
                 e.getWindow().dispose();
             }
         });
@@ -24,11 +25,11 @@ class MainWindow extends JFrame {
     private void initializeComponents() {
         setLayout(new BorderLayout());
 
-        final Toolbox toolbox = new Toolbox();
-        add(toolbox, BorderLayout.WEST);
-
         final Diagram diagram = new Diagram();
         add(diagram, BorderLayout.CENTER);
+
+        final Toolbox toolbox = new Toolbox(diagram::selectTool);
+        add(toolbox, BorderLayout.WEST);
 
         pack(); // resize the window
     }

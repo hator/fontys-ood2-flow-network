@@ -1,10 +1,18 @@
 package ui;
 
+import simulation.Tool;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.function.Consumer;
 
 class Toolbox extends JPanel {
-    Toolbox() {
+    private ButtonGroup buttonGroup = new ButtonGroup();
+    private Consumer<Tool> selectToolCallback;
+
+    Toolbox(Consumer<Tool> selectToolCallback) {
+        this.selectToolCallback = selectToolCallback;
         initializeButtons();
     }
 
@@ -12,20 +20,31 @@ class Toolbox extends JPanel {
         final GridLayout layout = new GridLayout(0, 1, 5, 5);
 
         setLayout(layout);
-        createAndAddButton("Selection Tool");
-        createAndAddButton("Removal Tool");
-        createAndAddButton("Add Pump");
-        createAndAddButton("Add Sink");
-        createAndAddButton("Add Fixed Splitter");
-        createAndAddButton("Add Adjustable Splitter");
-        createAndAddButton("Add Merger");
-        createAndAddButton("Add Pipeline");
+        final AbstractButton selectBtn = createAndAddButton("Selection Tool", Tool.Select);
+        createAndAddButton("Removal Tool", Tool.Remove);
+        createAndAddButton("Add Pump", Tool.AddPump);
+        createAndAddButton("Add Sink", Tool.AddSink);
+        createAndAddButton("Add Fixed Splitter", Tool.AddFixedSplitter);
+        createAndAddButton("Add Adjustable Splitter", Tool.AddAdjustableSplitter);
+        createAndAddButton("Add Merger", Tool.AddMerger);
+        createAndAddButton("Add Pipeline", Tool.AddPipeline);
+
+        buttonGroup.setSelected(selectBtn.getModel(), true);
     }
 
-    private void createAndAddButton(String text) {
-        final JButton selectionToolBtn = new JButton(text);
-        selectionToolBtn.setToolTipText(text);
-        add(selectionToolBtn);
+    private JToggleButton createAndAddButton(String text, Tool tool) {
+        final JToggleButton toolButton = new JToggleButton(text);
+        toolButton.setToolTipText(text);
+        toolButton.setActionCommand(tool.name());
+        toolButton.addActionListener(this::onButtonClicked);
+        buttonGroup.add(toolButton);
+        add(toolButton);
+        return toolButton;
     }
 
+    private void onButtonClicked(ActionEvent e) {
+        String actionCommand = e.getActionCommand();
+        Tool tool = Tool.valueOf(actionCommand);
+        selectToolCallback.accept(tool);
+    }
 }
