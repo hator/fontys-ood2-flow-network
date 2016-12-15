@@ -11,6 +11,9 @@ public class Pipeline extends Element {
     private Output output;
 
     Pipeline(Output output, Input input, float maxFlow) {
+        assert input != null;
+        assert output != null;
+
         this.output = output;
         this.input = input;
         this.maxFlow = maxFlow;
@@ -27,9 +30,9 @@ public class Pipeline extends Element {
         input.recalculateFlow(this.currentFlow);
     }
 
-    public void deattach() {
-        input.deattachPipeline();
+    public void detach() {
+        input.detachPipeline();
         input.recalculateFlow(0);
-        output.deattachPipeline();
+        output.detachPipeline();
     }
 }

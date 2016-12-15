@@ -12,18 +12,20 @@ public class FlowNetwork {
     private List<Pipeline> pipelines = new ArrayList<>();
 
     public void addComponent(Component component) {
-        if (component != null) {
-            components.add(component);
-        }
+        assert component != null;
+
+        components.add(component);
     }
 
     public void addPipeline(Pipeline pipeline) {
-        if (pipeline != null) {
-            pipelines.add(pipeline);
-        }
+        assert pipeline != null;
+
+        pipelines.add(pipeline);
     }
 
     public void removeElement(Element element) {
+        assert element != null;
+
         if (element instanceof Pipeline) {
             removePipeline((Pipeline) element);
         } else {
@@ -38,7 +40,9 @@ public class FlowNetwork {
     }
 
     private void removePipeline(Pipeline pipeline) {
-        pipeline.deattach();
+        assert pipeline != null;
+
+        pipeline.detach();
         pipelines.remove(pipeline);
     }
 

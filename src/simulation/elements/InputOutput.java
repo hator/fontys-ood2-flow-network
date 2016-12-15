@@ -20,7 +20,7 @@ abstract class InputOutput {
         return currentFlow;
     }
 
-    void deattachPipeline() {
+    void detachPipeline() {
         pipeline = null;
     }
 }

@@ -1,14 +1,10 @@
 package simulation.elements;
 
-import simulation.FlowNetwork;
-
 import org.junit.Test;
+import simulation.FlowNetwork;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Rurarz on 14.12.2016.
- */
 public class FlowNetworkTest {
 
     @Test
