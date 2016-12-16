@@ -7,9 +7,7 @@ import util.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class FlowNetworkTest {
 
@@ -73,9 +71,9 @@ public class FlowNetworkTest {
         network.addComponent(sink);
         network.addPipeline(pipeline1);
 
-        Point clickPoint1 = new Point(135 + Pipeline.clickRadius, 105 + Pipeline.clickRadius);
-        Point clickPoint2 = new Point(270 + Component.clickRadius, 270 + Component.clickRadius);
-        Point clickPoint3 = new Point(60 + Component.clickRadius, 60 + Component.clickRadius);
+        Point clickPoint1 = new Point(135 + Pipeline.CLICK_RADIUS, 105 + Pipeline.CLICK_RADIUS);
+        Point clickPoint2 = new Point(270 + Component.CLICK_RADIUS, 270 + Component.CLICK_RADIUS);
+        Point clickPoint3 = new Point(60 + Component.CLICK_RADIUS, 60 + Component.CLICK_RADIUS);
 
         assertTrue(network.findElement(clickPoint1) instanceof Pipeline);
         assertTrue(network.findElement(clickPoint2) == null);
@@ -87,9 +85,9 @@ public class FlowNetworkTest {
         FlowNetwork network = new FlowNetwork();
 
         Pump pump = new Pump(10, 10, new Point(100, 100));
-        Merger merger = new Merger(new Point(300 + Component.clickRadius, 300 + Component.clickRadius));
-        Sink sink = new Sink(10, new Point(170 + Component.clickRadius, 170 + Component.clickRadius));
-        Pump pump1 = new Pump(10, 10, new Point(99 + Component.clickRadius, 100));
+        Merger merger = new Merger(new Point(300 + Component.CLICK_RADIUS, 300 + Component.CLICK_RADIUS));
+        Sink sink = new Sink(10, new Point(170 + Component.CLICK_RADIUS, 170 + Component.CLICK_RADIUS));
+        Pump pump1 = new Pump(10, 10, new Point(99 + Component.CLICK_RADIUS, 100));
 
         network.addComponent(pump);
 

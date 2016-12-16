@@ -69,11 +69,8 @@ public class FlowNetwork {
     public boolean isOverlapping(Component component) {
         assert component != null;
 
-        for (Component networkcCmponent : components){
-            if(networkcCmponent.isOverlaping(component)){
-                return true;
-            }
-        }
-        return false;
+        return components
+                .stream()
+                .anyMatch(component::isOverlapping);
     }
 }

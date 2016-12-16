@@ -1,6 +1,5 @@
 package simulation.elements;
 
-import com.sun.javafx.scene.paint.GradientUtils;
 import org.junit.Test;
 import util.Point;
 
@@ -28,8 +27,8 @@ public class PumpTest {
         Point point = new Point(100, 100);
         Pump pump = new Pump(flow, flow, point);
 
-        assertEquals(pump.inBoundingArea(new Point(81 + Component.clickRadius, 92 + Component.clickRadius)), true);
-        assertEquals(pump.inBoundingArea(new Point(70 + Component.clickRadius, 99 + Component.clickRadius)), true);
-        assertEquals(pump.inBoundingArea(new Point(120 + Component.clickRadius, 90 + Component.clickRadius)), false);
+        assertEquals(pump.inBoundingArea(new Point(81 + Component.CLICK_RADIUS, 92 + Component.CLICK_RADIUS)), true);
+        assertEquals(pump.inBoundingArea(new Point(70 + Component.CLICK_RADIUS, 99 + Component.CLICK_RADIUS)), true);
+        assertEquals(pump.inBoundingArea(new Point(120 + Component.CLICK_RADIUS, 90 + Component.CLICK_RADIUS)), false);
     }
 }

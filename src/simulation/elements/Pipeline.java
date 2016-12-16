@@ -5,7 +5,7 @@ import util.Point;
 import java.util.List;
 
 public class Pipeline extends Element {
-    public static final int clickRadius = 15;
+    static final int CLICK_RADIUS = 15;
     private List<Point> points;
     private Input input;
     private Output output;
@@ -43,7 +43,7 @@ public class Pipeline extends Element {
             Point segmentA = points.get(i);
             Point segmentB = points.get(i + 1);
 
-            if(point.inBoundingSegment(segmentA, segmentB, clickRadius)) {
+            if (point.inBoundingSegment(segmentA, segmentB, CLICK_RADIUS)) {
                 return true;
             }
         }
@@ -53,8 +53,7 @@ public class Pipeline extends Element {
     public void detach() {
         input.detachPipeline();
 
-        if(!input.isComponentBeingDeleted()){
-
+        if (!input.isComponentBeingDeleted()) {
             input.recalculateFlow(0);
         }
 

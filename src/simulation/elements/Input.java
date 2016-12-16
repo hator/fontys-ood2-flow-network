@@ -12,7 +12,7 @@ class Input extends InputOutput {
         this.component.recalculateFlow();
     }
 
-    public boolean isComponentBeingDeleted() {
+    boolean isComponentBeingDeleted() {
         return component.isBeingDeleted();
     }
 }

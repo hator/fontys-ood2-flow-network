@@ -5,7 +5,7 @@ import util.Point;
 import java.util.List;
 
 abstract public class Component extends Element {
-    public static final int clickRadius = 30;
+    static final int CLICK_RADIUS = 30;
     private Point position;
     private boolean toBeDeleted = false;
 
@@ -16,26 +16,28 @@ abstract public class Component extends Element {
 
     public abstract List<Pipeline> getPipelines();
 
-    public boolean isOverlaping(Component component){
+    public boolean isOverlapping(Component component) {
         assert component != null;
 
-        return position.getDistance(component.getPosition()) <= 2*clickRadius;
+        return position.getDistance(component.getPosition()) <= 2 * CLICK_RADIUS;
     }
 
     @Override
     public boolean inBoundingArea(Point point) {
         assert point!= null;
 
-        return position.getDistance(point) <= clickRadius;
+        return position.getDistance(point) <= CLICK_RADIUS;
     }
 
-    public Point getPosition(){return position;}
+    private Point getPosition() {
+        return position;
+    }
 
     public void setToBeDeleted() {
         toBeDeleted = true;
     }
 
-    public boolean isBeingDeleted() {
+    boolean isBeingDeleted() {
         return toBeDeleted;
     }
 }

@@ -39,14 +39,14 @@ public class PipelineTest {
 
         Pipeline pipeline = new Pipeline(mockOutput, emptyInput, flow, pointList);
 
-        Point testPoint1 = new Point(Pipeline.clickRadius, 13 + Pipeline.clickRadius);
-        Point testPoint2 = new Point(-4 + Pipeline.clickRadius, -15 + Pipeline.clickRadius);
-        Point testPoint3 = new Point(-3 + Pipeline.clickRadius, 60 + Pipeline.clickRadius);
-        Point testPoint4 = new Point(-10 + Pipeline.clickRadius, -10 + Pipeline.clickRadius);
-        Point testPoint5 = new Point(Pipeline.clickRadius, 15 + Pipeline.clickRadius);
-        Point testPoint6 = new Point(5 + Pipeline.clickRadius, 35 + Pipeline.clickRadius);
-        Point testPoint7 = new Point(-6 + Pipeline.clickRadius, 35 + Pipeline.clickRadius);
-        Point testPoint8 = new Point(-14 + Pipeline.clickRadius, 35 + Pipeline.clickRadius);
+        Point testPoint1 = new Point(Pipeline.CLICK_RADIUS, 13 + Pipeline.CLICK_RADIUS);
+        Point testPoint2 = new Point(-4 + Pipeline.CLICK_RADIUS, -15 + Pipeline.CLICK_RADIUS);
+        Point testPoint3 = new Point(-3 + Pipeline.CLICK_RADIUS, 60 + Pipeline.CLICK_RADIUS);
+        Point testPoint4 = new Point(-10 + Pipeline.CLICK_RADIUS, -10 + Pipeline.CLICK_RADIUS);
+        Point testPoint5 = new Point(Pipeline.CLICK_RADIUS, 15 + Pipeline.CLICK_RADIUS);
+        Point testPoint6 = new Point(5 + Pipeline.CLICK_RADIUS, 35 + Pipeline.CLICK_RADIUS);
+        Point testPoint7 = new Point(-6 + Pipeline.CLICK_RADIUS, 35 + Pipeline.CLICK_RADIUS);
+        Point testPoint8 = new Point(-14 + Pipeline.CLICK_RADIUS, 35 + Pipeline.CLICK_RADIUS);
 
         assertEquals(pipeline.inBoundingArea(testPoint1), true);
         assertEquals(pipeline.inBoundingArea(testPoint2), true);
