@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class FlowNetworkTest {
@@ -79,5 +80,22 @@ public class FlowNetworkTest {
         assertTrue(network.findElement(clickPoint1) instanceof Pipeline);
         assertTrue(network.findElement(clickPoint2) == null);
         assertTrue(network.findElement(clickPoint3) instanceof Pump);
+    }
+
+    @Test
+    public void isOverlappingTest()
+    {
+        FlowNetwork network = new FlowNetwork();
+
+        Pump pump = new Pump(10, 10, new Point(100, 100));
+        Merger merger = new Merger(new Point(300 + Component.clickRadius, 300 + Component.clickRadius));
+        Sink sink = new Sink(10, new Point(170 + Component.clickRadius, 170 + Component.clickRadius));
+        Pump pump1 = new Pump(10, 10, new Point(99 + Component.clickRadius, 100));
+
+        network.addComponent(pump);
+
+        assertTrue(network.isOverlapping(pump1));
+        assertFalse(network.isOverlapping(merger));
+        assertFalse(network.isOverlapping(sink));
     }
 }
