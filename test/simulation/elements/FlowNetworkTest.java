@@ -2,8 +2,13 @@ package simulation.elements;
 
 import org.junit.Test;
 import simulation.FlowNetwork;
+import util.Point;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FlowNetworkTest {
 
@@ -46,4 +51,33 @@ public class FlowNetworkTest {
         assertEquals(10f, sink.getFlow(), 0.001f);
     }
 
+    @Test
+    public void findElementTest() {
+        FlowNetwork network = new FlowNetwork();
+
+        Pump pump = new Pump(10, 10, new Point(100, 100));
+        Sink sink = new Sink(10, new Point(200, 200));
+        Point point1 = new Point(110, 110);
+        Point point2 = new Point(190, 110);
+        Point point3 = new Point(190, 190);
+
+        List<Point> points = new ArrayList<>();
+        points.add(point1);
+        points.add(point2);
+        points.add(point3);
+
+        Pipeline pipeline1 = new Pipeline(pump.getOutput(), sink.getInput(), 10, points);
+
+        network.addComponent(pump);
+        network.addComponent(sink);
+        network.addPipeline(pipeline1);
+
+        Point clickPoint1 = new Point(135 + Pipeline.clickRadius, 105 + Pipeline.clickRadius);
+        Point clickPoint2 = new Point(270 + Component.clickRadius, 270 + Component.clickRadius);
+        Point clickPoint3 = new Point(60 + Component.clickRadius, 60 + Component.clickRadius);
+
+        assertTrue(network.findElement(clickPoint1) instanceof Pipeline);
+        assertTrue(network.findElement(clickPoint2) == null);
+        assertTrue(network.findElement(clickPoint3) instanceof Pump);
+    }
 }
