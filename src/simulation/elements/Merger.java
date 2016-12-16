@@ -1,5 +1,7 @@
 package simulation.elements;
 
+import util.Point;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,14 @@ class Merger extends Component {
     private Input inputA = new Input(this);
     private Input inputB = new Input(this);
     private Output output = new Output(this);
+
+    Merger() {
+        super(null);
+    }
+
+    Merger(Point position){
+        super(position);
+    }
 
     Input getInputA() {
         return inputA;

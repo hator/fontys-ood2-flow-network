@@ -1,6 +1,7 @@
 package simulation.elements;
 
 import simulation.Settings;
+import util.Point;
 
 abstract public class Element {
     float currentFlow;
@@ -20,4 +21,6 @@ abstract public class Element {
         this.currentFlow = settings.currentFlow;
         this.maxFlow = settings.maxFlow;
     }
+
+    public abstract boolean inBoundingArea(Point point);
 }

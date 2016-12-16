@@ -2,11 +2,11 @@ package simulation.elements;
 
 import util.Point;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Pipeline extends Element {
-    private List<Point> points = new ArrayList<>();
+    public static final int clickRadius = 15;
+    private List<Point> points;
     private Input input;
     private Output output;
 
@@ -22,12 +22,32 @@ public class Pipeline extends Element {
         output.attachPipeline(this);
     }
 
+    Pipeline(Output output, Input input, float maxFlow, List<Point> points) {
+        this(output, input, maxFlow);
+        this.points = points;
+    }
+
     // TODO builder or addPoint method?
 
     @Override
     void recalculateFlow() {
         this.currentFlow = output.getFlow();
         input.recalculateFlow(this.currentFlow);
+    }
+
+    @Override
+    public boolean inBoundingArea(Point point) {
+        assert point != null;
+
+        for (int i = 0; i < points.size() - 1; i++) {
+            Point segmentA = points.get(i);
+            Point segmentB = points.get(i + 1);
+
+            if(point.inBoundingSegment(segmentA, segmentB, clickRadius)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void detach() {

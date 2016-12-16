@@ -1,6 +1,7 @@
 package simulation.elements;
 
 import simulation.Settings;
+import util.Point;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,12 @@ class AdjustableSplitter extends Splitter {
     }
 
     AdjustableSplitter(float splitRatio) {
+        super(null);
+        this.splitRatio = splitRatio;
+    }
+
+    AdjustableSplitter(float splitRatio, Point position) {
+        super(position);
         this.splitRatio = splitRatio;
     }
 
