@@ -22,6 +22,7 @@ public class FlowNetwork {
         assert pipeline != null;
 
         pipelines.add(pipeline);
+        pipeline.attach();
     }
 
     public void removeElement(Element element) {
@@ -31,6 +32,7 @@ public class FlowNetwork {
             removePipeline((Pipeline) element);
         } else {
             Component component = (Component) element;
+            component.setToBeDeleted();
             for (Pipeline pipeline : component.getPipelines()) {
                 if (pipeline != null) {
                     removePipeline(pipeline);

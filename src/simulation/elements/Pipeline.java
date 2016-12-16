@@ -52,7 +52,16 @@ public class Pipeline extends Element {
 
     public void detach() {
         input.detachPipeline();
-        input.recalculateFlow(0);
+
+        if(!input.isComponentBeingDeleted()){
+
+            input.recalculateFlow(0);
+        }
+
         output.detachPipeline();
+    }
+
+    public void attach() {
+        output.recalculateFlow();
     }
 }

@@ -11,4 +11,8 @@ class Input extends InputOutput {
         this.currentFlow = previousElementFlow;
         this.component.recalculateFlow();
     }
+
+    public boolean isComponentBeingDeleted() {
+        return component.isBeingDeleted();
+    }
 }
