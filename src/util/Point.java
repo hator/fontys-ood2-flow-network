@@ -9,13 +9,10 @@ public class Point {
         this.y = y;
     }
 
-    public boolean inPointRadius(Point point, int clickRadius){
-        assert point!= null;
-
-        double distance = Math.sqrt(Math.pow(point.x - this.x, 2) +
+    public double getDistance(Point point)
+    {
+        return Math.sqrt(Math.pow(point.x - this.x, 2) +
                 Math.pow(point.y - this.y, 2));
-
-        return distance <= clickRadius;
     }
 
     public boolean inBoundingSegment(Point segmentA, Point segmentB, int clickRadius){

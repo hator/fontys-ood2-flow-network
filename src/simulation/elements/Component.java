@@ -15,10 +15,18 @@ abstract public class Component extends Element {
 
     public abstract List<Pipeline> getPipelines();
 
+    public boolean isOverlaping(Component component){
+        assert component != null;
+
+        return position.getDistance(component.getPosition()) <= 2*clickRadius;
+    }
+
     @Override
     public boolean inBoundingArea(Point point) {
         assert point!= null;
 
-        return position.inPointRadius(point, clickRadius);
+        return position.getDistance(point) <= clickRadius;
     }
+
+    public Point getPosition(){return position;}
 }
