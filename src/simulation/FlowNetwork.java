@@ -40,6 +40,14 @@ public class FlowNetwork {
         }
     }
 
+    private void removePipeline(Pipeline pipeline) {
+        assert pipeline != null;
+
+        pipeline.detach();
+        pipelines.remove(pipeline);
+    }
+
+
     public Element findElement(Point point){
         assert point != null;
 
@@ -56,12 +64,14 @@ public class FlowNetwork {
         return null;
     }
 
+    public boolean isOverlapping(Component component) {
+        assert component != null;
 
-    private void removePipeline(Pipeline pipeline) {
-        assert pipeline != null;
-
-        pipeline.detach();
-        pipelines.remove(pipeline);
+        for (Component networkcCmponent : components){
+            if(networkcCmponent.isOverlaping(component)){
+                return true;
+            }
+        }
+        return false;
     }
-
 }
