@@ -83,8 +83,7 @@ public class FlowNetworkTest {
     }
 
     @Test
-    public void isOverlappingTest()
-    {
+    public void isOverlappingTest() {
         FlowNetwork network = new FlowNetwork();
 
         Pump pump = new Pump(10, 10, new Point(100, 100));
@@ -97,5 +96,29 @@ public class FlowNetworkTest {
         assertTrue(network.isOverlapping(pump1));
         assertFalse(network.isOverlapping(merger));
         assertFalse(network.isOverlapping(sink));
+    }
+
+    @Test
+    public void addingPipelineRecalculatesFlow() {
+        FlowNetwork network = new FlowNetwork();
+
+        Pump pump = new Pump(10, 10);
+        Pump pump2 = new Pump(10, 10);
+        Sink sink = new Sink(20);
+        Merger merger = new Merger();
+        Pipeline pipeline1 = new Pipeline(pump.getOutput(), merger.getInputA(), 10);
+        Pipeline pipeline2 = new Pipeline(pump2.getOutput(), merger.getInputB(), 10);
+        Pipeline pipeline3 = new Pipeline(merger.getOutput(), sink.getInput(), 20);
+
+        network.addComponent(pump);
+        network.addComponent(pump2);
+        network.addComponent(sink);
+        network.addComponent(merger);
+
+        network.addPipeline(pipeline1);
+        network.addPipeline(pipeline2);
+        network.addPipeline(pipeline3);
+
+        assertEquals(20f, sink.getFlow(), 0.001f);
     }
 }
