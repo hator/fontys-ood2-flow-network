@@ -7,6 +7,7 @@ import java.util.List;
 abstract public class Component extends Element {
     public static final int clickRadius = 30;
     private Point position;
+    private boolean toBeDeleted = false;
 
     Component(Point position)
     {
@@ -29,4 +30,12 @@ abstract public class Component extends Element {
     }
 
     public Point getPosition(){return position;}
+
+    public void setToBeDeleted() {
+        toBeDeleted = true;
+    }
+
+    public boolean isBeingDeleted() {
+        return toBeDeleted;
+    }
 }
