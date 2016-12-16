@@ -3,6 +3,7 @@ package simulation;
 import simulation.elements.Component;
 import simulation.elements.Element;
 import simulation.elements.Pipeline;
+import util.Point;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,23 @@ public class FlowNetwork {
             components.remove(component);
         }
     }
+
+    public Element findElement(Point point){
+        assert point != null;
+
+        for (Element element: components) {
+            if(element.inBoundingArea(point)) {
+                return element;
+            }
+        }
+        for (Element element: pipelines){
+            if(element.inBoundingArea(point)){
+                return element;
+            }
+        }
+        return null;
+    }
+
 
     private void removePipeline(Pipeline pipeline) {
         assert pipeline != null;
