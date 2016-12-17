@@ -13,11 +13,4 @@ class Output extends InputOutput {
             this.pipeline.recalculateFlow();
         }
     }
-
-    protected void recalculateFlow() {
-        component.recalculateFlow();
-        if(this.pipeline != null) {
-            this.pipeline.recalculateFlow();
-        }
-    }
 }

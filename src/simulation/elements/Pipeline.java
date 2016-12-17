@@ -61,6 +61,6 @@ public class Pipeline extends Element {
     }
 
     public void attach() {
-        output.recalculateFlow();
+        output.component.recalculateFlow();
     }
 }
