@@ -1,5 +1,6 @@
 package ui;
 
+import simulation.Settings;
 import simulation.SimulationFacade;
 import simulation.Tool;
 import util.Point;
@@ -8,10 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.function.Consumer;
 
 class Diagram extends JPanel {
     private Tool currentTool;
+    private Settings currentSettingsReference;
     private SimulationFacade simulation;
+    private Consumer<Settings> changeSettingsReferenceCallback;
 
     Diagram(SimulationFacade simulation) {
         this.simulation = simulation;
@@ -33,12 +37,36 @@ class Diagram extends JPanel {
         // TODO draw the network
     }
 
-    private void mouseClickCallback(int x, int y) {
-        assert currentTool != null;
-        simulation.applyTool(new Point(x, y), currentTool);
+    void setChangeSettingsReferenceCallback(Consumer<Settings> changeSettingsReferenceCallback) {
+        this.changeSettingsReferenceCallback = changeSettingsReferenceCallback;
     }
 
-    void selectTool(Tool tool) {
-        this.currentTool = tool;
+    private void mouseClickCallback(int x, int y) {
+        assert currentTool != null;
+
+        Point point = new Point(x, y);
+
+        switch (currentTool) {
+            case Select:
+                Settings settings = simulation.select(point);
+                if (settings != null) {
+                    changeSettingsReferenceCallback.accept(settings);
+                } else {
+                    // TODO error message?
+                }
+                break;
+            case Remove:
+                simulation.remove(point);
+                break;
+            default: // Add component
+                Settings newElementSettings = currentSettingsReference;
+                simulation.applyTool(point, currentTool, newElementSettings);
+                break;
+        }
+    }
+
+    void selectTool(Tool tool, Settings settings) {
+        currentTool = tool;
+        currentSettingsReference = settings;
     }
 }

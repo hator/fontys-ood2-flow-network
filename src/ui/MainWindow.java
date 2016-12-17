@@ -23,6 +23,8 @@ class MainWindow extends JFrame {
             }
         });
 
+        setMinimumSize(new Dimension(800, 600));
+
         simulation = new SimulationFacade();
 
         initializeComponents();
@@ -36,6 +38,8 @@ class MainWindow extends JFrame {
 
         final Toolbox toolbox = new Toolbox(diagram::selectTool);
         add(toolbox, BorderLayout.WEST);
+
+        diagram.setChangeSettingsReferenceCallback(toolbox::setCurrentSettingsReference);
 
         pack(); // resize the window
     }

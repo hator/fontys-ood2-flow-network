@@ -9,5 +9,15 @@ public class SimulationFacade {
         this.flowNetwork = new FlowNetwork();
     }
 
-    public void applyTool(Point point, Tool tool) {}
+    public Result applyTool(Point point, Tool tool, Settings settings) {
+        return Result.Success;
+    }
+
+    public Settings select(Point point) {
+        return null; // FIXME
+    }
+
+    public Result remove(Point point) {
+        return null; // FIXME
+    }
 }

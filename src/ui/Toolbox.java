@@ -1,17 +1,19 @@
 package ui;
 
+import simulation.Settings;
 import simulation.Tool;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 class Toolbox extends JPanel {
     private ButtonGroup buttonGroup = new ButtonGroup();
-    private Consumer<Tool> selectToolCallback;
+    private BiConsumer<Tool, Settings> selectToolCallback;
+    private SettingsBox settingsBox;
 
-    Toolbox(Consumer<Tool> selectToolCallback) {
+    Toolbox(BiConsumer<Tool, Settings> selectToolCallback) {
         this.selectToolCallback = selectToolCallback;
         initializeButtons();
     }
@@ -29,6 +31,9 @@ class Toolbox extends JPanel {
         createAndAddButton("Add Merger", Tool.AddMerger);
         createAndAddButton("Add Pipeline", Tool.AddPipeline);
 
+        settingsBox = new SettingsBox();
+        add(settingsBox);
+
         selectButton(selectionToolBtn);
     }
 
@@ -42,6 +47,7 @@ class Toolbox extends JPanel {
         return toolButton;
     }
 
+
     private void selectButton(AbstractButton button) {
         buttonGroup.setSelected(button.getModel(), true);
         onButtonClicked(new ActionEvent(button, ActionEvent.ACTION_PERFORMED, button.getActionCommand()));
@@ -50,6 +56,25 @@ class Toolbox extends JPanel {
     private void onButtonClicked(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         Tool tool = Tool.valueOf(actionCommand);
-        selectToolCallback.accept(tool);
+        selectToolCallback.accept(tool, settingsBox.getSettings());
+
+        prepareSettingsBox(tool);
+
+    }
+
+    private void prepareSettingsBox(Tool tool) {
+        settingsBox.setEnabled(true);
+        Settings settings = new Settings();
+
+        if (tool == Tool.Remove) {
+            settingsBox.setEnabled(false);
+        } else if (tool == Tool.AddAdjustableSplitter) {
+            settings.splitRatio = 0.5f;
+        }
+        settingsBox.setCurrentSettingsReference(settings);
+    }
+
+    void setCurrentSettingsReference(Settings settings) {
+        settingsBox.setCurrentSettingsReference(settings);
     }
 }
