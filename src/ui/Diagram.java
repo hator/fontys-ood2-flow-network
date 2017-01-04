@@ -35,6 +35,8 @@ class Diagram extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // TODO draw the network
+
+
     }
 
     void setChangeSettingsReferenceCallback(Consumer<Settings> changeSettingsReferenceCallback) {
