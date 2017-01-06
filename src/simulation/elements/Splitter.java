@@ -10,8 +10,8 @@ abstract class Splitter extends Component {
     Output outputA = new Output(this);
     Output outputB = new Output(this);
 
-    Splitter(Point position) {
-        super(position);
+    Splitter(Point position, String imageName) {
+        super(position, imageName);
     }
 
     Input getInput() {

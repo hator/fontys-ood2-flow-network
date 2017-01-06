@@ -2,14 +2,14 @@ package simulation.elements;
 
 import util.Point;
 
-class FixedSplitter extends Splitter {
+public class FixedSplitter extends Splitter {
 
     FixedSplitter() {
-        super(null);
+        super(null,"res/splitter100-100.png");
     }
 
-    FixedSplitter(Point position){
-        super(position);
+    public FixedSplitter(Point position){
+        super(position, "res/splitter100-100.png");
     }
 
     @Override

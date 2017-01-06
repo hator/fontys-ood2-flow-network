@@ -1,5 +1,6 @@
 package ui;
 
+import simulation.Result;
 import simulation.Settings;
 import simulation.SimulationFacade;
 import simulation.Tool;
@@ -70,7 +71,10 @@ class Diagram extends JPanel {
                 break;
             default: // Add component
                 Settings newElementSettings = currentSettingsReference;
-                simulation.applyTool(point, currentTool, newElementSettings);
+            System.out.println(newElementSettings.currentFlow +" "+newElementSettings.maxFlow+" "+ newElementSettings.splitRatio);
+                if(simulation.applyTool(point, currentTool, newElementSettings) == Result.ComponentsOverlapping){
+                   System.err.println("Component Overlap");
+                }
                 break;
         }
         this.repaint();

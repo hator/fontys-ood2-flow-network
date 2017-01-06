@@ -2,6 +2,7 @@ package simulation.elements;
 
 import util.Point;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +10,13 @@ public class Pump extends Component {
     private Output output = new Output(this);
 
     Pump(float currentFlow, float maxFlow) {
-        super(null);
+        super(null, "res/pump100-100.png");
         this.currentFlow = currentFlow;
         this.maxFlow = maxFlow;
     }
 
     public Pump(float currentFlow, float maxFlow, Point position) {
-        super(position);
+        super(position, "res/pump100-100.png");
         this.currentFlow = currentFlow;
         this.maxFlow = maxFlow;
     }

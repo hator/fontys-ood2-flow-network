@@ -5,16 +5,16 @@ import util.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-class Sink extends Component {
+public class Sink extends Component {
     private Input input = new Input(this);
 
     Sink(float maxFlow) {
-        super(null);
+        super(null, "res/barrel100-100.png");
         this.maxFlow = maxFlow;
     }
 
-    Sink(float maxFlow, Point position) {
-        super(position);
+   public Sink(float maxFlow, Point position) {
+        super(position, "res/barrel100-100.png");
         this.maxFlow = maxFlow;
     }
 

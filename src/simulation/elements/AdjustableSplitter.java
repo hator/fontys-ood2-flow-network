@@ -3,7 +3,7 @@ package simulation.elements;
 import simulation.Settings;
 import util.Point;
 
-class AdjustableSplitter extends Splitter {
+public class AdjustableSplitter extends Splitter {
     private float splitRatio;
 
     AdjustableSplitter() {
@@ -11,12 +11,12 @@ class AdjustableSplitter extends Splitter {
     }
 
     AdjustableSplitter(float splitRatio) {
-        super(null);
+        super(null,"res/adjustable-splitter100-100.png");
         this.splitRatio = splitRatio;
     }
 
-    AdjustableSplitter(float splitRatio, Point position) {
-        super(position);
+    public AdjustableSplitter(float splitRatio, Point position) {
+        super(position, "res/adjustable-splitter100-100.png");
         this.splitRatio = splitRatio;
     }
 

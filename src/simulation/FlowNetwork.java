@@ -83,16 +83,9 @@ public class FlowNetwork {
 
     //Render the components and pipelines of this flow network
     void render(Graphics g) {
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("res/barrel100-100.png"));
-        } catch (IOException e) {
-            System.err.println("File not found");
-            //TODO error message + exception
-        }
-
+        final int imageSize = 100;
         for (Component component : components) {
-            g.drawImage(img, component.getPosition().x,component.getPosition().y, null);
+            g.drawImage(component.getImage(), component.getPosition().x-imageSize/2,component.getPosition().y-imageSize/2, null);
         }
 
         for(Pipeline pipeline : pipelines){

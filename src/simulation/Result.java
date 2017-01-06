@@ -1,5 +1,6 @@
 package simulation;
 
 public enum Result {
-    Success
+    Success,
+    ComponentsOverlapping
 }

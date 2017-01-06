@@ -5,17 +5,17 @@ import util.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-class Merger extends Component {
+public class Merger extends Component {
     private Input inputA = new Input(this);
     private Input inputB = new Input(this);
     private Output output = new Output(this);
 
     Merger() {
-        super(null);
+        super(null, "res/merger100-100.png");
     }
 
-    Merger(Point position){
-        super(position);
+   public Merger(Point position){
+        super(position, "res/merger100-100.png");
     }
 
     Input getInputA() {

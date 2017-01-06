@@ -1,6 +1,6 @@
 package simulation;
 
-import simulation.elements.Pump;
+import simulation.elements.*;
 import util.Point;
 
 import java.awt.*;
@@ -14,12 +14,53 @@ public class SimulationFacade {
 
     public Result applyTool(Point point, Tool tool, Settings settings) {
         switch(tool){
-            case AddPump: flowNetwork.addComponent(new Pump(settings.currentFlow, settings.maxFlow, point));
-            return Result.Success;
+            case AddPump:{
+                Pump p = new Pump(settings.currentFlow, settings.maxFlow, point);
+                if(!flowNetwork.isOverlapping(p)){
+                    flowNetwork.addComponent(p);
+                    return Result.Success;
+                } else {
+                    return Result.ComponentsOverlapping;
+                }
+            }
+            case AddMerger:{
+                Merger c = new Merger(point);
+                if(!flowNetwork.isOverlapping(c)){
+                    flowNetwork.addComponent(c);
+                    return Result.Success;
+                } else {
+                    return Result.ComponentsOverlapping;
+                }
+            }
+            case AddSink:{
+                Sink c = new Sink(settings.maxFlow, point);
+                if(!flowNetwork.isOverlapping(c)){
+                    flowNetwork.addComponent(c);
+                    return Result.Success;
+                } else {
+                    return Result.ComponentsOverlapping;
+                }
+            }
+            case AddAdjustableSplitter:{
+                AdjustableSplitter c = new AdjustableSplitter(0.5f, point); //TODO fix split ratio - settings.splitratio is not passed down correctly
+                if(!flowNetwork.isOverlapping(c)){
+                    flowNetwork.addComponent(c);
+                    return Result.Success;
+                } else {
+                    return Result.ComponentsOverlapping;
+                }
+            }
+            case AddFixedSplitter:{
+                FixedSplitter c = new FixedSplitter(point);
+                if(!flowNetwork.isOverlapping(c)){
+                    flowNetwork.addComponent(c);
+                    return Result.Success;
+                } else {
+                    return Result.ComponentsOverlapping;
+                }
+            }
             default: return Result.Success; //TODO fix return result
         }
-
-        //return Result.Success;
     }
 
     public Settings select(Point point) {
