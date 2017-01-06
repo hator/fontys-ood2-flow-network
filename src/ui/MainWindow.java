@@ -24,7 +24,6 @@ class MainWindow extends JFrame {
         });
 
         setMinimumSize(new Dimension(800, 600));
-
         simulation = new SimulationFacade();
 
         initializeComponents();

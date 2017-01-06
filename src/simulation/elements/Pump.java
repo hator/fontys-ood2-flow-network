@@ -5,7 +5,7 @@ import util.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-class Pump extends Component {
+public class Pump extends Component {
     private Output output = new Output(this);
 
     Pump(float currentFlow, float maxFlow) {
@@ -14,7 +14,7 @@ class Pump extends Component {
         this.maxFlow = maxFlow;
     }
 
-    Pump(float currentFlow, float maxFlow, Point position) {
+    public Pump(float currentFlow, float maxFlow, Point position) {
         super(position);
         this.currentFlow = currentFlow;
         this.maxFlow = maxFlow;

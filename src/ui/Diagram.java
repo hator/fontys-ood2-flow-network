@@ -5,10 +5,14 @@ import simulation.SimulationFacade;
 import simulation.Tool;
 import util.Point;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.function.Consumer;
 
 class Diagram extends JPanel {
@@ -34,9 +38,13 @@ class Diagram extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // TODO draw the network
+        Dimension dim = getSize();
 
+        //Draw background color
+        g.setColor(Color.WHITE);
+        g.fillRect(0,0,dim.width,dim.height);
 
+        simulation.render(g);
     }
 
     void setChangeSettingsReferenceCallback(Consumer<Settings> changeSettingsReferenceCallback) {
@@ -65,6 +73,7 @@ class Diagram extends JPanel {
                 simulation.applyTool(point, currentTool, newElementSettings);
                 break;
         }
+        this.repaint();
     }
 
     void selectTool(Tool tool, Settings settings) {

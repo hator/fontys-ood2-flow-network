@@ -29,7 +29,7 @@ abstract public class Component extends Element {
         return position.getDistance(point) <= CLICK_RADIUS;
     }
 
-    private Point getPosition() {
+    public Point getPosition() {
         return position;
     }
 
