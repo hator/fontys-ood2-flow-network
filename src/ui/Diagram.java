@@ -75,10 +75,13 @@ class Diagram extends JPanel {
                 if (settings != null) {
                     changeSettingsReferenceCallback.accept(settings);
                 } else {
-                    // TODO error message?
                 }
+
                 break;
             case Remove:
+                if(simulation.remove(point) != Result.Success){
+                    //On failure
+                }
                 break;
             case AddPipeline: {
                 pipelinePointList.add(pipelinePointList.size()-1, point);
@@ -90,6 +93,7 @@ class Diagram extends JPanel {
                     pipelinePointList.add(point);
                 if(currentTool == Tool.AddSink)
                     pipelinePointList.add(point);
+
                 Settings newElementSettings = currentSettingsReference;
                 System.out.println(newElementSettings.currentFlow + " " + newElementSettings.maxFlow + " " + newElementSettings.splitRatio);
                 if (simulation.applyTool(point, currentTool, newElementSettings) == Result.ComponentsOverlapping) {

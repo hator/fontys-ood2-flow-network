@@ -23,6 +23,7 @@ public class SimulationFacade {
         return Result.Success;
     }
     public Result applyTool(Point point, Tool tool, Settings settings) {
+        System.out.println(settings.currentFlow + " " + settings.maxFlow + " " + settings.splitRatio); //TODO: Current set settings do net get applied here
         switch(tool){
             case AddPump:{
                 Pump p = new Pump(settings.currentFlow, settings.maxFlow, point);
@@ -52,7 +53,7 @@ public class SimulationFacade {
                 }
             }
             case AddAdjustableSplitter:{
-                AdjustableSplitter c = new AdjustableSplitter(0.5f, point); //TODO fix split ratio - settings.splitratio is not passed down correctly
+                AdjustableSplitter c = new AdjustableSplitter(settings.splitRatio, point);
                 if(!flowNetwork.isOverlapping(c)){
                     flowNetwork.addComponent(c);
                     return Result.Success;
@@ -69,7 +70,7 @@ public class SimulationFacade {
                     return Result.ComponentsOverlapping;
                 }
             }
-            default: return Result.Success; //TODO fix return result
+            default: return Result.Failure; //TODO fix return result
         }
     }
 
@@ -81,6 +82,10 @@ public class SimulationFacade {
     }
 
     public Result remove(Point point) {
-        return null;
+        if(flowNetwork.findElement(point) != null){
+            flowNetwork.removeElement(flowNetwork.findElement(point));
+            return Result.Success;
+        }
+        return Result.Failure;
     }
 }
