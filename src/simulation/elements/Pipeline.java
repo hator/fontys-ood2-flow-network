@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import util.Point;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public class Pipeline extends Element {
     Pipeline(Output output, Input input, float maxFlow, List<Point> points) {
         this(output, input, maxFlow);
         this.points = points;
+    }
+    @Override
+    public Settings getSettings() {
+        return new Settings(currentFlow, maxFlow, null);
     }
 
     // TODO builder or addPoint method?

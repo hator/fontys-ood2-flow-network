@@ -13,9 +13,7 @@ abstract public class Element {
         return currentFlow;
     }
 
-    Settings getSettings() {
-        return new Settings(currentFlow, maxFlow, null);
-    }
+    abstract public Settings getSettings();
 
     void applySettings(Settings settings) {
         this.currentFlow = settings.currentFlow;

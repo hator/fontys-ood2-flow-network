@@ -64,13 +64,13 @@ public class SimulationFacade {
     }
 
     public Settings select(Point point) {
-        return null; // FIXME
+        return flowNetwork.findElement(point).getSettings();
     }
     public void render(Graphics g){
         flowNetwork.render(g);
     }
 
     public Result remove(Point point) {
-        return null; // FIXME
+        return null;
     }
 }

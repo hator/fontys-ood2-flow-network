@@ -21,6 +21,11 @@ public class AdjustableSplitter extends Splitter {
     }
 
     @Override
+    public Settings getSettings() {
+        return new Settings(currentFlow, maxFlow, splitRatio);
+    }
+
+    @Override
     void recalculateFlow() {
         currentFlow = input.getFlow();
         outputA.recalculateFlow(splitRatio * currentFlow);

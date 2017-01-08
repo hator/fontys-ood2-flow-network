@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import util.Point;
 
 import java.util.ArrayList;
@@ -24,6 +25,11 @@ public class Merger extends Component {
 
     Input getInputB() {
         return inputB;
+    }
+
+    @Override
+    public Settings getSettings() {
+        return new Settings(currentFlow, maxFlow, null);
     }
 
     @Override

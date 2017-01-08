@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import util.Point;
 
 import java.awt.image.BufferedImage;
@@ -23,6 +24,11 @@ public class Pump extends Component {
 
     Output getOutput() {
         return output;
+    }
+
+    @Override
+    public Settings getSettings() {
+        return new Settings(currentFlow, maxFlow, null);
     }
 
     @Override
