@@ -11,7 +11,11 @@ public class Pipeline extends Element {
     private Input input;
     private Output output;
 
-    Pipeline(Output output, Input input, float maxFlow) {
+    public List<Point> getPoints()
+    {
+        return points;
+    }
+    public Pipeline(Output output, Input input, float maxFlow) {
         assert input != null;
         assert output != null;
 
@@ -23,7 +27,7 @@ public class Pipeline extends Element {
         output.attachPipeline(this);
     }
 
-    Pipeline(Output output, Input input, float maxFlow, List<Point> points) {
+    public Pipeline(Output output, Input input, float maxFlow, List<Point> points) {
         this(output, input, maxFlow);
         this.points = points;
     }

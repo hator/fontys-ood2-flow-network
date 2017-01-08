@@ -1,8 +1,9 @@
 package simulation;
 
 import simulation.elements.*;
+import simulation.elements.Component;
 import util.Point;
-
+import java.util.List;
 import java.awt.*;
 
 public class SimulationFacade {
@@ -12,6 +13,15 @@ public class SimulationFacade {
         this.flowNetwork = new FlowNetwork();
     }
 
+
+    //overload for pipelines because they need a list of points, not just one point.
+    //
+    public Result applyTool(List<Point> points, Settings settings)
+    {
+        Pipeline p = new Pipeline(new Output(flowNetwork.findComponent(points.get(0))), new Input(flowNetwork.findComponent(points.get(0))), settings.maxFlow, points);
+        flowNetwork.addPipeline(p);
+        return Result.Success;
+    }
     public Result applyTool(Point point, Tool tool, Settings settings) {
         switch(tool){
             case AddPump:{

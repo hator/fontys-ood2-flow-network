@@ -1,8 +1,8 @@
 package simulation.elements;
 
-class Input extends InputOutput {
+public class Input extends InputOutput {
 
-    Input(Component component) {
+    public Input(Component component) {
         super(component);
     }
 
