@@ -6,17 +6,17 @@ import util.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Merger extends Component {
+public class Merger extends Component implements java.io.Serializable{
     private Input inputA = new Input(this);
     private Input inputB = new Input(this);
     private Output output = new Output(this);
 
     Merger() {
-        super(null, "res/merger100-100.png");
+        super(null);
     }
 
    public Merger(Point position){
-        super(position, "res/merger100-100.png");
+        super(position);
     }
 
     Input getInputA() {

@@ -1,9 +1,8 @@
 package simulation;
 
+import simulation.elements.*;
 import simulation.elements.Component;
-import simulation.elements.Element;
-import simulation.elements.Pipeline;
-import simulation.elements.Pump;
+import ui.ImageLibrary;
 import util.Point;
 
 import javax.imageio.ImageIO;
@@ -14,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FlowNetwork {
+public class FlowNetwork implements java.io.Serializable{
     private List<Component> components = new ArrayList<>();
     private List<Pipeline> pipelines = new ArrayList<>();
 
@@ -73,7 +72,7 @@ public class FlowNetwork {
         return null;
     }
 
-    public Component findComponent(Point point)
+    Component findComponent(Point point)
     {
         assert point != null;
         for (Component comp : components) {
@@ -96,7 +95,19 @@ public class FlowNetwork {
     void render(Graphics g) {
         final int imageSize = 100;
         for (Component component : components) {
-            g.drawImage(component.getImage(), component.getPosition().x-imageSize/2,component.getPosition().y-imageSize/2, null);
+            String path = "";
+            if(component instanceof Pump){
+                path = "res/pump100-100.png";
+            } else if(component instanceof Sink){
+                path = "res/barrel100-100.png";
+            }else if(component instanceof AdjustableSplitter){
+                path = "res/adjustable-splitter100-100.png";
+            }else if(component instanceof FixedSplitter){
+                path = "res/splitter100-100.png";
+            }else if(component instanceof Merger){
+                path = "res/merger100-100.png";
+            }
+            g.drawImage(ImageLibrary.getImage(path), component.getPosition().x-imageSize/2,component.getPosition().y-imageSize/2, null);
         }
 
         for(Pipeline pipeline : pipelines){

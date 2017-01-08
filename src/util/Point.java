@@ -1,6 +1,6 @@
 package util;
 
-public class Point {
+public class Point implements java.io.Serializable{
     public int x;
     public int y;
 
@@ -40,10 +40,7 @@ public class Point {
             inSectionBounds = betweenNumbers(y, x*perA + b1, x*perA + b2);
         }
 
-        if (distance <= clickRadius && inSectionBounds) {
-            return true;
-        }
-        return false;
+        return distance <= clickRadius && inSectionBounds;
     }
 
     private boolean betweenNumbers(double value, double a, double b) {

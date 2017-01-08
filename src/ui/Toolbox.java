@@ -30,6 +30,9 @@ class Toolbox extends JPanel {
         createAndAddButton("Add Adjustable Splitter", Tool.AddAdjustableSplitter);
         createAndAddButton("Add Merger", Tool.AddMerger);
         createAndAddButton("Add Pipeline", Tool.AddPipeline);
+        createAndAddButton("Save flow Network", Tool.Save);
+        createAndAddButton("Load flow Network", Tool.Load);
+
 
         settingsBox = new SettingsBox();
         add(settingsBox);

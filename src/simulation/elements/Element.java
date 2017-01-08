@@ -3,7 +3,7 @@ package simulation.elements;
 import simulation.Settings;
 import util.Point;
 
-abstract public class Element {
+abstract public class Element implements java.io.Serializable{
     float currentFlow;
     float maxFlow;
 

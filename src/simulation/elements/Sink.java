@@ -6,16 +6,16 @@ import util.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sink extends Component {
+public class Sink extends Component implements java.io.Serializable{
     private Input input = new Input(this);
 
     Sink(float maxFlow) {
-        super(null, "res/barrel100-100.png");
+        super(null);
         this.maxFlow = maxFlow;
     }
 
    public Sink(float maxFlow, Point position) {
-        super(position, "res/barrel100-100.png");
+        super(position);
         this.maxFlow = maxFlow;
     }
 

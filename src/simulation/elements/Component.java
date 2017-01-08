@@ -8,24 +8,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-abstract public class Component extends Element {
+abstract public class Component extends Element implements java.io.Serializable{
     static final int CLICK_RADIUS = 30;
     private Point position;
     private boolean toBeDeleted = false;
-    private BufferedImage image;
 
 
-    Component(Point position, String imageName)
+    Component(Point position)
     {
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File(imageName));
-        } catch (IOException e) {
-            System.err.println("File not found");
-
-            //TODO error message + exception
-        }
-        this.image = image;
         this.position = position;
     }
 
@@ -48,9 +38,6 @@ abstract public class Component extends Element {
         return position;
     }
 
-    public BufferedImage getImage(){
-        return image;
-    }
     public void setToBeDeleted() {
         toBeDeleted = true;
     }

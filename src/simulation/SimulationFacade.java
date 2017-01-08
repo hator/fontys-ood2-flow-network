@@ -3,6 +3,8 @@ package simulation;
 import simulation.elements.*;
 import simulation.elements.Component;
 import util.Point;
+
+import java.io.*;
 import java.util.List;
 import java.awt.*;
 
@@ -26,6 +28,7 @@ public class SimulationFacade {
         System.out.println(settings.currentFlow + " " + settings.maxFlow + " " + settings.splitRatio); //TODO: Current set settings do net get applied here
         switch(tool){
             case AddPump:{
+                //settings = new Settings(5.0f,118.0f,null);
                 Pump p = new Pump(settings.currentFlow, settings.maxFlow, point);
                 if(!flowNetwork.isOverlapping(p)){
                     flowNetwork.addComponent(p);
@@ -70,6 +73,12 @@ public class SimulationFacade {
                     return Result.ComponentsOverlapping;
                 }
             }
+            case Save:{
+                saveFlowNetwork("res/savedNetwork.ser");
+            }
+            case Load:{
+                loadFlowNetwork("res/savedNetwork.ser");
+            }
             default: return Result.Failure; //TODO fix return result
         }
     }
@@ -87,5 +96,37 @@ public class SimulationFacade {
             return Result.Success;
         }
         return Result.Failure;
+    }
+
+    private void saveFlowNetwork(String path){
+        try {
+            FileOutputStream fileOut =
+                    new FileOutputStream(path);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(flowNetwork);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data");
+        }catch(IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    private void loadFlowNetwork(String path){
+        FlowNetwork network = null;
+        try {
+            FileInputStream fileIn = new FileInputStream(path);
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            network = (FlowNetwork) in.readObject();
+            in.close();
+            fileIn.close();
+        }catch(IOException i) {
+            i.printStackTrace();
+            return;
+        }catch(ClassNotFoundException c) {
+            c.printStackTrace();
+            return;
+        }
+        this.flowNetwork = network;
     }
 }

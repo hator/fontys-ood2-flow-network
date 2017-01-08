@@ -3,14 +3,14 @@ package simulation.elements;
 import simulation.Settings;
 import util.Point;
 
-public class FixedSplitter extends Splitter {
+public class FixedSplitter extends Splitter implements java.io.Serializable{
 
     FixedSplitter() {
-        super(null,"res/splitter100-100.png");
+        super(null);
     }
 
     public FixedSplitter(Point position){
-        super(position, "res/splitter100-100.png");
+        super(position);
     }
 
     @Override

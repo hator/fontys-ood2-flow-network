@@ -8,5 +8,7 @@ public enum Tool {
     AddMerger,
     AddAdjustableSplitter,
     AddFixedSplitter,
-    AddPipeline
+    AddPipeline,
+    Save,
+    Load
 }

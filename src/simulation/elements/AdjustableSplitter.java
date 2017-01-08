@@ -3,7 +3,7 @@ package simulation.elements;
 import simulation.Settings;
 import util.Point;
 
-public class AdjustableSplitter extends Splitter {
+public class AdjustableSplitter extends Splitter implements java.io.Serializable{
     private float splitRatio;
 
     AdjustableSplitter() {
@@ -11,12 +11,12 @@ public class AdjustableSplitter extends Splitter {
     }
 
     AdjustableSplitter(float splitRatio) {
-        super(null,"res/adjustable-splitter100-100.png");
+        super(null);
         this.splitRatio = splitRatio;
     }
 
     public AdjustableSplitter(float splitRatio, Point position) {
-        super(position, "res/adjustable-splitter100-100.png");
+        super(position);
         this.splitRatio = splitRatio;
     }
 

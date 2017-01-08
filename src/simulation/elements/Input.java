@@ -1,6 +1,6 @@
 package simulation.elements;
 
-public class Input extends InputOutput {
+public class Input extends InputOutput implements java.io.Serializable{
 
     public Input(Component component) {
         super(component);

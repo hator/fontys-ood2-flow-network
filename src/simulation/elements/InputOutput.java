@@ -1,6 +1,6 @@
 package simulation.elements;
 
-abstract class InputOutput {
+abstract class InputOutput implements java.io.Serializable{
     float currentFlow;
     Pipeline pipeline = null;
     Component component;
