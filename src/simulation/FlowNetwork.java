@@ -73,6 +73,17 @@ public class FlowNetwork {
         return null;
     }
 
+    public Component findComponent(Point point)
+    {
+        assert point != null;
+        for (Component comp : components) {
+            if (comp.inBoundingArea(point)) {
+                return comp;
+            }
+        }
+        return null;
+    }
+
     public boolean isOverlapping(Component component) {
         assert component != null;
 
@@ -89,7 +100,13 @@ public class FlowNetwork {
         }
 
         for(Pipeline pipeline : pipelines){
-            //TODO
+            for(int i =1; i < pipeline.getPoints().size(); i++)
+            {
+                g.drawLine(pipeline.getPoints().get(i-1).x,
+                           pipeline.getPoints().get(i-1).y,
+                           pipeline.getPoints().get(i).x,
+                           pipeline.getPoints().get(i).y);
+            }
         }
 
     }

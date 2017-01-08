@@ -4,8 +4,8 @@ import simulation.Result;
 import simulation.Settings;
 import simulation.SimulationFacade;
 import simulation.Tool;
+import simulation.elements.Pipeline;
 import util.Point;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +14,8 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
+import java.util.List;
 import java.util.function.Consumer;
 
 class Diagram extends JPanel {
@@ -21,6 +23,10 @@ class Diagram extends JPanel {
     private Settings currentSettingsReference;
     private SimulationFacade simulation;
     private Consumer<Settings> changeSettingsReferenceCallback;
+    //stores all the points on the pipeline that we're currently working with
+    private List<Point> pipelinePointList = new ArrayList<>();
+    //stores all the pipelines
+
 
     Diagram(SimulationFacade simulation) {
         this.simulation = simulation;
@@ -45,8 +51,14 @@ class Diagram extends JPanel {
         g.setColor(Color.WHITE);
         g.fillRect(0,0,dim.width,dim.height);
 
+        //change color to black to draw visible lines
+        g.setColor(Color.BLACK);
+
+        System.out.println();
         simulation.render(g);
     }
+
+
 
     void setChangeSettingsReferenceCallback(Consumer<Settings> changeSettingsReferenceCallback) {
         this.changeSettingsReferenceCallback = changeSettingsReferenceCallback;
@@ -67,13 +79,21 @@ class Diagram extends JPanel {
                 }
                 break;
             case Remove:
-                simulation.remove(point);
                 break;
+            case AddPipeline: {
+                pipelinePointList.add(pipelinePointList.size()-1, point);
+                simulation.applyTool(pipelinePointList, currentSettingsReference);
+                break;
+            }
             default: // Add component
+                if(currentTool == Tool.AddPump)
+                    pipelinePointList.add(point);
+                if(currentTool == Tool.AddSink)
+                    pipelinePointList.add(point);
                 Settings newElementSettings = currentSettingsReference;
-            System.out.println(newElementSettings.currentFlow +" "+newElementSettings.maxFlow+" "+ newElementSettings.splitRatio);
-                if(simulation.applyTool(point, currentTool, newElementSettings) == Result.ComponentsOverlapping){
-                   System.err.println("Component Overlap");
+                System.out.println(newElementSettings.currentFlow + " " + newElementSettings.maxFlow + " " + newElementSettings.splitRatio);
+                if (simulation.applyTool(point, currentTool, newElementSettings) == Result.ComponentsOverlapping) {
+                    System.err.println("Component Overlap");
                 }
                 break;
         }
@@ -83,5 +103,8 @@ class Diagram extends JPanel {
     void selectTool(Tool tool, Settings settings) {
         currentTool = tool;
         currentSettingsReference = settings;
+        if(pipelinePointList.size()>2)
+            pipelinePointList.clear();
+
     }
 }
