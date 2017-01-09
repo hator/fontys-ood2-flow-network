@@ -1,42 +1,60 @@
 package ui;
 
+import util.Point;
+
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class ImageLibrary {
-    private static Map<String, BufferedImage> images = new HashMap<>();
-    private static List<String> paths = new ArrayList<>();
+    private static final int IMAGE_SIZE = 100;
+    private static Map<Images, Image> images = new EnumMap<>(Images.class);
 
-    static void initializeImages(){
-        paths.add("res/barrel100-100.png");
-        paths.add("res/splitter100-100.png");
-        paths.add("res/pump100-100.png");
-        paths.add("res/merger100-100.png");
-        paths.add("res/adjustable-splitter100-100.png");
-
-        for(String path: paths){
-            loadImage(path);
-        }
+    public enum Images {
+        Barrel,
+        Splitter,
+        Pump,
+        Merger,
+        AdjustableSplitter
     }
-    private static void loadImage(String path){
-        BufferedImage image = null;
+
+    static void initializeImages() throws IOException {
+        EnumMap<Images, String> paths = new EnumMap<>(Images.class);
+        paths.put(Images.Barrel, "res/barrel100-100.png");
+        paths.put(Images.Splitter, "res/splitter100-100.png");
+        paths.put(Images.Pump, "res/pump100-100.png");
+        paths.put(Images.Merger, "res/merger100-100.png");
+        paths.put(Images.AdjustableSplitter, "res/adjustable-splitter100-100.png");
+
         try {
-            image = ImageIO.read(new File(path));
-        } catch (IOException e) {
-            System.err.println("File not found");
-
-            //TODO error message + exception
+            paths.forEach((k, path) ->
+                    images.put(k, loadImage(path))
+            );
+        } catch (RuntimeException e) {
+            throw (IOException) e.getCause(); // Rethrow as checked to regain exception safety
         }
-        images.put(path, image);
     }
 
-    public static BufferedImage getImage(String imageName){
+    private static BufferedImage loadImage(String path) {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e); // Rethrow as unchecked because of lambda functional interfaces :(
+        }
+    }
+
+    public static void drawImage(Images imageName, Graphics g, Point position) {
+        Image image = getImage(imageName);
+        int x = position.x - IMAGE_SIZE / 2;
+        int y = position.y - IMAGE_SIZE / 2;
+        g.drawImage(image, x, y, null);
+    }
+
+    private static Image getImage(Images imageName) {
         return images.get(imageName);
     }
 }

@@ -1,12 +1,14 @@
 package simulation.elements;
 
 import simulation.Settings;
+import ui.ImageLibrary;
 import util.Point;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sink extends Component implements java.io.Serializable{
+public class Sink extends Component implements java.io.Serializable {
     private Input input = new Input(this);
 
     Sink(float maxFlow) {
@@ -14,7 +16,7 @@ public class Sink extends Component implements java.io.Serializable{
         this.maxFlow = maxFlow;
     }
 
-   public Sink(float maxFlow, Point position) {
+    public Sink(float maxFlow, Point position) {
         super(position);
         this.maxFlow = maxFlow;
     }
@@ -39,5 +41,10 @@ public class Sink extends Component implements java.io.Serializable{
         pipelines.add(input.pipeline);
 
         return pipelines;
+    }
+
+    @Override
+    public void render(Graphics graphics) {
+        ImageLibrary.drawImage(ImageLibrary.Images.Barrel, graphics, getPosition());
     }
 }

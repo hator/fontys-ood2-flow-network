@@ -3,9 +3,10 @@ package simulation.elements;
 import simulation.Settings;
 import util.Point;
 
+import java.awt.*;
 import java.util.List;
 
-public class Pipeline extends Element implements java.io.Serializable{
+public class Pipeline extends Element implements java.io.Serializable {
     static final int CLICK_RADIUS = 15;
     private List<Point> points;
     private Input input;
@@ -72,4 +73,18 @@ public class Pipeline extends Element implements java.io.Serializable{
     public void attach() {
         output.component.recalculateFlow();
     }
+
+    public void render(Graphics g) {
+        Point a, b;
+        for (int i = 1; i < points.size(); i++) {
+            a = points.get(i - 1);
+            b = points.get(i);
+            g.drawLine(a.x
+                    , a.y
+                    , b.x
+                    , b.y
+            );
+        }
+    }
+
 }

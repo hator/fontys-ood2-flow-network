@@ -1,8 +1,10 @@
 package simulation.elements;
 
 import simulation.Settings;
+import ui.ImageLibrary;
 import util.Point;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class Merger extends Component implements java.io.Serializable{
         super(null);
     }
 
-   public Merger(Point position){
+    public Merger(Point position) {
         super(position);
     }
 
@@ -51,5 +53,10 @@ public class Merger extends Component implements java.io.Serializable{
         pipelines.add(output.pipeline);
 
         return pipelines;
+    }
+
+    @Override
+    public void render(Graphics graphics) {
+        ImageLibrary.drawImage(ImageLibrary.Images.Merger, graphics, getPosition());
     }
 }

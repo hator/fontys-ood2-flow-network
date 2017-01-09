@@ -1,9 +1,10 @@
 package simulation.elements;
 
 import simulation.Settings;
+import ui.ImageLibrary;
 import util.Point;
 
-import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,5 +44,10 @@ public class Pump extends Component implements java.io.Serializable{
         pipelines.add(output.pipeline);
 
         return pipelines;
+    }
+
+    @Override
+    public void render(Graphics graphics) {
+        ImageLibrary.drawImage(ImageLibrary.Images.Pump, graphics, getPosition());
     }
 }

@@ -3,7 +3,9 @@ package simulation.elements;
 import simulation.Settings;
 import util.Point;
 
-abstract public class Element implements java.io.Serializable{
+import java.awt.*;
+
+abstract public class Element implements java.io.Serializable {
     float currentFlow;
     float maxFlow;
 
@@ -21,4 +23,6 @@ abstract public class Element implements java.io.Serializable{
     }
 
     public abstract boolean inBoundingArea(Point point);
+
+    public abstract void render(Graphics graphics);
 }

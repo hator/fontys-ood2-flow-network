@@ -1,15 +1,11 @@
 package simulation;
 
-import simulation.elements.*;
 import simulation.elements.Component;
-import ui.ImageLibrary;
+import simulation.elements.Element;
+import simulation.elements.Pipeline;
 import util.Point;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +17,6 @@ public class FlowNetwork implements java.io.Serializable{
         assert component != null;
 
         components.add(component);
-        //System.out.println(components.size() + " " + component.getPosition().x + "-" + component.getPosition().y);
     }
 
     public void addPipeline(Pipeline pipeline) {
@@ -72,15 +67,12 @@ public class FlowNetwork implements java.io.Serializable{
         return null;
     }
 
-    Component findComponent(Point point)
-    {
+    Component findComponent(Point point) {
         assert point != null;
-        for (Component comp : components) {
-            if (comp.inBoundingArea(point)) {
-                return comp;
-            }
-        }
-        return null;
+        return components.stream()
+                .filter(c -> c.inBoundingArea(point))
+                .findFirst()
+                .orElse(null);
     }
 
     public boolean isOverlapping(Component component) {
@@ -93,32 +85,7 @@ public class FlowNetwork implements java.io.Serializable{
 
     //Render the components and pipelines of this flow network
     void render(Graphics g) {
-        final int imageSize = 100;
-        for (Component component : components) {
-            String path = "";
-            if(component instanceof Pump){
-                path = "res/pump100-100.png";
-            } else if(component instanceof Sink){
-                path = "res/barrel100-100.png";
-            }else if(component instanceof AdjustableSplitter){
-                path = "res/adjustable-splitter100-100.png";
-            }else if(component instanceof FixedSplitter){
-                path = "res/splitter100-100.png";
-            }else if(component instanceof Merger){
-                path = "res/merger100-100.png";
-            }
-            g.drawImage(ImageLibrary.getImage(path), component.getPosition().x-imageSize/2,component.getPosition().y-imageSize/2, null);
-        }
-
-        for(Pipeline pipeline : pipelines){
-            for(int i =1; i < pipeline.getPoints().size(); i++)
-            {
-                g.drawLine(pipeline.getPoints().get(i-1).x,
-                           pipeline.getPoints().get(i-1).y,
-                           pipeline.getPoints().get(i).x,
-                           pipeline.getPoints().get(i).y);
-            }
-        }
-
+        components.forEach(c -> c.render(g));
+        pipelines.forEach(c -> c.render(g));
     }
 }

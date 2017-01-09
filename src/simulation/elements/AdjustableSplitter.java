@@ -1,7 +1,10 @@
 package simulation.elements;
 
 import simulation.Settings;
+import ui.ImageLibrary;
 import util.Point;
+
+import java.awt.*;
 
 public class AdjustableSplitter extends Splitter implements java.io.Serializable{
     private float splitRatio;
@@ -37,5 +40,10 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
         super.applySettings(settings);
         // TODO probably check if settings.splitRatio is not null
         this.splitRatio = settings.splitRatio;
+    }
+
+    @Override
+    public void render(Graphics graphics) {
+        ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitter, graphics, getPosition());
     }
 }
