@@ -1,12 +1,11 @@
 package simulation;
 
 import simulation.elements.*;
-import simulation.elements.Component;
 import util.Point;
 
+import java.awt.*;
 import java.io.*;
 import java.util.List;
-import java.awt.*;
 
 public class SimulationFacade {
     private FlowNetwork flowNetwork = new FlowNetwork();
@@ -14,7 +13,6 @@ public class SimulationFacade {
     public void newFlowNetwork() {
         this.flowNetwork = new FlowNetwork();
     }
-
 
     //overload for pipelines because they need a list of points, not just one point.
     //
@@ -84,8 +82,14 @@ public class SimulationFacade {
     }
 
     public Settings select(Point point) {
-        return flowNetwork.findElement(point).getSettings();
+        Element elem = flowNetwork.findElement(point);
+        if (elem != null) {
+            return elem.getSettings();
+        } else {
+            return null;
+        }
     }
+
     public void render(Graphics g){
         flowNetwork.render(g);
     }
@@ -113,20 +117,15 @@ public class SimulationFacade {
     }
 
     private void loadFlowNetwork(String path){
-        FlowNetwork network = null;
         try {
             FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            network = (FlowNetwork) in.readObject();
+            FlowNetwork network = (FlowNetwork) in.readObject();
             in.close();
             fileIn.close();
-        }catch(IOException i) {
-            i.printStackTrace();
-            return;
-        }catch(ClassNotFoundException c) {
-            c.printStackTrace();
-            return;
+            this.flowNetwork = network;
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        this.flowNetwork = network;
     }
 }
