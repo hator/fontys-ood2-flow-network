@@ -1,6 +1,7 @@
 package simulation;
 
 import simulation.elements.*;
+import simulation.elements.Component;
 import util.Point;
 
 import java.awt.*;
@@ -28,48 +29,23 @@ public class SimulationFacade {
             case AddPump:{
                 //settings = new Settings(5.0f,118.0f,null);
                 Pump p = new Pump(settings.currentFlow, settings.maxFlow, point);
-                if(!flowNetwork.isOverlapping(p)){
-                    flowNetwork.addComponent(p);
-                    return Result.Success;
-                } else {
-                    return Result.ComponentsOverlapping;
-                }
+                return addToFlowNetwork(p);
             }
             case AddMerger:{
                 Merger c = new Merger(point);
-                if(!flowNetwork.isOverlapping(c)){
-                    flowNetwork.addComponent(c);
-                    return Result.Success;
-                } else {
-                    return Result.ComponentsOverlapping;
-                }
+                return addToFlowNetwork(c);
             }
             case AddSink:{
                 Sink c = new Sink(settings.maxFlow, point);
-                if(!flowNetwork.isOverlapping(c)){
-                    flowNetwork.addComponent(c);
-                    return Result.Success;
-                } else {
-                    return Result.ComponentsOverlapping;
-                }
+                return addToFlowNetwork(c);
             }
             case AddAdjustableSplitter:{
                 AdjustableSplitter c = new AdjustableSplitter(settings.splitRatio, point);
-                if(!flowNetwork.isOverlapping(c)){
-                    flowNetwork.addComponent(c);
-                    return Result.Success;
-                } else {
-                    return Result.ComponentsOverlapping;
-                }
+                return addToFlowNetwork(c);
             }
             case AddFixedSplitter:{
                 FixedSplitter c = new FixedSplitter(point);
-                if(!flowNetwork.isOverlapping(c)){
-                    flowNetwork.addComponent(c);
-                    return Result.Success;
-                } else {
-                    return Result.ComponentsOverlapping;
-                }
+                return addToFlowNetwork(c);
             }
             case Save:{
                 saveFlowNetwork("res/savedNetwork.ser");
@@ -78,6 +54,15 @@ public class SimulationFacade {
                 loadFlowNetwork("res/savedNetwork.ser");
             }
             default: return Result.Failure; //TODO fix return result
+        }
+    }
+
+    private Result addToFlowNetwork(Component p) {
+        if (!flowNetwork.isOverlapping(p)) {
+            flowNetwork.addComponent(p);
+            return Result.Success;
+        } else {
+            return Result.ComponentsOverlapping;
         }
     }
 
