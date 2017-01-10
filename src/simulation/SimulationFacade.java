@@ -53,12 +53,6 @@ public class SimulationFacade {
                 FixedSplitter c = new FixedSplitter(point);
                 return addToFlowNetwork(c);
             }
-            case Save:{
-                saveFlowNetwork("res/savedNetwork.ser");
-            }
-            case Load:{
-                loadFlowNetwork("res/savedNetwork.ser");
-            }
             default: return Result.Failure; //TODO fix return result
         }
     }
@@ -93,10 +87,8 @@ public class SimulationFacade {
         return Result.Failure;
     }
 
-    private void saveFlowNetwork(String path){
+    public void saveFlowNetwork(FileOutputStream fileOut){
         try {
-            FileOutputStream fileOut =
-                    new FileOutputStream(path);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(flowNetwork);
             out.close();
@@ -107,9 +99,8 @@ public class SimulationFacade {
         }
     }
 
-    private void loadFlowNetwork(String path){
+    public void loadFlowNetwork(FileInputStream fileIn){
         try {
-            FileInputStream fileIn = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(fileIn);
             FlowNetwork network = (FlowNetwork) in.readObject();
             in.close();
