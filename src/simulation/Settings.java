@@ -13,4 +13,15 @@ public class Settings {
         this.maxFlow = maxFlow;
         this.splitRatio = splitRatio;
     }
+
+    public boolean isValid() {
+        boolean splitValid = true;
+
+        if(splitRatio != null)
+        {
+            splitValid = splitRatio >= 0.0 && splitRatio <= 1.0;
+        }
+
+        return maxFlow >= 0.0 && currentFlow >= 0.0 && splitValid;
+    }
 }

@@ -7,15 +7,18 @@ import util.Point;
 import java.awt.*;
 
 public class AdjustableSplitter extends Splitter implements java.io.Serializable{
-    private float splitRatio;
+    private Float splitRatio;
 
     AdjustableSplitter() {
         this(0.5f);
     }
 
-    AdjustableSplitter(float splitRatio) {
+    AdjustableSplitter(Float splitRatio) {
         super(null);
-        this.splitRatio = splitRatio;
+        if (splitRatio != null){
+            this.splitRatio = splitRatio;
+        }
+        this.splitRatio = 0.5f;
     }
 
     public AdjustableSplitter(float splitRatio, Point position) {

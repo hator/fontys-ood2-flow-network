@@ -27,29 +27,27 @@ public class SimulationFacade {
         System.out.println(settings.currentFlow + " " + settings.maxFlow + " " + settings.splitRatio); //TODO: Current set settings do net get applied here
         switch(tool){
             case AddPump:{
-                if(!areSettingsValid(tool, settings)) return Result.InvalidSettings;
-
-                //settings = new Settings(5.0f,118.0f,null);
+                if (!settings.isValid()) return Result.InvalidSettings;
                 Pump p = new Pump(settings.currentFlow, settings.maxFlow, point);
                 return addToFlowNetwork(p);
             }
             case AddMerger:{
+                if (!settings.isValid()) return Result.InvalidSettings;
                 Merger c = new Merger(point);
                 return addToFlowNetwork(c);
             }
             case AddSink:{
-                if(!areSettingsValid(tool, settings)) return Result.InvalidSettings;
-
+                if (!settings.isValid()) return Result.InvalidSettings;
                 Sink c = new Sink(settings.maxFlow, point);
                 return addToFlowNetwork(c);
             }
             case AddAdjustableSplitter:{
-                if(!areSettingsValid(tool, settings)) return Result.InvalidSettings;
-
+                if (!settings.isValid()) return Result.InvalidSettings;
                 AdjustableSplitter c = new AdjustableSplitter(settings.splitRatio, point);
                 return addToFlowNetwork(c);
             }
             case AddFixedSplitter:{
+                if (!settings.isValid()) return Result.InvalidSettings;
                 FixedSplitter c = new FixedSplitter(point);
                 return addToFlowNetwork(c);
             }
@@ -101,15 +99,5 @@ public class SimulationFacade {
         } catch (ClassNotFoundException e) {
             throw new IOException(e);
         }
-    }
-
-    private boolean areSettingsValid(Tool tool, Settings settings){
-        if (tool == Tool.AddPump || tool == Tool.AddSink){
-            return settings.currentFlow >= 0.0 && settings.maxFlow >= 0.0;
-        }
-        else if (tool == Tool.AddAdjustableSplitter){
-            return settings.splitRatio >= 0.0 && settings.splitRatio <= 1.0;
-        }
-        return false;
     }
 }

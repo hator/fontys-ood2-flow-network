@@ -68,7 +68,6 @@ class Diagram extends JPanel {
         assert currentTool != null;
 
         Point point = new Point(x, y);
-        Result result;
 
         switch (currentTool) {
             case Select:
@@ -85,21 +84,13 @@ class Diagram extends JPanel {
                 }
                 break;
             case AddPipeline: {
+                //TODO
                 pipelinePointList.add(pipelinePointList.size()-1, point);
                 simulation.applyTool(pipelinePointList, currentSettingsReference);
                 break;
             }
-            case AddPump:
-                result = simulation.applyTool(point, currentTool, currentSettingsReference);
-                if (result != Result.Success){
-                    handleResult(result);
-                }
-                break;
-            case AddSink:
-                 result = simulation.applyTool(point, currentTool, currentSettingsReference);
-                if (result != Result.Success){
-                    handleResult(result);
-                }
+            default:
+                applyAddTool(point, currentTool);
                 break;
         }
         this.repaint();
@@ -113,11 +104,17 @@ class Diagram extends JPanel {
 
     }
 
-    void handleResult(Result result)
-    {
+    void handleResult(Result result) {
         //TODO implement
         if (result == Result.InvalidSettings){
             System.out.print("invalid settings");
+        }
+    }
+
+    private void applyAddTool(Point point, Tool tool) {
+        Result result = simulation.applyTool(point, tool, currentSettingsReference);
+        if (result != Result.Success){
+            handleResult(result);
         }
     }
 }
