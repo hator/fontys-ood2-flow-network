@@ -21,9 +21,12 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
         this.splitRatio = 0.5f;
     }
 
-    public AdjustableSplitter(float splitRatio, Point position) {
+    public AdjustableSplitter(Float splitRatio, Point position) {
         super(position);
-        this.splitRatio = splitRatio;
+        if (splitRatio != null){
+            this.splitRatio = splitRatio;
+        }
+        this.splitRatio = 0.5f;
     }
 
     @Override
