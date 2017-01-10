@@ -68,6 +68,7 @@ class Diagram extends JPanel {
         assert currentTool != null;
 
         Point point = new Point(x, y);
+        Result result;
 
         switch (currentTool) {
             case Select:
@@ -88,16 +89,16 @@ class Diagram extends JPanel {
                 simulation.applyTool(pipelinePointList, currentSettingsReference);
                 break;
             }
-            default: // Add component
-                if(currentTool == Tool.AddPump)
-                    pipelinePointList.add(point);
-                if(currentTool == Tool.AddSink)
-                    pipelinePointList.add(point);
-
-                Settings newElementSettings = currentSettingsReference;
-                System.out.println(newElementSettings.currentFlow + " " + newElementSettings.maxFlow + " " + newElementSettings.splitRatio);
-                if (simulation.applyTool(point, currentTool, newElementSettings) == Result.ComponentsOverlapping) {
-                    System.err.println("Component Overlap");
+            case AddPump:
+                result = simulation.applyTool(point, currentTool, currentSettingsReference);
+                if (result != Result.Success){
+                    handleResult(result);
+                }
+                break;
+            case AddSink:
+                 result = simulation.applyTool(point, currentTool, currentSettingsReference);
+                if (result != Result.Success){
+                    handleResult(result);
                 }
                 break;
         }
@@ -110,5 +111,13 @@ class Diagram extends JPanel {
         if(pipelinePointList.size()>2)
             pipelinePointList.clear();
 
+    }
+
+    void handleResult(Result result)
+    {
+        //TODO implement
+        if (result == Result.InvalidSettings){
+            System.out.print("invalid settings");
+        }
     }
 }
