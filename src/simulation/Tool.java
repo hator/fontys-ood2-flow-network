@@ -9,6 +9,4 @@ public enum Tool {
     AddAdjustableSplitter,
     AddFixedSplitter,
     AddPipeline,
-    Save,
-    Load
 }

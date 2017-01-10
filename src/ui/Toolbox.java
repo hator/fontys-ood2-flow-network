@@ -14,12 +14,13 @@ class Toolbox extends JPanel {
     private BiConsumer<Tool, Settings> selectToolCallback;
     private SettingsBox settingsBox;
 
-    Toolbox(BiConsumer<Tool, Settings> selectToolCallback,ActionListener saveFile, ActionListener openFile) {
+    Toolbox(BiConsumer<Tool, Settings> selectToolCallback) {
         this.selectToolCallback = selectToolCallback;
-        initializeButtons(saveFile, openFile);
+
+        initializeButtons();
     }
 
-    private void initializeButtons(ActionListener saveFile, ActionListener openFile) {
+    private void initializeButtons() {
         final GridLayout layout = new GridLayout(0, 1, 5, 5);
 
         setLayout(layout);
@@ -31,23 +32,11 @@ class Toolbox extends JPanel {
         createAndAddButton("Add Adjustable Splitter", Tool.AddAdjustableSplitter);
         createAndAddButton("Add Merger", Tool.AddMerger);
         createAndAddButton("Add Pipeline", Tool.AddPipeline);
-        createAndAddNonToggleButton("Save Flow Network", saveFile);
-        createAndAddNonToggleButton("Load Flow Network", openFile);
-
 
         settingsBox = new SettingsBox();
         add(settingsBox);
 
         selectButton(selectionToolBtn);
-    }
-
-    private JButton createAndAddNonToggleButton(String text, ActionListener listener){
-        JButton toolButton = new JButton(text);
-        toolButton.setToolTipText(text);
-        toolButton.addActionListener(listener);
-        buttonGroup.add(toolButton);
-        add(toolButton);
-        return toolButton;
     }
 
     private JToggleButton createAndAddButton(String text, Tool tool) {
@@ -59,7 +48,6 @@ class Toolbox extends JPanel {
         add(toolButton);
         return toolButton;
     }
-
 
     private void selectButton(AbstractButton button) {
         buttonGroup.setSelected(button.getModel(), true);

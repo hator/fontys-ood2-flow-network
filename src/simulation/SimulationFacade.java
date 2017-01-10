@@ -87,27 +87,19 @@ public class SimulationFacade {
         return Result.Failure;
     }
 
-    public void saveFlowNetwork(FileOutputStream fileOut){
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(flowNetwork);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data");
-        }catch(IOException i) {
-            i.printStackTrace();
+    public void saveFlowNetwork(OutputStream out) throws IOException {
+        try (ObjectOutputStream objOut = new ObjectOutputStream(out)) {
+            objOut.writeObject(flowNetwork);
         }
     }
 
-    public void loadFlowNetwork(FileInputStream fileIn){
-        try {
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            FlowNetwork network = (FlowNetwork) in.readObject();
-            in.close();
-            fileIn.close();
-            this.flowNetwork = network;
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+    public void loadFlowNetwork(InputStream in) throws IOException {
+        try (ObjectInputStream objIn = new ObjectInputStream(in)) {
+
+            this.flowNetwork = (FlowNetwork) objIn.readObject();
+
+        } catch (ClassNotFoundException e) {
+            throw new IOException(e);
         }
     }
 
