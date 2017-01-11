@@ -6,6 +6,7 @@ import util.Point;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Merger extends Component implements java.io.Serializable {
@@ -52,5 +53,18 @@ public class Merger extends Component implements java.io.Serializable {
     @Override
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.Merger, graphics, getPosition());
+    }
+
+    @Override
+    public List<Input> getInputs() {
+        List<Input> inputs = new ArrayList<>(2);
+        inputs.add(inputA);
+        inputs.add(inputB);
+        return inputs;
+    }
+
+    @Override
+    public List<Output> getOutputs() {
+        return Collections.singletonList(output);
     }
 }

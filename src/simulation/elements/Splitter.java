@@ -2,8 +2,7 @@ package simulation.elements;
 
 import util.Point;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 abstract class Splitter extends Component implements java.io.Serializable {
     Input input;
@@ -31,12 +30,25 @@ abstract class Splitter extends Component implements java.io.Serializable {
 
     @Override
     public List<Pipeline> getPipelines() {
-        List<Pipeline> pipelines = new ArrayList<>();
+        List<Pipeline> pipelines = new ArrayList<>(3);
 
         pipelines.add(input.pipeline);
         pipelines.add(outputA.pipeline);
         pipelines.add(outputB.pipeline);
 
         return pipelines;
+    }
+
+    @Override
+    public List<Input> getInputs() {
+        return Collections.singletonList(input);
+    }
+
+    @Override
+    public List<Output> getOutputs() {
+        List<Output> outputs = new ArrayList<>(2);
+        outputs.add(outputA);
+        outputs.add(outputB);
+        return outputs;
     }
 }

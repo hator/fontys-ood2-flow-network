@@ -6,6 +6,7 @@ import util.Point;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Pump extends Component implements java.io.Serializable {
@@ -29,15 +30,21 @@ public class Pump extends Component implements java.io.Serializable {
 
     @Override
     public List<Pipeline> getPipelines() {
-        List<Pipeline> pipelines = new ArrayList<>();
-
-        pipelines.add(output.pipeline);
-
-        return pipelines;
+        return Collections.singletonList(output.pipeline);
     }
 
     @Override
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.Pump, graphics, getPosition());
+    }
+
+    @Override
+    public List<Input> getInputs() {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<Output> getOutputs() {
+        return Collections.singletonList(output);
     }
 }

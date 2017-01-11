@@ -6,6 +6,7 @@ import util.Point;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Sink extends Component implements java.io.Serializable {
@@ -38,5 +39,15 @@ public class Sink extends Component implements java.io.Serializable {
     @Override
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.Barrel, graphics, getPosition());
+    }
+
+    @Override
+    public List<Input> getInputs() {
+        return Collections.singletonList(input);
+    }
+
+    @Override
+    public List<Output> getOutputs() {
+        return Collections.emptyList();
     }
 }

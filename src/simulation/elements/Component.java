@@ -13,13 +13,14 @@ abstract public class Component extends Element implements java.io.Serializable{
     private Point position;
     private boolean toBeDeleted = false;
 
-
     Component(Point position)
     {
         this.position = position;
     }
 
     public abstract List<Pipeline> getPipelines();
+    public abstract List<Input> getInputs();
+    public abstract List<Output> getOutputs();
 
     public boolean isOverlapping(Component component) {
         assert component != null;
