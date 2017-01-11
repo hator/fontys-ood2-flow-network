@@ -15,7 +15,7 @@ public class Point implements java.io.Serializable{
                 Math.pow(point.y - this.y, 2));
     }
 
-    public boolean inBoundingSegment(Point segmentA, Point segmentB, int clickRadius){
+    public boolean inBoundingSegment(Point segmentA, Point segmentB, int clickWidth){
         double distance;
         boolean inSectionBounds;
 
@@ -40,7 +40,7 @@ public class Point implements java.io.Serializable{
             inSectionBounds = betweenNumbers(y, x*perA + b1, x*perA + b2);
         }
 
-        return distance <= clickRadius && inSectionBounds;
+        return distance <= clickWidth && inSectionBounds;
     }
 
     private boolean betweenNumbers(double value, double a, double b) {
