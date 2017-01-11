@@ -10,8 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.*;
-import java.util.List;
 import java.util.function.Consumer;
 
 class Diagram extends JPanel {
@@ -19,11 +17,8 @@ class Diagram extends JPanel {
     private Settings currentSettingsReference;
     private SimulationFacade simulation;
     private Consumer<Settings> changeSettingsReferenceCallback;
-    //stores all the points on the pipeline that we're currently working with
-    private List<Point> pipelinePointList = new ArrayList<>();
     private boolean isResultNotSuccessful;
     private String resultMessage = "OK";
-
 
     Diagram(SimulationFacade simulation) {
         this.simulation = simulation;
@@ -52,8 +47,7 @@ class Diagram extends JPanel {
         simulation.render(g);
     }
 
-    void setStatusLabel(Graphics g)
-    {
+    private void setStatusLabel(Graphics g) {
         g.setColor(Color.GREEN);
         g.setFont(new Font("Arial", Font.BOLD, 15));
         if(isResultNotSuccessful)
@@ -90,15 +84,10 @@ class Diagram extends JPanel {
                     //On failure
                 }
                 break;
-            case AddPipeline: {
-                //TODO
-                pipelinePointList.add(pipelinePointList.size()-1, point);
-                simulation.applyTool(pipelinePointList, currentSettingsReference);
-                break;
-            }
-            default:
-                applyAddTool(point, currentTool);
-
+            default: // Add component
+                Settings newElementSettings = currentSettingsReference;
+                Result result = simulation.applyTool(point, currentTool, newElementSettings);
+                setResultMessage(result);
                 break;
         }
         this.repaint();
@@ -107,33 +96,22 @@ class Diagram extends JPanel {
     void selectTool(Tool tool, Settings settings) {
         currentTool = tool;
         currentSettingsReference = settings;
-        if(pipelinePointList.size()>2)
-            pipelinePointList.clear();
-
     }
 
-    public void setResultMessage(Result result) {
-        if(result == Result.Success){
+    void setResultMessage(Result result) {
+        if (result == Result.Success) {
             isResultNotSuccessful = false;
             resultMessage = "OK";
-        }
-        else{
+        } else {
             isResultNotSuccessful = true;
-            if (result == Result.InvalidSettings){
+            if (result == Result.InvalidSettings) {
                 resultMessage = "Invalid settings!";
-            }
-            else if (result == Result.ComponentsOverlapping) {
+            } else if (result == Result.ComponentsOverlapping) {
                 resultMessage = "Component overlapping!";
-            }
-            else if (result == Result.Failure){
+            } else if (result == Result.Failure) {
                 resultMessage = "Failure!";
             }
         }
         this.repaint();
-    }
-
-    private void applyAddTool(Point point, Tool tool) {
-        Result result = simulation.applyTool(point, tool, currentSettingsReference);
-        setResultMessage(result);
     }
 }

@@ -1,6 +1,5 @@
 package simulation.elements;
 
-import simulation.Settings;
 import util.Point;
 
 import java.awt.*;
@@ -12,10 +11,6 @@ public class Pipeline extends Element implements java.io.Serializable {
     private Input input;
     private Output output;
 
-    public List<Point> getPoints()
-    {
-        return points;
-    }
     public Pipeline(Output output, Input input, float maxFlow) {
         assert input != null;
         assert output != null;
@@ -32,8 +27,6 @@ public class Pipeline extends Element implements java.io.Serializable {
         this(output, input, maxFlow);
         this.points = points;
     }
-
-    // TODO builder or addPoint method?
 
     @Override
     void recalculateFlow() {

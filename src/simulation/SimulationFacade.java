@@ -6,25 +6,20 @@ import util.Point;
 
 import java.awt.*;
 import java.io.*;
-import java.util.List;
 
 public class SimulationFacade {
     private FlowNetwork flowNetwork = new FlowNetwork();
+    private PipelineBuilder pipelineBuilder = new PipelineBuilder();
 
     public void newFlowNetwork() {
         this.flowNetwork = new FlowNetwork();
     }
 
-    //overload for pipelines because they need a list of points, not just one point.
-    //
-    public Result applyTool(List<Point> points, Settings settings) {
-        // FIXME this is plain wrong! It creates new Input and Output for component when creating Pipeline, but the component has its own inputs and outputs!
-        //Pipeline p = new Pipeline(new Output(flowNetwork.findComponent(points.get(0))), new Input(flowNetwork.findComponent(points.get(0))), settings.maxFlow, points);
-        //flowNetwork.addPipeline(p);
-        return Result.Success;
-    }
     public Result applyTool(Point point, Tool tool, Settings settings) {
-        System.out.println(settings.currentFlow + " " + settings.maxFlow + " " + settings.splitRatio); //TODO: Current set settings do net get applied here
+        if (tool != Tool.AddPipeline) {
+            pipelineBuilder = new PipelineBuilder(); // reset builder
+        }
+
         switch(tool){
             case AddPump:{
                 if (!settings.isValid()) return Result.InvalidSettings;
@@ -51,6 +46,33 @@ public class SimulationFacade {
                 FixedSplitter c = new FixedSplitter(point);
                 return addToFlowNetwork(c);
             }
+            case AddPipeline: {
+                if (!pipelineBuilder.hasOutput()) {
+                    // First point of the pipeline has to be an output
+                    Output output = flowNetwork.findOutput(point);
+                    // TODO check if output is not already connected
+                    if (output != null) {
+                        pipelineBuilder.addPoint(point);
+                        pipelineBuilder.setOutput(output);
+                    } else {
+                        return Result.Failure;
+                    }
+                } else {
+                    pipelineBuilder.addPoint(point);
+
+                    Input input = flowNetwork.findInput(point);
+                    // TODO check if output is not already connected
+                    if (input != null) {
+                        pipelineBuilder.setInput(input);
+                        pipelineBuilder.setSettings(settings);
+
+                        Pipeline pipeline = pipelineBuilder.build();
+                        flowNetwork.addPipeline(pipeline);
+                        pipelineBuilder = new PipelineBuilder();
+                    }
+                }
+                return Result.Success;
+            }
             default: return Result.Failure; //TODO fix return result
         }
     }
@@ -74,6 +96,7 @@ public class SimulationFacade {
     }
 
     public void render(Graphics g){
+        pipelineBuilder.render(g);
         flowNetwork.render(g);
     }
 
