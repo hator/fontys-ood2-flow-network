@@ -35,26 +35,21 @@ public class PipelineTest {
         pointList.add(new Point(10, 10));
         pointList.add(new Point(30, 10));
         pointList.add(new Point(30, 40));
-        pointList.add(new Point(10, 40));
 
         Pipeline pipeline = new Pipeline(mockOutput, emptyInput, flow, pointList);
 
-        Point testPoint1 = new Point(Pipeline.CLICK_RADIUS, 13 + Pipeline.CLICK_RADIUS);
-        Point testPoint2 = new Point(-4 + Pipeline.CLICK_RADIUS, -15 + Pipeline.CLICK_RADIUS);
-        Point testPoint3 = new Point(-3 + Pipeline.CLICK_RADIUS, 60 + Pipeline.CLICK_RADIUS);
-        Point testPoint4 = new Point(-10 + Pipeline.CLICK_RADIUS, -10 + Pipeline.CLICK_RADIUS);
-        Point testPoint5 = new Point(Pipeline.CLICK_RADIUS, 15 + Pipeline.CLICK_RADIUS);
-        Point testPoint6 = new Point(5 + Pipeline.CLICK_RADIUS, 35 + Pipeline.CLICK_RADIUS);
-        Point testPoint7 = new Point(-6 + Pipeline.CLICK_RADIUS, 35 + Pipeline.CLICK_RADIUS);
-        Point testPoint8 = new Point(-14 + Pipeline.CLICK_RADIUS, 35 + Pipeline.CLICK_RADIUS);
+        Point testPoint1 = new Point(5, 5);
+        Point testPoint2 = new Point(20, 9 + Pipeline.CLICK_RADIUS);
+        Point testPoint3 = new Point(20, 11 + Pipeline.CLICK_RADIUS);
+        Point testPoint4 = new Point(30 + Pipeline.CLICK_RADIUS, 30);
+        Point testPoint5 = new Point(31 + Pipeline.CLICK_RADIUS, 30);
+        Point testPoint6 = new Point(29 + Pipeline.CLICK_RADIUS, 41);
 
         assertEquals(pipeline.inBoundingArea(testPoint1), true);
         assertEquals(pipeline.inBoundingArea(testPoint2), true);
         assertEquals(pipeline.inBoundingArea(testPoint3), false);
         assertEquals(pipeline.inBoundingArea(testPoint4), true);
-        assertEquals(pipeline.inBoundingArea(testPoint5), true);
-        assertEquals(pipeline.inBoundingArea(testPoint6), true);
-        assertEquals(pipeline.inBoundingArea(testPoint7), false);
-        assertEquals(pipeline.inBoundingArea(testPoint8), false);
+        assertEquals(pipeline.inBoundingArea(testPoint5), false);
+        assertEquals(pipeline.inBoundingArea(testPoint6), false);
     }
 }

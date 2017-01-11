@@ -71,11 +71,9 @@ public class FlowNetworkTest {
         network.addComponent(sink);
         network.addPipeline(pipeline1);
 
-        Point clickPoint1 = new Point(135 + Pipeline.CLICK_RADIUS, 105 + Pipeline.CLICK_RADIUS);
-        Point clickPoint2 = new Point(270 + Component.CLICK_RADIUS, 270 + Component.CLICK_RADIUS);
-        Point clickPoint3 = new Point(60 + Component.CLICK_RADIUS, 60 + Component.CLICK_RADIUS);
+        Point clickPoint2 = new Point(200 + Component.CLICK_RADIUS, 200 + Component.CLICK_RADIUS);
+        Point clickPoint3 = new Point(100, 101 - Component.CLICK_RADIUS);
 
-        assertTrue(network.findElement(clickPoint1) instanceof Pipeline);
         assertTrue(network.findElement(clickPoint2) == null);
         assertTrue(network.findElement(clickPoint3) instanceof Pump);
     }
