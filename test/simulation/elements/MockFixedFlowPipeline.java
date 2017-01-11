@@ -5,13 +5,13 @@ class MockFixedFlowPipeline extends Pipeline {
 
     MockFixedFlowPipeline(float flow, Input input) {
         super(new Output(null), input, flow);
-        this.currentFlow = flow;
+        this.settings.currentFlow = flow;
         this.input = input;
     }
 
     @Override
     void recalculateFlow() {
         // trigger recalculation of the next element (input)
-        input.recalculateFlow(this.currentFlow);
+        input.recalculateFlow(this.settings.currentFlow);
     }
 }
