@@ -23,13 +23,6 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
     }
 
     @Override
-    void applySettings(Settings settings) {
-        super.applySettings(settings);
-        // TODO probably check if settings.splitRatio is not null
-        this.settings.splitRatio = settings.splitRatio;
-    }
-
-    @Override
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitter, graphics, getPosition());
     }

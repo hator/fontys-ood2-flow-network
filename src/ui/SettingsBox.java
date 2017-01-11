@@ -82,6 +82,7 @@ class SettingsBox extends JPanel {
 
             private void checkIsValid() {
                 try {
+                    // TODO refactor this, so it doesn't need to use a second settings object
                     Settings oldSettings = new Settings();
                     oldSettings.applyValues(settings);
 
