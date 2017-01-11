@@ -30,14 +30,9 @@ public class Merger extends Component implements java.io.Serializable{
     }
 
     @Override
-    public Settings getSettings() {
-        return new Settings(currentFlow, maxFlow, null);
-    }
-
-    @Override
     void recalculateFlow() {
-        this.currentFlow = inputA.getFlow() + inputB.getFlow();
-        this.output.recalculateFlow(this.currentFlow);
+        this.settings.currentFlow = inputA.getFlow() + inputB.getFlow();
+        this.output.recalculateFlow(this.settings.currentFlow);
     }
 
     Output getOutput() {

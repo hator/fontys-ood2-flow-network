@@ -6,20 +6,18 @@ import util.Point;
 import java.awt.*;
 
 abstract public class Element implements java.io.Serializable {
-    float currentFlow;
-    float maxFlow;
+    Settings settings = new Settings();
 
     abstract void recalculateFlow();
 
     float getFlow() {
-        return currentFlow;
+        return settings.currentFlow;
     }
 
-    abstract public Settings getSettings();
+    public Settings getSettings() {return settings;}
 
     void applySettings(Settings settings) {
-        this.currentFlow = settings.currentFlow;
-        this.maxFlow = settings.maxFlow;
+        this.settings = settings;
     }
 
     public abstract boolean inBoundingArea(Point point);

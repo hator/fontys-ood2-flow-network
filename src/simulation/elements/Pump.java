@@ -13,14 +13,14 @@ public class Pump extends Component implements java.io.Serializable{
 
     Pump(float currentFlow, float maxFlow) {
         super(null);
-        this.currentFlow = currentFlow;
-        this.maxFlow = maxFlow;
+        this.settings.currentFlow = currentFlow;
+        this.settings.maxFlow = maxFlow;
     }
 
     public Pump(float currentFlow, float maxFlow, Point position) {
         super(position);
-        this.currentFlow = currentFlow;
-        this.maxFlow = maxFlow;
+        this.settings.currentFlow = currentFlow;
+        this.settings.maxFlow = maxFlow;
     }
 
     Output getOutput() {
@@ -28,13 +28,8 @@ public class Pump extends Component implements java.io.Serializable{
     }
 
     @Override
-    public Settings getSettings() {
-        return new Settings(currentFlow, maxFlow, null);
-    }
-
-    @Override
     void recalculateFlow() {
-        this.getOutput().recalculateFlow(this.currentFlow);
+        this.getOutput().recalculateFlow(this.settings.currentFlow);
     }
 
     @Override

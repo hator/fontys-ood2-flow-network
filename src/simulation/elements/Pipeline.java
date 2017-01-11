@@ -22,7 +22,7 @@ public class Pipeline extends Element implements java.io.Serializable {
 
         this.output = output;
         this.input = input;
-        this.maxFlow = maxFlow;
+        this.settings.maxFlow = maxFlow;
 
         input.attachPipeline(this);
         output.attachPipeline(this);
@@ -32,17 +32,13 @@ public class Pipeline extends Element implements java.io.Serializable {
         this(output, input, maxFlow);
         this.points = points;
     }
-    @Override
-    public Settings getSettings() {
-        return new Settings(currentFlow, maxFlow, null);
-    }
 
     // TODO builder or addPoint method?
 
     @Override
     void recalculateFlow() {
-        this.currentFlow = output.getFlow();
-        input.recalculateFlow(this.currentFlow);
+        this.settings.currentFlow = output.getFlow();
+        input.recalculateFlow(this.settings.currentFlow);
     }
 
     @Override

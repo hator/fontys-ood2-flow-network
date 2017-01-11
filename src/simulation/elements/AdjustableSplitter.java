@@ -7,7 +7,6 @@ import util.Point;
 import java.awt.*;
 
 public class AdjustableSplitter extends Splitter implements java.io.Serializable{
-    private Float splitRatio;
 
     AdjustableSplitter() {
         this(0.5f);
@@ -16,42 +15,37 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
     AdjustableSplitter(Float splitRatio) {
         super(null);
         if (splitRatio != null){
-            this.splitRatio = splitRatio;
+            this.settings.splitRatio = splitRatio;
         }
         else
         {
-            this.splitRatio = 0.5f;
+            this.settings.splitRatio = 0.5f;
         }
     }
 
     public AdjustableSplitter(Float splitRatio, Point position) {
         super(position);
         if (splitRatio != null){
-            this.splitRatio = splitRatio;
+            this.settings.splitRatio = splitRatio;
         }
         else
         {
-            this.splitRatio = 0.5f;
+            this.settings.splitRatio = 0.5f;
         }
-    }
-
-    @Override
-    public Settings getSettings() {
-        return new Settings(currentFlow, maxFlow, splitRatio);
     }
 
     @Override
     void recalculateFlow() {
-        currentFlow = input.getFlow();
-        outputA.recalculateFlow(splitRatio * currentFlow);
-        outputB.recalculateFlow((1 - splitRatio) * currentFlow);
+        settings.currentFlow = input.getFlow();
+        outputA.recalculateFlow(settings.splitRatio * settings.currentFlow);
+        outputB.recalculateFlow((1 - settings.splitRatio) * settings.currentFlow);
     }
 
     @Override
     void applySettings(Settings settings) {
         super.applySettings(settings);
         // TODO probably check if settings.splitRatio is not null
-        this.splitRatio = settings.splitRatio;
+        this.settings.splitRatio = settings.splitRatio;
     }
 
     @Override

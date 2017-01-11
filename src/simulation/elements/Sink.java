@@ -13,12 +13,12 @@ public class Sink extends Component implements java.io.Serializable {
 
     Sink(float maxFlow) {
         super(null);
-        this.maxFlow = maxFlow;
+        this.settings.maxFlow = maxFlow;
     }
 
     public Sink(float maxFlow, Point position) {
         super(position);
-        this.maxFlow = maxFlow;
+        this.settings.maxFlow = maxFlow;
     }
 
     Input getInput() {
@@ -26,12 +26,8 @@ public class Sink extends Component implements java.io.Serializable {
     }
 
     @Override
-    public Settings getSettings() {
-        return new Settings(currentFlow, maxFlow, null);
-    }
-    @Override
     void recalculateFlow() {
-        this.currentFlow = input.getFlow();
+        this.settings.currentFlow = input.getFlow();
     }
 
     @Override
