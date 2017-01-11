@@ -1,6 +1,5 @@
 package simulation.elements;
 
-import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -25,5 +24,8 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
     @Override
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitter, graphics, getPosition());
+        input.render(graphics);
+        outputA.render(graphics);
+        outputB.render(graphics);
     }
 }

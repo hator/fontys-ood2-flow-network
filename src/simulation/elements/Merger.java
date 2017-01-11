@@ -1,6 +1,5 @@
 package simulation.elements;
 
-import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -53,6 +52,9 @@ public class Merger extends Component implements java.io.Serializable {
     @Override
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.Merger, graphics, getPosition());
+        inputA.render(graphics);
+        inputB.render(graphics);
+        output.render(graphics);
     }
 
     @Override

@@ -2,12 +2,14 @@ package simulation.elements;
 
 import util.Point;
 
+import java.awt.*;
+
 public abstract class InputOutput implements java.io.Serializable {
-    private static final double CLICK_RADIUS = 10;
+    static final int RADIUS = 10;
     float currentFlow;
     Pipeline pipeline = null;
     Component component;
-    private Point position;
+    Point position;
 
     InputOutput(Component component, Point position) {
         this.component = component;
@@ -16,10 +18,12 @@ public abstract class InputOutput implements java.io.Serializable {
 
     protected abstract void recalculateFlow(float previousElementFlow);
 
+    abstract void render(Graphics g);
+
     public boolean inBoundingArea(Point point) {
         assert point != null;
 
-        return position.getDistance(point) <= CLICK_RADIUS;
+        return position.getDistance(point) <= RADIUS;
     }
 
     void attachPipeline(Pipeline pipeline) {

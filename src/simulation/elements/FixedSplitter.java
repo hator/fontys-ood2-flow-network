@@ -1,6 +1,5 @@
 package simulation.elements;
 
-import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -22,5 +21,8 @@ public class FixedSplitter extends Splitter implements java.io.Serializable {
     @Override
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.Splitter, graphics, getPosition());
+        input.render(graphics);
+        outputA.render(graphics);
+        outputB.render(graphics);
     }
 }

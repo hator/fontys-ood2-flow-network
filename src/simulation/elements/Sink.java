@@ -1,6 +1,5 @@
 package simulation.elements;
 
-import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -39,6 +38,7 @@ public class Sink extends Component implements java.io.Serializable {
     @Override
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.Barrel, graphics, getPosition());
+        input.render(graphics);
     }
 
     @Override
