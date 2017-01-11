@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.List;
 
 public class Pipeline extends Element implements java.io.Serializable {
-    static final int CLICK_RADIUS = 15;
+    static final int CLICK_RADIUS = 5;
     private List<Point> points;
     private Input input;
     private Output output;

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 abstract public class Component extends Element implements java.io.Serializable{
-    static final int CLICK_RADIUS = 30;
+    static final int CLICK_RADIUS = 50;
     private Point position;
     private boolean toBeDeleted = false;
 
