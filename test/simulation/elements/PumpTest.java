@@ -10,7 +10,7 @@ public class PumpTest {
     public void pumpReturnsSetFlow() {
         // Given
         float flow = 10.f;
-        Pump pump = new Pump(flow, flow);
+        Pump pump = new Pump(flow, flow, Point.zero());
 
         // When
 

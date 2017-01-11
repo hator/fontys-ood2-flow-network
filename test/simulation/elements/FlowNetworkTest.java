@@ -15,10 +15,10 @@ public class FlowNetworkTest {
     public void removeElementTest() {
         FlowNetwork network = new FlowNetwork();
 
-        Pump pump = new Pump(10, 10);
-        Pump pump2 = new Pump(10, 10);
-        Sink sink = new Sink(20);
-        Merger merger = new Merger();
+        Pump pump = new Pump(10, 10, Point.zero());
+        Pump pump2 = new Pump(10, 10, Point.zero());
+        Sink sink = new Sink(20, Point.zero());
+        Merger merger = new Merger(Point.zero());
         Pipeline pipeline1 = new Pipeline(pump.getOutput(), merger.getInputA(), 10);
         Pipeline pipeline2 = new Pipeline(pump2.getOutput(), merger.getInputB(), 10);
         Pipeline pipeline3 = new Pipeline(merger.getOutput(), sink.getInput(), 20);
@@ -98,10 +98,10 @@ public class FlowNetworkTest {
     public void addingPipelineRecalculatesFlow() {
         FlowNetwork network = new FlowNetwork();
 
-        Pump pump = new Pump(10, 10);
-        Pump pump2 = new Pump(10, 10);
-        Sink sink = new Sink(20);
-        Merger merger = new Merger();
+        Pump pump = new Pump(10, 10, Point.zero());
+        Pump pump2 = new Pump(10, 10, Point.zero());
+        Sink sink = new Sink(20, Point.zero());
+        Merger merger = new Merger(Point.zero());
         Pipeline pipeline1 = new Pipeline(pump.getOutput(), merger.getInputA(), 10);
         Pipeline pipeline2 = new Pipeline(pump2.getOutput(), merger.getInputB(), 10);
         Pipeline pipeline3 = new Pipeline(merger.getOutput(), sink.getInput(), 20);

@@ -1,6 +1,7 @@
 package simulation.elements;
 
 import org.junit.Test;
+import util.Point;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +9,7 @@ public class MergerTest {
     @Test
     public void unconnectedMergerHas0Flow() {
         // Given
-        Merger merger = new Merger();
+        Merger merger = new Merger(Point.zero());
 
         // When
         merger.recalculateFlow();
@@ -23,7 +24,7 @@ public class MergerTest {
         float flowA = 1.f;
         float flowB = 2.f;
         float expectedFlow = flowA + flowB;
-        Merger merger = new Merger();
+        Merger merger = new Merger(Point.zero());
         Pipeline pipeA = new MockFixedFlowPipeline(flowA, merger.getInputA());
         Pipeline pipeB = new MockFixedFlowPipeline(flowB, merger.getInputB());
 

@@ -1,6 +1,7 @@
 package simulation.elements;
 
 import org.junit.Test;
+import util.Point;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +9,7 @@ public class SinkTest {
     @Test
     public void unconnectedSinkHas0Flow() {
         // Given
-        Sink sink = new Sink(10.f);
+        Sink sink = new Sink(10.f, Point.zero());
 
         // When
         sink.recalculateFlow();
@@ -23,7 +24,7 @@ public class SinkTest {
         // Given
         float flow = 5.f;
         float maxFlow = 10.f;
-        Sink sink = new Sink(maxFlow);
+        Sink sink = new Sink(maxFlow, Point.zero());
         Pipeline pipe = new MockFixedFlowPipeline(flow, sink.getInput());
 
         // When

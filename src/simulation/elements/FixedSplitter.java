@@ -6,11 +6,7 @@ import util.Point;
 
 import java.awt.*;
 
-public class FixedSplitter extends Splitter implements java.io.Serializable{
-
-    FixedSplitter() {
-        super(null);
-    }
+public class FixedSplitter extends Splitter implements java.io.Serializable {
 
     public FixedSplitter(Point position){
         super(position);

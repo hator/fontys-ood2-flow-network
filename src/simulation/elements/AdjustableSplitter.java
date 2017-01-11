@@ -8,30 +8,11 @@ import java.awt.*;
 
 public class AdjustableSplitter extends Splitter implements java.io.Serializable{
 
-    AdjustableSplitter() {
-        this(0.5f);
-    }
-
-    AdjustableSplitter(Float splitRatio) {
-        super(null);
-        if (splitRatio != null){
-            this.settings.splitRatio = splitRatio;
-        }
-        else
-        {
-            this.settings.splitRatio = 0.5f;
-        }
-    }
 
     public AdjustableSplitter(Float splitRatio, Point position) {
         super(position);
-        if (splitRatio != null){
-            this.settings.splitRatio = splitRatio;
-        }
-        else
-        {
-            this.settings.splitRatio = 0.5f;
-        }
+        assert splitRatio != null;
+        this.settings.splitRatio = splitRatio;
     }
 
     @Override

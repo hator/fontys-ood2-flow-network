@@ -1,6 +1,6 @@
 package util;
 
-public class Point implements java.io.Serializable{
+public class Point implements java.io.Serializable {
     public int x;
     public int y;
 
@@ -9,10 +9,12 @@ public class Point implements java.io.Serializable{
         this.y = y;
     }
 
-    public double getDistance(Point point)
-    {
-        return Math.sqrt(Math.pow(point.x - this.x, 2) +
-                Math.pow(point.y - this.y, 2));
+    public static Point zero() {
+        return new Point(0, 0);
+    }
+
+    public double getDistance(Point point) {
+        return Math.sqrt(Math.pow(point.x - this.x, 2) + Math.pow(point.y - this.y, 2));
     }
 
     public boolean inBoundingSegment(Point segmentA, Point segmentB, int clickWidth){

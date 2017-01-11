@@ -11,11 +11,6 @@ import java.util.List;
 public class Pump extends Component implements java.io.Serializable{
     private Output output = new Output(this);
 
-    Pump(float currentFlow, float maxFlow) {
-        super(null);
-        this.settings.currentFlow = currentFlow;
-        this.settings.maxFlow = maxFlow;
-    }
 
     public Pump(float currentFlow, float maxFlow, Point position) {
         super(position);

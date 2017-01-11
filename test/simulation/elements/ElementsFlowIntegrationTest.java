@@ -1,6 +1,7 @@
 package simulation.elements;
 
 import org.junit.Test;
+import util.Point;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,8 +13,8 @@ public class ElementsFlowIntegrationTest {
         float maxFlow = 10.f;
         float pumpFlow = 10.f;
 
-        Pump pump = new Pump(pumpFlow, maxFlow);
-        Sink sink = new Sink(maxFlow);
+        Pump pump = new Pump(pumpFlow, maxFlow, Point.zero());
+        Sink sink = new Sink(maxFlow, Point.zero());
         Pipeline pipeline = new Pipeline(pump.getOutput(), sink.getInput(), maxFlow);
 
         // When
@@ -35,12 +36,12 @@ public class ElementsFlowIntegrationTest {
         float maxFlow = 10.f;
         float pumpFlow = 10.f;
 
-        Pump pump = new Pump(pumpFlow, maxFlow);
-        FixedSplitter fixedSplitter = new FixedSplitter();
-        AdjustableSplitter adjustableSplitter = new AdjustableSplitter(0.2f);
-        Merger merger = new Merger();
-        Sink sinkA = new Sink(maxFlow);
-        Sink sinkB = new Sink(maxFlow);
+        Pump pump = new Pump(pumpFlow, maxFlow, Point.zero());
+        FixedSplitter fixedSplitter = new FixedSplitter(Point.zero());
+        AdjustableSplitter adjustableSplitter = new AdjustableSplitter(0.2f, Point.zero());
+        Merger merger = new Merger(Point.zero());
+        Sink sinkA = new Sink(maxFlow, Point.zero());
+        Sink sinkB = new Sink(maxFlow, Point.zero());
         Pipeline a = new Pipeline(pump.getOutput(), fixedSplitter.getInput(), maxFlow);
         Pipeline b = new Pipeline(fixedSplitter.getOutputA(), merger.getInputA(), maxFlow);
         Pipeline c = new Pipeline(fixedSplitter.getOutputB(), adjustableSplitter.getInput(), maxFlow);

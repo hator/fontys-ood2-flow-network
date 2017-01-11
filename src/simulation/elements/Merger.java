@@ -13,10 +13,6 @@ public class Merger extends Component implements java.io.Serializable{
     private Input inputB = new Input(this);
     private Output output = new Output(this);
 
-    Merger() {
-        super(null);
-    }
-
     public Merger(Point position) {
         super(position);
     }

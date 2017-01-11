@@ -11,11 +11,6 @@ import java.util.List;
 public class Sink extends Component implements java.io.Serializable {
     private Input input = new Input(this);
 
-    Sink(float maxFlow) {
-        super(null);
-        this.settings.maxFlow = maxFlow;
-    }
-
     public Sink(float maxFlow, Point position) {
         super(position);
         this.settings.maxFlow = maxFlow;
