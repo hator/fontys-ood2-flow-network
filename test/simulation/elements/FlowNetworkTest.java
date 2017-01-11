@@ -46,7 +46,7 @@ public class FlowNetworkTest {
 
         network.removeElement(pump);
 
-        assertEquals(merger.getInputA().pipeline, null);
+        assertEquals(null, merger.getInputA().pipeline);
         assertEquals(10f, sink.getFlow(), 0.001f);
     }
 
@@ -116,5 +116,61 @@ public class FlowNetworkTest {
         network.addPipeline(pipeline3);
 
         assertEquals(20f, sink.getFlow(), 0.001f);
+    }
+
+    @Test
+    public void findInputFindsInputInsideComponent() throws Exception {
+        // Given
+        FlowNetwork network = new FlowNetwork();
+
+        Point mergerPosition = new Point(100, 100);
+        Merger merger = new Merger(mergerPosition);
+
+        network.addComponent(merger);
+
+        // When
+
+        // Merger radius: 50, input radius: 10
+        Point clickOutsideMerger = new Point(20, 20);
+        Input notFound = network.findInput(clickOutsideMerger);
+
+        Point clickOnMergerButOutsideInput = new Point(80, 100);
+        Input alsoNotFound = network.findInput(clickOnMergerButOutsideInput);
+
+        Point clickOnInputPosition = new Point(75, 80);
+        Input found = network.findInput(clickOnInputPosition);
+
+        // Then
+        assertEquals(null, notFound);
+        assertEquals(null, alsoNotFound);
+        assertEquals(merger.getInputA(), found);
+    }
+
+    @Test
+    public void findOutputFindsOutputInsideComponent() throws Exception {
+        // Given
+        FlowNetwork network = new FlowNetwork();
+
+        Point splitterPosition = new Point(100, 100);
+        FixedSplitter splitter = new FixedSplitter(splitterPosition);
+
+        network.addComponent(splitter);
+
+        // When
+
+        // Merger radius: 50, input radius: 10
+        Point clickOutsideMerger = new Point(20, 20);
+        Output notFound = network.findOutput(clickOutsideMerger);
+
+        Point clickOnMergerButOutsideOutput = new Point(80, 100);
+        Output alsoNotFound = network.findOutput(clickOnMergerButOutsideOutput);
+
+        Point clickOnOutputPosition = new Point(122, 80);
+        Output found = network.findOutput(clickOnOutputPosition);
+
+        // Then
+        assertEquals(null, notFound);
+        assertEquals(null, alsoNotFound);
+        assertEquals(splitter.getOutputA(), found);
     }
 }

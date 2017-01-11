@@ -1,8 +1,7 @@
 package simulation;
 
 import simulation.elements.Component;
-import simulation.elements.Element;
-import simulation.elements.Pipeline;
+import simulation.elements.*;
 import util.Point;
 
 import java.awt.*;
@@ -50,7 +49,6 @@ public class FlowNetwork implements java.io.Serializable{
         pipelines.remove(pipeline);
     }
 
-
     public Element findElement(Point point) {
         assert point != null;
 
@@ -67,14 +65,6 @@ public class FlowNetwork implements java.io.Serializable{
         return null;
     }
 
-    Component findComponent(Point point) {
-        assert point != null;
-        return components.stream()
-                .filter(c -> c.inBoundingArea(point))
-                .findFirst()
-                .orElse(null);
-    }
-
     public boolean isOverlapping(Component component) {
         assert component != null;
 
@@ -88,4 +78,37 @@ public class FlowNetwork implements java.io.Serializable{
         components.forEach(c -> c.render(g));
         pipelines.forEach(c -> c.render(g));
     }
+
+    public Output findOutput(Point point) {
+        Component component = findComponent(point);
+        if (component != null) {
+            return component.getOutputs()
+                    .stream()
+                    .filter(o -> o.inBoundingArea(point))
+                    .findFirst()
+                    .orElse(null);
+        }
+        return null;
+    }
+
+    public Input findInput(Point point) {
+        Component component = findComponent(point);
+        if (component != null) {
+            return component.getInputs()
+                    .stream()
+                    .filter(o -> o.inBoundingArea(point))
+                    .findFirst()
+                    .orElse(null);
+        }
+        return null;
+    }
+
+    private Component findComponent(Point point) {
+        assert point != null;
+        return components.stream()
+                .filter(c -> c.inBoundingArea(point))
+                .findFirst()
+                .orElse(null);
+    }
+
 }

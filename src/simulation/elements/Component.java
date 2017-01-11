@@ -2,10 +2,6 @@ package simulation.elements;
 
 import util.Point;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 abstract public class Component extends Element implements java.io.Serializable{
@@ -47,12 +43,12 @@ abstract public class Component extends Element implements java.io.Serializable{
         return toBeDeleted;
     }
 
-    protected Point calculateSingleIOPosition(boolean isInput) {
+    Point calculateSingleIOPosition(boolean isInput) {
         return position.plus(new Point(isInput ? -20 : +20, 0));
     }
 
-    protected Point calculateOneOfTwoIOsPosition(boolean isInput, int ioNumber) {
+    Point calculateOneOfTwoIOsPosition(boolean isInput, int ioNumber) {
         assert ioNumber >= 1 && ioNumber <= 2;
-        return calculateSingleIOPosition(isInput).plus(new Point(0, ioNumber * 15 - 30));
+        return calculateSingleIOPosition(isInput).plus(new Point(0, (ioNumber - 1) * 30 - 15));
     }
 }
