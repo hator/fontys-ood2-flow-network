@@ -57,10 +57,9 @@ class Toolbox extends JPanel {
     private void onButtonClicked(ActionEvent e) {
         String actionCommand = e.getActionCommand();
         Tool tool = Tool.valueOf(actionCommand);
-        selectToolCallback.accept(tool, settingsBox.getSettings());
 
         prepareSettingsBox(tool);
-
+        selectToolCallback.accept(tool, settingsBox.getSettings());
     }
 
     private void prepareSettingsBox(Tool tool) {
