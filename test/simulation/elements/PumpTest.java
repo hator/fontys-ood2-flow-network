@@ -28,7 +28,7 @@ public class PumpTest {
         Pump pump = new Pump(flow, flow, point);
 
         assertEquals(pump.inBoundingArea(new Point(99 + Component.CLICK_RADIUS, 100)), true);
-        assertEquals(pump.inBoundingArea(new Point(100 + 1/3*Component.CLICK_RADIUS, 100 + 1/3*Component.CLICK_RADIUS)), true);
+        assertEquals(pump.inBoundingArea(new Point((int) (100 + 0.3 * Component.CLICK_RADIUS), (int) (100 + 0.3 * Component.CLICK_RADIUS))), true);
         assertEquals(pump.inBoundingArea(new Point(100, 101 + Component.CLICK_RADIUS)), false);
     }
 }
