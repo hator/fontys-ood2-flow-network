@@ -7,14 +7,11 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.*;
 
 class MainWindow extends JFrame {
@@ -48,7 +45,7 @@ class MainWindow extends JFrame {
         final Diagram diagram = new Diagram(simulation);
         add(diagram, BorderLayout.CENTER);
 
-        final Toolbox toolbox = new Toolbox(diagram::selectTool);
+        final Toolbox toolbox = new Toolbox(diagram::selectTool, diagram::setResultMessage);
         add(toolbox, BorderLayout.WEST);
 
         diagram.setChangeSettingsReferenceCallback(toolbox::setCurrentSettingsReference);

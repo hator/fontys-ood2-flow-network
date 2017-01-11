@@ -4,16 +4,12 @@ import simulation.Result;
 import simulation.Settings;
 import simulation.SimulationFacade;
 import simulation.Tool;
-import simulation.elements.Pipeline;
 import util.Point;
-import javax.imageio.ImageIO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.function.Consumer;
@@ -25,7 +21,9 @@ class Diagram extends JPanel {
     private Consumer<Settings> changeSettingsReferenceCallback;
     //stores all the points on the pipeline that we're currently working with
     private List<Point> pipelinePointList = new ArrayList<>();
-    private boolean isOverlapping;
+    private boolean isResultNotSuccessful;
+    private String resultMessage = "OK";
+
 
     Diagram(SimulationFacade simulation) {
         this.simulation = simulation;
@@ -49,24 +47,25 @@ class Diagram extends JPanel {
         //Draw background color
         g.setColor(Color.WHITE);
         g.fillRect(0,0,dim.width,dim.height);
+        setStatusLabel(g);
 
-        g.setColor(Color.GREEN);
-        g.setFont(new Font("Arial", Font.BOLD, 15));
-        if(isOverlapping)
-        {
-            g.setColor(Color.RED);
-            g.drawString("Status: Overlapping", 10, 10);
-        }
-        else
-            g.drawString("Status: OK", 10, 10);
-
-        g.setColor(Color.GREEN);
-
-        System.out.println();
         simulation.render(g);
     }
 
+    void setStatusLabel(Graphics g)
+    {
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("Arial", Font.BOLD, 15));
+        if(isResultNotSuccessful)
+        {
+            g.setColor(Color.RED);
+        }
 
+        g.drawString("Status: " + resultMessage, 10, 10);
+        g.setColor(Color.GREEN);
+
+        System.out.println();
+    }
 
     void setChangeSettingsReferenceCallback(Consumer<Settings> changeSettingsReferenceCallback) {
         this.changeSettingsReferenceCallback = changeSettingsReferenceCallback;
@@ -76,7 +75,7 @@ class Diagram extends JPanel {
         assert currentTool != null;
 
         Point point = new Point(x, y);
-        isOverlapping = false;
+        isResultNotSuccessful = false;
         switch (currentTool) {
             case Select:
                 Settings settings = simulation.select(point);
@@ -113,21 +112,28 @@ class Diagram extends JPanel {
 
     }
 
-    private void handleResult(Result result) {
-        //TODO implement
-        if (result == Result.InvalidSettings){
-            System.out.print("invalid settings");
+    public void setResultMessage(Result result) {
+        if(result == Result.Success){
+            isResultNotSuccessful = false;
+            resultMessage = "OK";
         }
-        else if (result == Result.ComponentsOverlapping)
-            isOverlapping = true;
-
-
+        else{
+            isResultNotSuccessful = true;
+            if (result == Result.InvalidSettings){
+                resultMessage = "Invalid settings!";
+            }
+            else if (result == Result.ComponentsOverlapping) {
+                resultMessage = "Component overlapping!";
+            }
+            else if (result == Result.Failure){
+                resultMessage = "Failure!";
+            }
+        }
+        this.repaint();
     }
 
     private void applyAddTool(Point point, Tool tool) {
         Result result = simulation.applyTool(point, tool, currentSettingsReference);
-        if (result != Result.Success){
-            handleResult(result);
-        }
+        setResultMessage(result);
     }
 }

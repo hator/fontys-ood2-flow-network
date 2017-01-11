@@ -1,26 +1,27 @@
 package ui;
 
+import simulation.Result;
 import simulation.Settings;
 import simulation.Tool;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 class Toolbox extends JPanel {
     private ButtonGroup buttonGroup = new ButtonGroup();
     private BiConsumer<Tool, Settings> selectToolCallback;
     private SettingsBox settingsBox;
 
-    Toolbox(BiConsumer<Tool, Settings> selectToolCallback) {
+    Toolbox(BiConsumer<Tool, Settings> selectToolCallback, Consumer<Result> resultCallback) {
         this.selectToolCallback = selectToolCallback;
 
-        initializeButtons();
+        initializeButtons(resultCallback);
     }
 
-    private void initializeButtons() {
+    private void initializeButtons(Consumer<Result> resultCallback) {
         final GridLayout layout = new GridLayout(0, 1, 5, 5);
 
         setLayout(layout);
@@ -33,7 +34,7 @@ class Toolbox extends JPanel {
         createAndAddButton("Add Merger", Tool.AddMerger);
         createAndAddButton("Add Pipeline", Tool.AddPipeline);
 
-        settingsBox = new SettingsBox();
+        settingsBox = new SettingsBox(resultCallback);
         add(settingsBox);
 
         selectButton(selectionToolBtn);

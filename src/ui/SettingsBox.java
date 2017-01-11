@@ -1,5 +1,6 @@
 package ui;
 
+import simulation.Result;
 import simulation.Settings;
 
 import javax.swing.*;
@@ -30,10 +31,11 @@ class SettingsBox extends JPanel {
     private final Input currentFlowInput;
     private final Input maximumFlowInput;
     private final Input splitRatioInput;
+    private Consumer<Result> resultCallback;
 
     private Settings settings = new Settings();
 
-    SettingsBox() {
+    SettingsBox(Consumer<Result> resultCallback) {
         setMinimumSize(new Dimension(500, 500));
 
         GridLayout layout = new GridLayout(0, 2, 5, 5);
@@ -47,6 +49,7 @@ class SettingsBox extends JPanel {
         this.splitRatioInput = createFieldWithLabel("Split ratio", (floatVal) -> settings.splitRatio = floatVal);
 
         this.splitRatioInput.setEnabled(false);
+        this.resultCallback = resultCallback;
 
         setCurrentSettingsReference(this.settings);
     }
@@ -64,26 +67,39 @@ class SettingsBox extends JPanel {
         textField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                checkIsFloat();
+                checkIsValid();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                checkIsFloat();
+                checkIsValid();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                checkIsFloat();
+                checkIsValid();
             }
 
-            private void checkIsFloat() {
+            private void checkIsValid() {
                 try {
+                    Settings oldSettings = new Settings();
+                    oldSettings.applyValues(settings);
+
                     Float floatVal = Float.parseFloat(textField.getText());
                     fieldUpdateFunc.accept(floatVal);
-                    SettingsBox.this.resetFieldValidation(textField);
+                    if(!settings.isValid())
+                    {
+                        settings.applyValues(oldSettings);
+                        resultCallback.accept(Result.InvalidSettings);
+                    }
+                    else
+                    {
+                        resultCallback.accept(Result.Success);
+                        SettingsBox.this.resetFieldValidation(textField);
+                    }
                 } catch (NumberFormatException e) {
                     textField.setBackground(Color.RED);
+                    resultCallback.accept(Result.InvalidSettings);
                 }
             }
         });
