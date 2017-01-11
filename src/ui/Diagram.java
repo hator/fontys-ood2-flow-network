@@ -36,7 +36,7 @@ class Diagram extends JPanel {
 
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 mouseClickCallback(e.getX(), e.getY());
             }
         });
@@ -104,7 +104,7 @@ class Diagram extends JPanel {
 
     }
 
-    void handleResult(Result result) {
+    private void handleResult(Result result) {
         //TODO implement
         if (result == Result.InvalidSettings){
             System.out.print("invalid settings");
