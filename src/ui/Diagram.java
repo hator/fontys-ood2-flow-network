@@ -25,8 +25,7 @@ class Diagram extends JPanel {
     private Consumer<Settings> changeSettingsReferenceCallback;
     //stores all the points on the pipeline that we're currently working with
     private List<Point> pipelinePointList = new ArrayList<>();
-    //stores all the pipelines
-
+    private boolean isOverlapping;
 
     Diagram(SimulationFacade simulation) {
         this.simulation = simulation;
@@ -51,8 +50,17 @@ class Diagram extends JPanel {
         g.setColor(Color.WHITE);
         g.fillRect(0,0,dim.width,dim.height);
 
-        //change color to black to draw visible lines
-        g.setColor(Color.BLACK);
+        g.setColor(Color.GREEN);
+        g.setFont(new Font("Arial", Font.BOLD, 15));
+        if(isOverlapping)
+        {
+            g.setColor(Color.RED);
+            g.drawString("Status: Overlapping", 10, 10);
+        }
+        else
+            g.drawString("Status: OK", 10, 10);
+
+        g.setColor(Color.GREEN);
 
         System.out.println();
         simulation.render(g);
@@ -68,7 +76,7 @@ class Diagram extends JPanel {
         assert currentTool != null;
 
         Point point = new Point(x, y);
-
+        isOverlapping = false;
         switch (currentTool) {
             case Select:
                 Settings settings = simulation.select(point);
@@ -91,6 +99,7 @@ class Diagram extends JPanel {
             }
             default:
                 applyAddTool(point, currentTool);
+
                 break;
         }
         this.repaint();
@@ -109,6 +118,10 @@ class Diagram extends JPanel {
         if (result == Result.InvalidSettings){
             System.out.print("invalid settings");
         }
+        else if (result == Result.ComponentsOverlapping)
+            isOverlapping = true;
+
+
     }
 
     private void applyAddTool(Point point, Tool tool) {
