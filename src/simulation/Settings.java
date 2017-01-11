@@ -24,4 +24,10 @@ public class Settings {
 
         return maxFlow >= 0.0 && currentFlow >= 0.0 && splitValid;
     }
+
+    public void applyValues(Settings settings){
+        this.currentFlow = settings.currentFlow;
+        this.maxFlow = settings.maxFlow;
+        this.splitRatio = settings.splitRatio;
+    }
 }
