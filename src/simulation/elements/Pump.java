@@ -8,12 +8,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pump extends Component implements java.io.Serializable{
-    private Output output = new Output(this);
-
+public class Pump extends Component implements java.io.Serializable {
+    private Output output;
 
     public Pump(float currentFlow, float maxFlow, Point position) {
         super(position);
+        this.output = new Output(this, calculateSingleIOPosition(false));
         this.settings.currentFlow = currentFlow;
         this.settings.maxFlow = maxFlow;
     }

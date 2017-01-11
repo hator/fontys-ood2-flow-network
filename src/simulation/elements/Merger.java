@@ -8,13 +8,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Merger extends Component implements java.io.Serializable{
-    private Input inputA = new Input(this);
-    private Input inputB = new Input(this);
-    private Output output = new Output(this);
+public class Merger extends Component implements java.io.Serializable {
+    private Input inputA;
+    private Input inputB;
+    private Output output;
 
     public Merger(Point position) {
         super(position);
+        inputA = new Input(this, calculateOneOfTwoIOsPosition(true, 1));
+        inputB = new Input(this, calculateOneOfTwoIOsPosition(true, 2));
+        output = new Output(this, calculateSingleIOPosition(false));
     }
 
     Input getInputA() {

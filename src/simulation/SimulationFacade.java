@@ -17,10 +17,10 @@ public class SimulationFacade {
 
     //overload for pipelines because they need a list of points, not just one point.
     //
-    public Result applyTool(List<Point> points, Settings settings)
-    {
-        Pipeline p = new Pipeline(new Output(flowNetwork.findComponent(points.get(0))), new Input(flowNetwork.findComponent(points.get(0))), settings.maxFlow, points);
-        flowNetwork.addPipeline(p);
+    public Result applyTool(List<Point> points, Settings settings) {
+        // FIXME this is plain wrong! It creates new Input and Output for component when creating Pipeline, but the component has its own inputs and outputs!
+        //Pipeline p = new Pipeline(new Output(flowNetwork.findComponent(points.get(0))), new Input(flowNetwork.findComponent(points.get(0))), settings.maxFlow, points);
+        //flowNetwork.addPipeline(p);
         return Result.Success;
     }
     public Result applyTool(Point point, Tool tool, Settings settings) {

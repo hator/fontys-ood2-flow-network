@@ -1,8 +1,10 @@
 package simulation.elements;
 
+import util.Point;
+
 class MockInput extends Input {
     MockInput() {
-        super(null);
+        super(null, Point.zero());
         this.currentFlow = 0.f;
     }
 

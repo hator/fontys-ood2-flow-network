@@ -34,7 +34,7 @@ abstract public class Component extends Element implements java.io.Serializable{
         return position.getDistance(point) <= CLICK_RADIUS;
     }
 
-    public Point getPosition() {
+    Point getPosition() {
         return position;
     }
 
@@ -44,5 +44,14 @@ abstract public class Component extends Element implements java.io.Serializable{
 
     boolean isBeingDeleted() {
         return toBeDeleted;
+    }
+
+    protected Point calculateSingleIOPosition(boolean isInput) {
+        return position.plus(new Point(isInput ? -20 : +20, 0));
+    }
+
+    protected Point calculateOneOfTwoIOsPosition(boolean isInput, int ioNumber) {
+        assert ioNumber >= 1 && ioNumber <= 2;
+        return calculateSingleIOPosition(isInput).plus(new Point(0, ioNumber * 15 - 30));
     }
 }

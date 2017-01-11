@@ -1,10 +1,12 @@
 package simulation.elements;
 
+import util.Point;
+
 class MockOutput extends Output {
     private float setFlow;
 
     MockOutput(float flow) {
-        super(null);
+        super(null, Point.zero());
         this.setFlow = flow;
         this.currentFlow = flow;
     }

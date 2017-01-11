@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sink extends Component implements java.io.Serializable {
-    private Input input = new Input(this);
+    private Input input;
 
     public Sink(float maxFlow, Point position) {
         super(position);
         this.settings.maxFlow = maxFlow;
+        this.input = new Input(this, calculateSingleIOPosition(true));
     }
 
     Input getInput() {

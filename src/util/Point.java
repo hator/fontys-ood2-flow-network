@@ -48,4 +48,8 @@ public class Point implements java.io.Serializable {
     private boolean betweenNumbers(double value, double a, double b) {
         return value >= Math.min(a, b) && value <= Math.max(a, b);
     }
+
+    public Point plus(Point other) {
+        return new Point(x + other.x, y + other.y);
+    }
 }

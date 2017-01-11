@@ -1,9 +1,11 @@
 package simulation.elements;
 
+import util.Point;
+
 public class Output extends InputOutput implements java.io.Serializable{
 
-    public Output(Component component) {
-        super(component);
+    public Output(Component component, Point position) {
+        super(component, position);
     }
 
     @Override

@@ -1,10 +1,12 @@
 package simulation.elements;
 
+import util.Point;
+
 class MockFixedFlowPipeline extends Pipeline {
     private final Input input;
 
     MockFixedFlowPipeline(float flow, Input input) {
-        super(new Output(null), input, flow);
+        super(new Output(null, Point.zero()), input, flow);
         this.settings.currentFlow = flow;
         this.input = input;
     }
