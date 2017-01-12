@@ -23,9 +23,6 @@ class SettingsBox extends JPanel {
         }
 
         void setEnabled(boolean enabled) {
-            if (!enabled) {
-                textField.setText("");
-            }
             textField.setEnabled(enabled);
             label.setEnabled(enabled);
         }
@@ -127,6 +124,7 @@ class SettingsBox extends JPanel {
             setFieldsWithSettings(settings);
             resetFieldsValidation();
         } else {
+            clearAllFields();
             setEnabled(false);
         }
     }
@@ -153,6 +151,12 @@ class SettingsBox extends JPanel {
         resetFieldValidation(currentFlowInput.textField);
         resetFieldValidation(maximumFlowInput.textField);
         resetFieldValidation(splitRatioInput.textField);
+    }
+
+    private void clearAllFields() {
+        currentFlowInput.textField.setText("");
+        maximumFlowInput.textField.setText("");
+        splitRatioInput.textField.setText("");
     }
 
     Settings getSettings() {
