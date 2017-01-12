@@ -15,13 +15,13 @@ class Toolbox extends JPanel {
     private BiConsumer<Tool, Settings> selectToolCallback;
     private SettingsBox settingsBox;
 
-    Toolbox(BiConsumer<Tool, Settings> selectToolCallback, Consumer<Result> resultCallback) {
+    Toolbox(BiConsumer<Tool, Settings> selectToolCallback, Consumer<Result> changeSettingsResultCallback) {
         this.selectToolCallback = selectToolCallback;
 
-        initializeButtons(resultCallback);
+        initializeButtons(changeSettingsResultCallback);
     }
 
-    private void initializeButtons(Consumer<Result> resultCallback) {
+    private void initializeButtons(Consumer<Result> changeSettingsResultCallback) {
         final GridLayout layout = new GridLayout(0, 1, 5, 5);
 
         setLayout(layout);
@@ -34,7 +34,7 @@ class Toolbox extends JPanel {
         createAndAddButton("Add Merger", Tool.AddMerger);
         createAndAddButton("Add Pipeline", Tool.AddPipeline);
 
-        settingsBox = new SettingsBox(resultCallback);
+        settingsBox = new SettingsBox(changeSettingsResultCallback);
         add(settingsBox);
 
         selectButton(selectionToolBtn);

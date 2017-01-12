@@ -31,11 +31,11 @@ class SettingsBox extends JPanel {
     private final Input currentFlowInput;
     private final Input maximumFlowInput;
     private final Input splitRatioInput;
-    private Consumer<Result> resultCallback;
+    private Consumer<Result> changeSettingsResultCallback;
 
     private Settings settings = Settings.getDefault();
 
-    SettingsBox(Consumer<Result> resultCallback) {
+    SettingsBox(Consumer<Result> changeSettingsResultCallback) {
         setMinimumSize(new Dimension(500, 500));
 
         GridLayout layout = new GridLayout(0, 2, 5, 5);
@@ -49,7 +49,7 @@ class SettingsBox extends JPanel {
         this.splitRatioInput = createFieldWithLabel("Split ratio", (floatVal) -> settings.splitRatio = floatVal);
 
         this.splitRatioInput.setEnabled(false);
-        this.resultCallback = resultCallback;
+        this.changeSettingsResultCallback = changeSettingsResultCallback;
 
         setCurrentSettingsReference(this.settings);
     }
@@ -91,16 +91,16 @@ class SettingsBox extends JPanel {
                     if(!settings.isValid())
                     {
                         settings.applyValues(oldSettings);
-                        resultCallback.accept(Result.InvalidSettings);
+                        changeSettingsResultCallback.accept(Result.InvalidSettings);
                     }
                     else
                     {
-                        resultCallback.accept(Result.Success);
+                        changeSettingsResultCallback.accept(Result.Success);
                         SettingsBox.this.resetFieldValidation(textField);
                     }
                 } catch (NumberFormatException e) {
                     textField.setBackground(Color.RED);
-                    resultCallback.accept(Result.InvalidSettings);
+                    changeSettingsResultCallback.accept(Result.InvalidSettings);
                 }
             }
         });
