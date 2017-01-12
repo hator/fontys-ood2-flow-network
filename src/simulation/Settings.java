@@ -4,7 +4,7 @@ import util.Point;
 
 import java.awt.*;
 
-public class Settings {
+public class Settings implements java.io.Serializable{
     public float currentFlow;
     public float maxFlow;
     public Float splitRatio;
