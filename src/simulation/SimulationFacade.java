@@ -103,6 +103,10 @@ public class SimulationFacade {
         flowNetwork.renderLast(g);
     }
 
+    public boolean flowNetworkIsEmpty(){
+        return flowNetwork.isEmpty();
+    }
+
     public Result remove(Point point) {
         deselect();
         if(flowNetwork.findElement(point) != null){

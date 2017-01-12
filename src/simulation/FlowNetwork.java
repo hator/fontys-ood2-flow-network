@@ -114,4 +114,8 @@ public class FlowNetwork implements java.io.Serializable{
                 .orElse(null);
     }
 
+    boolean isEmpty(){
+        return (components.isEmpty() && pipelines.isEmpty());
+    }
+
 }

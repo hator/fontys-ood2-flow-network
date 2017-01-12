@@ -22,7 +22,7 @@ class MainWindow extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                if(showSaveOrCancelPrompt()) {
+                if (showSaveOrCancelPrompt()) {
                     e.getWindow().dispose();
                 } // on cancel do nothing
             }
@@ -81,15 +81,22 @@ class MainWindow extends JFrame {
     }
 
     private void handleNew(ActionEvent e) {
-        if (showSaveOrCancelPrompt()) {
+        if (!simulation.flowNetworkIsEmpty()) {
+            if (showSaveOrCancelPrompt()) {
+                simulation.newFlowNetwork();
+                repaint();
+            }
+        } else {
             simulation.newFlowNetwork();
             repaint();
         }
     }
 
     private void handleOpen(ActionEvent e) {
-        if (!showSaveOrCancelPrompt()) {
-            return;
+        if (!simulation.flowNetworkIsEmpty()) {
+            if (!showSaveOrCancelPrompt()) {
+                return;
+            }
         }
         JFileChooser chooser = getFlowNetworkFileChooser();
         int chooserOption = chooser.showOpenDialog(MainWindow.this);
@@ -118,7 +125,8 @@ class MainWindow extends JFrame {
         return withOutputFileStream(path, simulation::saveFlowNetwork);
     }
 
-    /** Shows dialog asking whether to save, not save or cancel
+    /**
+     * Shows dialog asking whether to save, not save or cancel
      *
      * @return true if should proceed (either saved or not saved), false on cancel
      */
