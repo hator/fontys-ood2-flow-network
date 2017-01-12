@@ -1,5 +1,12 @@
 package simulation;
 
+import javafx.geometry.Pos;
+import util.*;
+import util.Point;
+
+import java.awt.*;
+import java.awt.geom.Arc2D;
+
 public class Settings {
     public float currentFlow;
     public float maxFlow;
@@ -30,5 +37,19 @@ public class Settings {
 
     public static Settings getDefault() {
         return new Settings(0, 10, null);
+    }
+
+    public void renderCurrentFlow(Graphics g, Point position){
+        if (currentFlow > maxFlow)
+        {
+            g.setColor(Color.RED);
+        }
+        else
+        {
+            g.setColor(Color.GREEN);
+        }
+
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.drawString(Float.toString(currentFlow), position.x, position.y);
     }
 }

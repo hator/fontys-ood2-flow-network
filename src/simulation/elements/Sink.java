@@ -39,6 +39,7 @@ public class Sink extends Component implements java.io.Serializable {
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.Barrel, graphics, getPosition());
         input.render(graphics);
+        renderFlow(graphics);
     }
 
     @Override

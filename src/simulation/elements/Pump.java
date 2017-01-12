@@ -34,6 +34,7 @@ public class Pump extends Component implements java.io.Serializable {
     public void render(Graphics graphics) {
         ImageLibrary.drawImage(ImageLibrary.Images.Pump, graphics, getPosition());
         output.render(graphics);
+        renderFlow(graphics);
     }
 
     @Override

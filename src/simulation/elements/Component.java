@@ -3,10 +3,12 @@ package simulation.elements;
 import simulation.Settings;
 import util.Point;
 
+import java.awt.*;
 import java.util.List;
 
 abstract public class Component extends Element implements java.io.Serializable{
     static final int CLICK_RADIUS = 50;
+    static final Point FLOW_LABEL_OFFSET = new Point(30, 60);
     private Point position;
     private boolean toBeDeleted = false;
 
@@ -51,5 +53,9 @@ abstract public class Component extends Element implements java.io.Serializable{
     Point calculateOneOfTwoIOsPosition(boolean isInput, int ioNumber) {
         assert ioNumber >= 1 && ioNumber <= 2;
         return calculateSingleIOPosition(isInput).plus(new Point(0, (ioNumber - 1) * 30 - 15));
+    }
+
+    void renderFlow(Graphics g){
+        settings.renderCurrentFlow(g, getPosition().plus(FLOW_LABEL_OFFSET));
     }
 }
