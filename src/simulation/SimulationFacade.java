@@ -98,8 +98,8 @@ public class SimulationFacade {
     }
 
     public void render(Graphics g){
-        pipelineBuilder.render(g);
         flowNetwork.render(g);
+        pipelineBuilder.render(g);
     }
 
     public Result remove(Point point) {
