@@ -25,4 +25,6 @@ abstract public class Element implements java.io.Serializable {
     public abstract boolean inBoundingArea(Point point);
 
     public abstract void render(Graphics graphics);
+
+
 }
