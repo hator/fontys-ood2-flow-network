@@ -73,7 +73,7 @@ class Diagram extends JPanel {
         switch (currentTool) {
             case Select:
                 Settings settings = simulation.select(point);
-                changeSettingsReferenceCallback.accept(settings);
+                changeCurrentSettings(settings);
                 break;
             case Remove:
                 if(simulation.remove(point) != Result.Success){
@@ -83,10 +83,19 @@ class Diagram extends JPanel {
             default: // Add component
                 Settings newElementSettings = currentSettingsReference;
                 Result result = simulation.applyTool(point, currentTool, newElementSettings);
+                if (result == Result.Success) {
+                    Settings newSettings = Settings.forTool(currentTool);
+                    changeCurrentSettings(newSettings);
+                }
                 setResultMessage(result);
                 break;
         }
         this.repaint();
+    }
+
+    private void changeCurrentSettings(Settings settings) {
+        currentSettingsReference = settings;
+        changeSettingsReferenceCallback.accept(settings);
     }
 
     void selectTool(Tool tool, Settings settings) {
