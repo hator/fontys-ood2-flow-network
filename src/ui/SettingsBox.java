@@ -89,8 +89,11 @@ class SettingsBox extends JPanel {
                     Settings oldSettings = new Settings(0, 0, null);
                     oldSettings.applyValues(settings);
 
-                    Float floatVal = Float.parseFloat(textField.getText());
-                    fieldUpdateFunc.accept(floatVal);
+                    if(!textField.getText().isEmpty())
+                    {
+                        Float floatVal = Float.parseFloat(textField.getText());
+                        fieldUpdateFunc.accept(floatVal);
+                    }
                     if (!settings.isValid()) {
                         settings.applyValues(oldSettings);
                         changeSettingsResultCallback.accept(Result.InvalidSettings);
