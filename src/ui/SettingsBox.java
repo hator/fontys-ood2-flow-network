@@ -141,6 +141,12 @@ class SettingsBox extends JPanel {
             splitRatioInput.textField.setText("");
             splitRatioInput.setEnabled(false);
         }
+        if(!settings.generatesFlow){
+            currentFlowInput.setEnabled(false);
+        } else {
+            currentFlowInput.textField.setText(Float.toString(settings.currentFlow));
+            currentFlowInput.setEnabled(true);
+        }
     }
 
     private void resetFieldsValidation() {

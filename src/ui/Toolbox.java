@@ -70,6 +70,8 @@ class Toolbox extends JPanel {
             settings = null;
         } else if (tool == Tool.AddAdjustableSplitter) {
             settings.splitRatio = 0.5f;
+        } else if (tool == Tool.AddPump){
+            settings.generatesFlow = true;
         }
         settingsBox.setCurrentSettingsReference(settings);
     }

@@ -11,6 +11,7 @@ public class Settings {
     public float currentFlow;
     public float maxFlow;
     public Float splitRatio;
+    public boolean generatesFlow = false;
 
     public Settings(float currentFlow, float maxFlow, Float splitRatio) {
         this.currentFlow = currentFlow;
