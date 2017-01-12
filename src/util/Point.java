@@ -1,5 +1,7 @@
 package util;
 
+import simulation.FlowNetwork;
+
 public class Point implements java.io.Serializable {
     public int x;
     public int y;
@@ -30,11 +32,11 @@ public class Point implements java.io.Serializable {
             inSectionBounds = betweenNumbers(y, segmentA.y, segmentB.y);
         }
         else {
-            double a = (segmentA.y - segmentB.y)/(segmentA.x - segmentB.x);
+            double a = (double)(segmentA.y - segmentB.y)/(segmentA.x - segmentB.x);
             double b = segmentA.y - a*segmentA.x;
 
-            double perA = -1/a;
-            double b1 = segmentA.y - perA*segmentA.x;
+            double perA = (double)-1/a;
+            double b1 = (segmentA.y - perA*segmentA.x);
             double b2 = segmentB.y - perA*segmentB.x;
             double sqrRoot = Math.sqrt(Math.pow(a, 2) + Math.pow(-1, 2));
 
