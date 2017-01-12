@@ -64,11 +64,10 @@ class Toolbox extends JPanel {
     }
 
     private void prepareSettingsBox(Tool tool) {
-        settingsBox.setEnabled(true);
         Settings settings = Settings.getDefault();
 
-        if (tool == Tool.Remove) {
-            settingsBox.setEnabled(false);
+        if (tool == Tool.Select || tool == Tool.Remove) {
+            settings = null;
         } else if (tool == Tool.AddAdjustableSplitter) {
             settings.splitRatio = 0.5f;
         }

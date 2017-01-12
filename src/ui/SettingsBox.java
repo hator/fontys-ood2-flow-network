@@ -23,6 +23,9 @@ class SettingsBox extends JPanel {
         }
 
         void setEnabled(boolean enabled) {
+            if (!enabled) {
+                textField.setText("");
+            }
             textField.setEnabled(enabled);
             label.setEnabled(enabled);
         }
@@ -33,7 +36,7 @@ class SettingsBox extends JPanel {
     private final Input splitRatioInput;
     private Consumer<Result> changeSettingsResultCallback;
 
-    private Settings settings = Settings.getDefault();
+    private Settings settings;
 
     SettingsBox(Consumer<Result> changeSettingsResultCallback) {
         setMinimumSize(new Dimension(500, 500));
@@ -48,10 +51,9 @@ class SettingsBox extends JPanel {
         this.maximumFlowInput = createFieldWithLabel("Maximum flow", (floatVal) -> settings.maxFlow = floatVal);
         this.splitRatioInput = createFieldWithLabel("Split ratio", (floatVal) -> settings.splitRatio = floatVal);
 
-        this.splitRatioInput.setEnabled(false);
         this.changeSettingsResultCallback = changeSettingsResultCallback;
 
-        setCurrentSettingsReference(this.settings);
+        setCurrentSettingsReference(null);
     }
 
     @Override
@@ -81,6 +83,10 @@ class SettingsBox extends JPanel {
             }
 
             private void checkIsValid() {
+                if (settings == null) {
+                    return;
+                }
+
                 try {
                     // TODO refactor this, so it doesn't need to use a second settings object
                     Settings oldSettings = new Settings(0, 0, null);
@@ -88,13 +94,10 @@ class SettingsBox extends JPanel {
 
                     Float floatVal = Float.parseFloat(textField.getText());
                     fieldUpdateFunc.accept(floatVal);
-                    if(!settings.isValid())
-                    {
+                    if (!settings.isValid()) {
                         settings.applyValues(oldSettings);
                         changeSettingsResultCallback.accept(Result.InvalidSettings);
-                    }
-                    else
-                    {
+                    } else {
                         changeSettingsResultCallback.accept(Result.Success);
                         SettingsBox.this.resetFieldValidation(textField);
                     }
@@ -118,11 +121,14 @@ class SettingsBox extends JPanel {
     }
 
     void setCurrentSettingsReference(Settings settings) {
-        assert settings != null;
-
         this.settings = settings;
-        setFieldsWithSettings(settings);
-        resetFieldsValidation();
+        if (settings != null) {
+            setEnabled(true);
+            setFieldsWithSettings(settings);
+            resetFieldsValidation();
+        } else {
+            setEnabled(false);
+        }
     }
 
     private void setFieldsWithSettings(Settings settings) {
