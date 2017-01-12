@@ -8,7 +8,7 @@ import java.util.List;
 
 abstract public class Component extends Element implements java.io.Serializable{
     static final int CLICK_RADIUS = 50;
-    static final Point FLOW_LABEL_OFFSET = new Point(30, 60);
+    private static final Point FLOW_LABEL_OFFSET = new Point(30, 60);
     private Point position;
     private boolean toBeDeleted = false;
 

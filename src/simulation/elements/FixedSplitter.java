@@ -21,7 +21,13 @@ public class FixedSplitter extends Splitter implements java.io.Serializable {
 
     @Override
     public void render(Graphics graphics) {
-        ImageLibrary.drawImage(ImageLibrary.Images.Splitter, graphics, getPosition());
+        if(settings.currentFlow > settings.maxFlow){
+            ImageLibrary.drawImage(ImageLibrary.Images.SplitterState2, graphics, getPosition());
+        } else if(settings.currentFlow == settings.maxFlow){
+            ImageLibrary.drawImage(ImageLibrary.Images.SplitterState0, graphics, getPosition());
+        } else {
+            ImageLibrary.drawImage(ImageLibrary.Images.SplitterState1, graphics, getPosition());
+        }
         input.render(graphics);
         outputA.render(graphics);
         outputB.render(graphics);

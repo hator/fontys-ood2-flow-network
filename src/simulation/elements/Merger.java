@@ -52,7 +52,13 @@ public class Merger extends Component implements java.io.Serializable {
 
     @Override
     public void render(Graphics graphics) {
-        ImageLibrary.drawImage(ImageLibrary.Images.Merger, graphics, getPosition());
+        if(settings.currentFlow > settings.maxFlow){
+            ImageLibrary.drawImage(ImageLibrary.Images.MergerState2, graphics, getPosition());
+        } else if(settings.currentFlow == settings.maxFlow){
+            ImageLibrary.drawImage(ImageLibrary.Images.MergerState0, graphics, getPosition());
+        } else {
+            ImageLibrary.drawImage(ImageLibrary.Images.MergerState1, graphics, getPosition());
+        }
         inputA.render(graphics);
         inputB.render(graphics);
         output.render(graphics);

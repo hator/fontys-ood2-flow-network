@@ -22,7 +22,13 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
 
     @Override
     public void render(Graphics graphics) {
-        ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitter, graphics, getPosition());
+        if(settings.currentFlow > settings.maxFlow){
+            ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitterState2, graphics, getPosition());
+        } else if(settings.currentFlow == settings.maxFlow){
+            ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitterState0, graphics, getPosition());
+        } else {
+            ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitterState1, graphics, getPosition());
+        }
         input.render(graphics);
         outputA.render(graphics);
         outputB.render(graphics);
