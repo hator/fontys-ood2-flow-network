@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -7,8 +8,8 @@ import java.awt.*;
 
 public class FixedSplitter extends Splitter implements java.io.Serializable {
 
-    public FixedSplitter(Point position){
-        super(position);
+    public FixedSplitter(Settings settings, Point position) {
+        super(settings, position);
     }
 
     @Override

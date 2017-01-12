@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -10,11 +11,9 @@ import java.util.List;
 public class Pump extends Component implements java.io.Serializable {
     private Output output;
 
-    public Pump(float currentFlow, float maxFlow, Point position) {
-        super(position);
+    public Pump(Settings settings, Point position) {
+        super(settings, position);
         this.output = new Output(this, calculateSingleIOPosition(false));
-        this.settings.currentFlow = currentFlow;
-        this.settings.maxFlow = maxFlow;
     }
 
     Output getOutput() {

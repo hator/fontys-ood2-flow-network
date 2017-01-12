@@ -33,7 +33,7 @@ class SettingsBox extends JPanel {
     private final Input splitRatioInput;
     private Consumer<Result> resultCallback;
 
-    private Settings settings = new Settings();
+    private Settings settings = Settings.getDefault();
 
     SettingsBox(Consumer<Result> resultCallback) {
         setMinimumSize(new Dimension(500, 500));
@@ -83,7 +83,7 @@ class SettingsBox extends JPanel {
             private void checkIsValid() {
                 try {
                     // TODO refactor this, so it doesn't need to use a second settings object
-                    Settings oldSettings = new Settings();
+                    Settings oldSettings = new Settings(0, 0, null);
                     oldSettings.applyValues(settings);
 
                     Float floatVal = Float.parseFloat(textField.getText());

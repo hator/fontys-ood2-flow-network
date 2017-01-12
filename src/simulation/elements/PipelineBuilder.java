@@ -41,7 +41,7 @@ public class PipelineBuilder {
             throw new NullPointerException("Pipeline settings are null");
         }
 
-        return new Pipeline(output, input, 0, points);
+        return new Pipeline(output, input, points, settings);
     }
 
     public void render(Graphics g) {

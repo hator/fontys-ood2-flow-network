@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -13,8 +14,8 @@ public class Merger extends Component implements java.io.Serializable {
     private Input inputB;
     private Output output;
 
-    public Merger(Point position) {
-        super(position);
+    public Merger(Settings settings, Point position) {
+        super(settings, position);
         inputA = new Input(this, calculateOneOfTwoIOsPosition(true, 1));
         inputB = new Input(this, calculateOneOfTwoIOsPosition(true, 2));
         output = new Output(this, calculateSingleIOPosition(false));

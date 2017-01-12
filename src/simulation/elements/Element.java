@@ -6,7 +6,11 @@ import util.Point;
 import java.awt.*;
 
 abstract public class Element implements java.io.Serializable {
-    Settings settings = new Settings();
+    Settings settings;
+
+    Element(Settings settings) {
+        this.settings = settings;
+    }
 
     abstract void recalculateFlow();
 
@@ -14,7 +18,9 @@ abstract public class Element implements java.io.Serializable {
         return settings.currentFlow;
     }
 
-    public Settings getSettings() {return settings;}
+    public Settings getSettings() {
+        return settings;
+    }
 
     public abstract boolean inBoundingArea(Point point);
 

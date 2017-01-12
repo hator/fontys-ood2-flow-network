@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -11,9 +12,8 @@ import java.util.List;
 public class Sink extends Component implements java.io.Serializable {
     private Input input;
 
-    public Sink(float maxFlow, Point position) {
-        super(position);
-        this.settings.maxFlow = maxFlow;
+    public Sink(Settings settings, Point position) {
+        super(settings, position);
         this.input = new Input(this, calculateSingleIOPosition(true));
     }
 

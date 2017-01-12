@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import util.Point;
 
 import java.util.List;
@@ -9,8 +10,8 @@ abstract public class Component extends Element implements java.io.Serializable{
     private Point position;
     private boolean toBeDeleted = false;
 
-    Component(Point position)
-    {
+    public Component(Settings settings, Point position) {
+        super(settings);
         this.position = position;
     }
 

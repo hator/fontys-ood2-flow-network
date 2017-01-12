@@ -1,12 +1,9 @@
 package simulation;
 
 public class Settings {
-    public float currentFlow = 0;
-    public float maxFlow = 10;
-    public Float splitRatio = null;
-
-    public Settings() {
-    }
+    public float currentFlow;
+    public float maxFlow;
+    public Float splitRatio;
 
     public Settings(float currentFlow, float maxFlow, Float splitRatio) {
         this.currentFlow = currentFlow;
@@ -29,5 +26,9 @@ public class Settings {
         this.currentFlow = settings.currentFlow;
         this.maxFlow = settings.maxFlow;
         this.splitRatio = settings.splitRatio;
+    }
+
+    public static Settings getDefault() {
+        return new Settings(0, 10, null);
     }
 }

@@ -1,6 +1,7 @@
 package simulation.elements;
 
 import org.junit.Test;
+import simulation.Settings;
 import util.Point;
 
 import static org.junit.Assert.assertEquals;
@@ -9,7 +10,7 @@ public class FixedSplitterTest {
     @Test
     public void unconnectedFixedSplitterHas0Flow() {
         // Given
-        FixedSplitter splitter = new FixedSplitter(Point.zero());
+        FixedSplitter splitter = new FixedSplitter(Settings.getDefault(), Point.zero());
 
         // When
         splitter.recalculateFlow();
@@ -22,7 +23,7 @@ public class FixedSplitterTest {
     public void fixedSplitterHasFlowOfItsInput() {
         // Given
         float inputFlow = 5.f;
-        FixedSplitter splitter = new FixedSplitter(Point.zero());
+        FixedSplitter splitter = new FixedSplitter(Settings.getDefault(), Point.zero());
         Pipeline inputPipe = new MockFixedFlowPipeline(inputFlow, splitter.getInput());
 
         // When
@@ -37,7 +38,7 @@ public class FixedSplitterTest {
         // Given
         float inputFlow = 6.f;
         float outputFlow = inputFlow/2.f;
-        FixedSplitter splitter = new FixedSplitter(Point.zero());
+        FixedSplitter splitter = new FixedSplitter(Settings.getDefault(), Point.zero());
         Pipeline inputPipe = new MockFixedFlowPipeline(inputFlow, splitter.getInput());
 
         // When

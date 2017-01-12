@@ -2,9 +2,11 @@ package simulation.elements;
 
 import org.junit.Test;
 import simulation.FlowNetwork;
+import simulation.Settings;
 import util.Point;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -14,14 +16,17 @@ public class FlowNetworkTest {
     @Test
     public void removeElementTest() {
         FlowNetwork network = new FlowNetwork();
+        Settings pumpSettings = new Settings(10, 10, null);
+        Settings pumpSettings2 = new Settings(10, 10, null);
+        Settings sinkSettings = new Settings(0, 20, null);
 
-        Pump pump = new Pump(10, 10, Point.zero());
-        Pump pump2 = new Pump(10, 10, Point.zero());
-        Sink sink = new Sink(20, Point.zero());
-        Merger merger = new Merger(Point.zero());
-        Pipeline pipeline1 = new Pipeline(pump.getOutput(), merger.getInputA(), 10);
-        Pipeline pipeline2 = new Pipeline(pump2.getOutput(), merger.getInputB(), 10);
-        Pipeline pipeline3 = new Pipeline(merger.getOutput(), sink.getInput(), 20);
+        Pump pump = new Pump(pumpSettings, Point.zero());
+        Pump pump2 = new Pump(pumpSettings2, Point.zero());
+        Sink sink = new Sink(sinkSettings, Point.zero());
+        Merger merger = new Merger(Settings.getDefault(), Point.zero());
+        Pipeline pipeline1 = new Pipeline(pump.getOutput(), merger.getInputA(), Collections.emptyList(), new Settings(0, 10, null));
+        Pipeline pipeline2 = new Pipeline(pump2.getOutput(), merger.getInputB(), Collections.emptyList(), new Settings(0, 10, null));
+        Pipeline pipeline3 = new Pipeline(merger.getOutput(), sink.getInput(), Collections.emptyList(), new Settings(0, 20, null));
 
         network.addComponent(pump);
         network.addComponent(pump2);
@@ -41,7 +46,7 @@ public class FlowNetworkTest {
         assertEquals(pump.getOutput().pipeline, null);
         assertEquals(10f, sink.getFlow(), 0.001f);
 
-        Pipeline newPipe = new Pipeline(pump.getOutput(), merger.getInputA(), 10);
+        Pipeline newPipe = new Pipeline(pump.getOutput(), merger.getInputA(), Collections.emptyList(), new Settings(0, 10, null));
         pump.recalculateFlow();
 
         network.removeElement(pump);
@@ -54,8 +59,8 @@ public class FlowNetworkTest {
     public void findElementTest() {
         FlowNetwork network = new FlowNetwork();
 
-        Pump pump = new Pump(10, 10, new Point(100, 100));
-        Sink sink = new Sink(10, new Point(200, 200));
+        Pump pump = new Pump(new Settings(10, 10, null), new Point(100, 100));
+        Sink sink = new Sink(new Settings(0, 20, null), new Point(200, 200));
         Point point1 = new Point(110, 110);
         Point point2 = new Point(190, 110);
         Point point3 = new Point(190, 190);
@@ -65,7 +70,7 @@ public class FlowNetworkTest {
         points.add(point2);
         points.add(point3);
 
-        Pipeline pipeline1 = new Pipeline(pump.getOutput(), sink.getInput(), 10, points);
+        Pipeline pipeline1 = new Pipeline(pump.getOutput(), sink.getInput(), points, new Settings(0, 10, null));
 
         network.addComponent(pump);
         network.addComponent(sink);
@@ -82,10 +87,10 @@ public class FlowNetworkTest {
     public void isOverlappingTest() {
         FlowNetwork network = new FlowNetwork();
 
-        Pump pump = new Pump(10, 10, new Point(100, 100));
-        Merger merger = new Merger(new Point(300 + Component.CLICK_RADIUS, 300 + Component.CLICK_RADIUS));
-        Sink sink = new Sink(10, new Point(170 + Component.CLICK_RADIUS, 170 + Component.CLICK_RADIUS));
-        Pump pump1 = new Pump(10, 10, new Point(99 + Component.CLICK_RADIUS, 100));
+        Pump pump = new Pump(Settings.getDefault(), new Point(100, 100));
+        Merger merger = new Merger(Settings.getDefault(), new Point(300 + Component.CLICK_RADIUS, 300 + Component.CLICK_RADIUS));
+        Sink sink = new Sink(Settings.getDefault(), new Point(170 + Component.CLICK_RADIUS, 170 + Component.CLICK_RADIUS));
+        Pump pump1 = new Pump(Settings.getDefault(), new Point(99 + Component.CLICK_RADIUS, 100));
 
         network.addComponent(pump);
 
@@ -98,13 +103,13 @@ public class FlowNetworkTest {
     public void addingPipelineRecalculatesFlow() {
         FlowNetwork network = new FlowNetwork();
 
-        Pump pump = new Pump(10, 10, Point.zero());
-        Pump pump2 = new Pump(10, 10, Point.zero());
-        Sink sink = new Sink(20, Point.zero());
-        Merger merger = new Merger(Point.zero());
-        Pipeline pipeline1 = new Pipeline(pump.getOutput(), merger.getInputA(), 10);
-        Pipeline pipeline2 = new Pipeline(pump2.getOutput(), merger.getInputB(), 10);
-        Pipeline pipeline3 = new Pipeline(merger.getOutput(), sink.getInput(), 20);
+        Pump pump = new Pump(new Settings(10, 10, null), Point.zero());
+        Pump pump2 = new Pump(new Settings(10, 10, null), Point.zero());
+        Sink sink = new Sink(new Settings(0, 20, null), Point.zero());
+        Merger merger = new Merger(Settings.getDefault(), Point.zero());
+        Pipeline pipeline1 = createPipeline(pump.getOutput(), merger.getInputA(), 10);
+        Pipeline pipeline2 = createPipeline(pump2.getOutput(), merger.getInputB(), 10);
+        Pipeline pipeline3 = createPipeline(merger.getOutput(), sink.getInput(), 20);
 
         network.addComponent(pump);
         network.addComponent(pump2);
@@ -124,7 +129,7 @@ public class FlowNetworkTest {
         FlowNetwork network = new FlowNetwork();
 
         Point mergerPosition = new Point(100, 100);
-        Merger merger = new Merger(mergerPosition);
+        Merger merger = new Merger(Settings.getDefault(), mergerPosition);
 
         network.addComponent(merger);
 
@@ -152,7 +157,7 @@ public class FlowNetworkTest {
         FlowNetwork network = new FlowNetwork();
 
         Point splitterPosition = new Point(100, 100);
-        FixedSplitter splitter = new FixedSplitter(splitterPosition);
+        FixedSplitter splitter = new FixedSplitter(Settings.getDefault(), splitterPosition);
 
         network.addComponent(splitter);
 
@@ -172,5 +177,9 @@ public class FlowNetworkTest {
         assertEquals(null, notFound);
         assertEquals(null, alsoNotFound);
         assertEquals(splitter.getOutputA(), found);
+    }
+
+    private Pipeline createPipeline(Output output, Input input, float maxFlow) {
+        return new Pipeline(output, input, Collections.emptyList(), new Settings(0, maxFlow, null));
     }
 }

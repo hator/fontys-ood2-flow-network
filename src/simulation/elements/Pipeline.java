@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import util.Point;
 
 import java.awt.*;
@@ -11,21 +12,18 @@ public class Pipeline extends Element implements java.io.Serializable {
     private Input input;
     private Output output;
 
-    public Pipeline(Output output, Input input, float maxFlow) {
+    public Pipeline(Output output, Input input, List<Point> points, Settings settings) {
+        super(settings);
         assert input != null;
         assert output != null;
+        assert points != null;
 
         this.output = output;
         this.input = input;
-        this.settings.maxFlow = maxFlow;
+        this.points = points;
 
         input.attachPipeline(this);
         output.attachPipeline(this);
-    }
-
-    public Pipeline(Output output, Input input, float maxFlow, List<Point> points) {
-        this(output, input, maxFlow);
-        this.points = points;
     }
 
     @Override

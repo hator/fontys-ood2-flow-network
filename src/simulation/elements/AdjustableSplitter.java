@@ -1,5 +1,6 @@
 package simulation.elements;
 
+import simulation.Settings;
 import ui.ImageLibrary;
 import util.Point;
 
@@ -8,10 +9,8 @@ import java.awt.*;
 public class AdjustableSplitter extends Splitter implements java.io.Serializable{
 
 
-    public AdjustableSplitter(Float splitRatio, Point position) {
-        super(position);
-        assert splitRatio != null;
-        this.settings.splitRatio = splitRatio;
+    public AdjustableSplitter(Settings settings, Point position) {
+        super(settings, position);
     }
 
     @Override

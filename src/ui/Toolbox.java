@@ -65,7 +65,7 @@ class Toolbox extends JPanel {
 
     private void prepareSettingsBox(Tool tool) {
         settingsBox.setEnabled(true);
-        Settings settings = new Settings();
+        Settings settings = Settings.getDefault();
 
         if (tool == Tool.Remove) {
             settingsBox.setEnabled(false);

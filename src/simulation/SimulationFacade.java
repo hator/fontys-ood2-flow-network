@@ -6,6 +6,7 @@ import util.Point;
 
 import java.awt.*;
 import java.io.*;
+import java.util.function.BiFunction;
 
 public class SimulationFacade {
     private FlowNetwork flowNetwork = new FlowNetwork();
@@ -22,29 +23,19 @@ public class SimulationFacade {
 
         switch(tool){
             case AddPump:{
-                if (!settings.isValid()) return Result.InvalidSettings;
-                Pump p = new Pump(settings.currentFlow, settings.maxFlow, point);
-                return addToFlowNetwork(p);
+                return withValidSettingsAddToNetwork(settings, point, Pump::new);
             }
             case AddMerger:{
-                if (!settings.isValid()) return Result.InvalidSettings;
-                Merger c = new Merger(point);
-                return addToFlowNetwork(c);
+                return withValidSettingsAddToNetwork(settings, point, Merger::new);
             }
             case AddSink:{
-                if (!settings.isValid()) return Result.InvalidSettings;
-                Sink c = new Sink(settings.maxFlow, point);
-                return addToFlowNetwork(c);
+                return withValidSettingsAddToNetwork(settings, point, Sink::new);
             }
             case AddAdjustableSplitter:{
-                if (!settings.isValid()) return Result.InvalidSettings;
-                AdjustableSplitter c = new AdjustableSplitter(settings.splitRatio, point);
-                return addToFlowNetwork(c);
+                return withValidSettingsAddToNetwork(settings, point, AdjustableSplitter::new);
             }
             case AddFixedSplitter:{
-                if (!settings.isValid()) return Result.InvalidSettings;
-                FixedSplitter c = new FixedSplitter(point);
-                return addToFlowNetwork(c);
+                return withValidSettingsAddToNetwork(settings, point, FixedSplitter::new);
             }
             case AddPipeline: {
                 if (!pipelineBuilder.hasOutput()) {
@@ -75,6 +66,15 @@ public class SimulationFacade {
             }
             default: return Result.Failure; //TODO fix return result
         }
+    }
+
+    private Result withValidSettingsAddToNetwork(Settings settings, Point position,
+                                                 BiFunction<Settings, Point, Component> constructor) {
+        if (!settings.isValid()) {
+            return Result.InvalidSettings;
+        }
+        Component c = constructor.apply(settings, position);
+        return addToFlowNetwork(c);
     }
 
     private Result addToFlowNetwork(Component p) {

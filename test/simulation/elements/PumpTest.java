@@ -1,6 +1,7 @@
 package simulation.elements;
 
 import org.junit.Test;
+import simulation.Settings;
 import util.Point;
 
 import static org.junit.Assert.assertEquals;
@@ -10,7 +11,7 @@ public class PumpTest {
     public void pumpReturnsSetFlow() {
         // Given
         float flow = 10.f;
-        Pump pump = new Pump(flow, flow, Point.zero());
+        Pump pump = new Pump(new Settings(flow, flow, null), Point.zero());
 
         // When
 
@@ -25,7 +26,7 @@ public class PumpTest {
     public void pumpInBoundingRadius(){
         float flow = 10.f;
         Point point = new Point(100, 100);
-        Pump pump = new Pump(flow, flow, point);
+        Pump pump = new Pump(new Settings(flow, flow, null), point);
 
         assertEquals(pump.inBoundingArea(new Point(99 + Component.CLICK_RADIUS, 100)), true);
         assertEquals(pump.inBoundingArea(new Point((int) (100 + 0.3 * Component.CLICK_RADIUS), (int) (100 + 0.3 * Component.CLICK_RADIUS))), true);

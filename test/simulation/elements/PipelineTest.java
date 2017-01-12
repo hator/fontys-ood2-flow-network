@@ -1,9 +1,11 @@
 package simulation.elements;
 
 import org.junit.Test;
+import simulation.Settings;
 import util.Point;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -15,7 +17,7 @@ public class PipelineTest {
         float flow = 10.f;
         Output mockOutput = new MockOutput(flow);
         Input emptyInput = new MockInput();
-        Pipeline pipeline = new Pipeline(mockOutput, emptyInput, flow);
+        Pipeline pipeline = new Pipeline(mockOutput, emptyInput, Collections.emptyList(), new Settings(0, flow, null));
 
         // When
         pipeline.recalculateFlow();
@@ -36,7 +38,7 @@ public class PipelineTest {
         pointList.add(new Point(30, 10));
         pointList.add(new Point(30, 40));
 
-        Pipeline pipeline = new Pipeline(mockOutput, emptyInput, flow, pointList);
+        Pipeline pipeline = new Pipeline(mockOutput, emptyInput, pointList, new Settings(0, flow, null));
 
         Point testPoint1 = new Point(5, 5);
         Point testPoint2 = new Point(20, 9 + Pipeline.CLICK_RADIUS);
