@@ -63,14 +63,30 @@ public class Pipeline extends Element implements java.io.Serializable {
         output.component.recalculateFlow();
     }
 
+
     public void render(Graphics g) {
         Point a, b;
         for (int i = 1; i < points.size(); i++) {
             a = points.get(i - 1);
             b = points.get(i);
+
+            g.setColor(Color.black); // Drawing the line outline
             ((Graphics2D)g).setStroke(new BasicStroke(8));
             ((Graphics2D)g).draw(new Line2D.Float(a.x, a.y, b.x, b.y));
 
+        }
+        for(int i = 1; i < points.size(); i++){
+            a = points.get(i - 1);
+            b = points.get(i);
+            if(settings.currentFlow > settings.maxFlow){
+                g.setColor(new Color(134,55,29)); //red
+            } else if(settings.currentFlow == settings.maxFlow){
+                g.setColor(new Color(40,190,63)); //dark green
+            } else {
+                g.setColor(new Color(124,255,0)); //light green
+            }
+            ((Graphics2D)g).setStroke(new BasicStroke(5));
+            ((Graphics2D)g).draw(new Line2D.Float(a.x, a.y, b.x, b.y));
         }
         renderFlow(g);
     }

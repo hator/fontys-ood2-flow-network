@@ -46,6 +46,8 @@ abstract public class Component extends Element implements java.io.Serializable{
         return toBeDeleted;
     }
 
+    public abstract void renderInputsAndOutputs(Graphics graphics);
+
     Point calculateSingleIOPosition(boolean isInput) {
         return position.plus(new Point(isInput ? -20 : +20, 0));
     }

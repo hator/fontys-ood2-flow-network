@@ -78,6 +78,9 @@ public class FlowNetwork implements java.io.Serializable{
         components.forEach(c -> c.render(g));
         pipelines.forEach(c -> c.render(g));
     }
+    void renderLast(Graphics g){
+        components.forEach(c -> c.renderInputsAndOutputs(g));
+    }
 
     public Output findOutput(Point point) {
         Component component = findComponent(point);

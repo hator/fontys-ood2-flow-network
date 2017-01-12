@@ -29,6 +29,9 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
         } else {
             ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitterState1, graphics, getPosition());
         }
+    }
+    @Override
+    public void renderInputsAndOutputs(Graphics graphics) {
         input.render(graphics);
         outputA.render(graphics);
         outputB.render(graphics);

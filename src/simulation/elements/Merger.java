@@ -59,6 +59,9 @@ public class Merger extends Component implements java.io.Serializable {
         } else {
             ImageLibrary.drawImage(ImageLibrary.Images.MergerState1, graphics, getPosition());
         }
+    }
+
+    public void renderInputsAndOutputs(Graphics graphics){
         inputA.render(graphics);
         inputB.render(graphics);
         output.render(graphics);

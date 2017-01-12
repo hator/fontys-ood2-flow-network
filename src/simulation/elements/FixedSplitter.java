@@ -28,6 +28,10 @@ public class FixedSplitter extends Splitter implements java.io.Serializable {
         } else {
             ImageLibrary.drawImage(ImageLibrary.Images.SplitterState1, graphics, getPosition());
         }
+    }
+
+    @Override
+    public void renderInputsAndOutputs(Graphics graphics) {
         input.render(graphics);
         outputA.render(graphics);
         outputB.render(graphics);

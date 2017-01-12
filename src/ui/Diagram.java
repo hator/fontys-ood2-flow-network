@@ -56,9 +56,7 @@ class Diagram extends JPanel {
         }
 
         g.drawString("Status: " + resultMessage, 10, 10);
-        g.setColor(Color.GREEN);
 
-        System.out.println();
     }
 
     void setChangeSettingsReferenceCallback(Consumer<Settings> changeSettingsReferenceCallback) {

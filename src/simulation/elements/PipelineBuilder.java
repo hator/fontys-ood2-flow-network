@@ -50,7 +50,18 @@ public class PipelineBuilder {
         for (int i = 1; i < points.size(); i++) {
             a = points.get(i - 1);
             b = points.get(i);
+
+            g.setColor(Color.black); // Drawing the line outline
             ((Graphics2D)g).setStroke(new BasicStroke(8));
+            ((Graphics2D)g).draw(new Line2D.Float(a.x, a.y, b.x, b.y));
+
+        }
+
+        for (int i = 1; i < points.size(); i++) {
+            a = points.get(i - 1);
+            b = points.get(i);
+            g.setColor(Color.GRAY);
+            ((Graphics2D)g).setStroke(new BasicStroke(5));
             ((Graphics2D)g).draw(new Line2D.Float(a.x, a.y, b.x, b.y));
         }
     }
