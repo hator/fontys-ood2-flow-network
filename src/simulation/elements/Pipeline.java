@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Pipeline extends Element implements java.io.Serializable {
     static final int CLICK_RADIUS = 5;
+    static final Point FLOW_LABEL_OFFSET = new Point(40, 20);
     private List<Point> points;
     private Input input;
     private Output output;
@@ -72,6 +73,23 @@ public class Pipeline extends Element implements java.io.Serializable {
                     , b.y
             );
         }
+        renderFlow(g);
     }
 
+    void renderFlow(Graphics g){
+        Point middlePoint = getMiddlePoint();
+        if (middlePoint != null)
+        {
+            settings.renderCurrentFlow(g, getMiddlePoint().plus(FLOW_LABEL_OFFSET));
+        }
+    }
+
+    private Point getMiddlePoint() {
+        try {
+            return points.get((points.size() - 1)/2);
+        }
+        catch (IndexOutOfBoundsException e){
+            return null;
+        }
+    }
 }
