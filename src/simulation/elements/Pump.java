@@ -21,7 +21,7 @@ public class Pump extends Component implements java.io.Serializable {
     }
 
     @Override
-    void recalculateFlow() {
+    public void recalculateFlow() {
         this.getOutput().recalculateFlow(this.settings.currentFlow);
     }
 

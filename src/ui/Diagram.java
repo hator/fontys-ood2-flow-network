@@ -98,7 +98,14 @@ class Diagram extends JPanel {
         currentSettingsReference = settings;
     }
 
-    void setResultMessage(Result result) {
+    void onSettingsChanged(Result result) {
+        if (result == Result.Success) {
+            simulation.settingsChanged();
+        }
+        setResultMessage(result);
+    }
+
+    private void setResultMessage(Result result) {
         if (result == Result.Success) {
             isResultNotSuccessful = false;
             resultMessage = "OK";

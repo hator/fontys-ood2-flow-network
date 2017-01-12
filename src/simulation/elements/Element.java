@@ -12,7 +12,7 @@ abstract public class Element implements java.io.Serializable {
         this.settings = settings;
     }
 
-    abstract void recalculateFlow();
+    public abstract void recalculateFlow();
 
     float getFlow() {
         return settings.currentFlow;

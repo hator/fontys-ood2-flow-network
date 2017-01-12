@@ -13,7 +13,7 @@ public class FixedSplitter extends Splitter implements java.io.Serializable {
     }
 
     @Override
-    void recalculateFlow() {
+    public void recalculateFlow() {
         this.settings.currentFlow = input.getFlow();
         this.outputA.recalculateFlow(settings.currentFlow/2);
         this.outputB.recalculateFlow(settings.currentFlow/2);

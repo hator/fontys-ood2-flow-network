@@ -11,12 +11,14 @@ import java.util.function.BiFunction;
 public class SimulationFacade {
     private FlowNetwork flowNetwork = new FlowNetwork();
     private PipelineBuilder pipelineBuilder = new PipelineBuilder();
+    private Element selectedElement = null;
 
     public void newFlowNetwork() {
         this.flowNetwork = new FlowNetwork();
     }
 
     public Result applyTool(Point point, Tool tool, Settings settings) {
+        deselect();
         if (tool != Tool.AddPipeline) {
             pipelineBuilder = new PipelineBuilder(); // reset builder
         }
@@ -87,9 +89,9 @@ public class SimulationFacade {
     }
 
     public Settings select(Point point) {
-        Element elem = flowNetwork.findElement(point);
-        if (elem != null) {
-            return elem.getSettings();
+        selectedElement = flowNetwork.findElement(point);
+        if (selectedElement != null) {
+            return selectedElement.getSettings();
         } else {
             return null;
         }
@@ -101,11 +103,16 @@ public class SimulationFacade {
     }
 
     public Result remove(Point point) {
+        deselect();
         if(flowNetwork.findElement(point) != null){
             flowNetwork.removeElement(flowNetwork.findElement(point));
             return Result.Success;
         }
         return Result.Failure;
+    }
+
+    private void deselect() {
+        selectedElement = null;
     }
 
     public void saveFlowNetwork(OutputStream out) throws IOException {
@@ -121,6 +128,12 @@ public class SimulationFacade {
 
         } catch (ClassNotFoundException e) {
             throw new IOException(e);
+        }
+    }
+
+    public void settingsChanged() {
+        if (selectedElement != null) {
+            selectedElement.recalculateFlow();
         }
     }
 }

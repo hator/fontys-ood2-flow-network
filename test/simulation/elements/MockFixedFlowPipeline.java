@@ -14,7 +14,7 @@ class MockFixedFlowPipeline extends Pipeline {
     }
 
     @Override
-    void recalculateFlow() {
+    public void recalculateFlow() {
         // trigger recalculation of the next element (input)
         input.recalculateFlow(this.settings.currentFlow);
     }

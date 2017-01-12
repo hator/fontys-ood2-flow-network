@@ -22,7 +22,7 @@ public class Sink extends Component implements java.io.Serializable {
     }
 
     @Override
-    void recalculateFlow() {
+    public void recalculateFlow() {
         this.settings.currentFlow = input.getFlow();
     }
 

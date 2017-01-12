@@ -14,7 +14,7 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
     }
 
     @Override
-    void recalculateFlow() {
+    public void recalculateFlow() {
         settings.currentFlow = input.getFlow();
         outputA.recalculateFlow(settings.splitRatio * settings.currentFlow);
         outputB.recalculateFlow((1 - settings.splitRatio) * settings.currentFlow);
