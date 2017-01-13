@@ -43,8 +43,7 @@ public class SimulationFacade {
                 if (!pipelineBuilder.hasOutput()) {
                     // First point of the pipeline has to be an output
                     Output output = flowNetwork.findOutput(point);
-                    // TODO check if output is not already connected
-                    if (output != null) {
+                    if (output != null && !output.pipelineConnected()) {
                         pipelineBuilder.addPoint(point);
                         pipelineBuilder.setOutput(output);
                     } else {
@@ -54,8 +53,7 @@ public class SimulationFacade {
                     pipelineBuilder.addPoint(point);
 
                     Input input = flowNetwork.findInput(point);
-                    // TODO check if output is not already connected
-                    if (input != null) {
+                    if (input != null && !input.pipelineConnected()) {
                         pipelineBuilder.setInput(input);
                         pipelineBuilder.setSettings(settings);
 

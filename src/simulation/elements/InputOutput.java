@@ -38,4 +38,8 @@ public abstract class InputOutput implements java.io.Serializable {
     void detachPipeline() {
         pipeline = null;
     }
+
+    public boolean pipelineConnected(){
+        return pipeline != null;
+    }
 }
