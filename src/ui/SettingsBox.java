@@ -8,6 +8,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.function.Consumer;
 
 class SettingsBox extends JPanel {
@@ -92,6 +93,7 @@ class SettingsBox extends JPanel {
                     if(!textField.getText().isEmpty())
                     {
                         Float floatVal = Float.parseFloat(textField.getText());
+                        floatVal = (float)Math.round(floatVal * 100) / 100;
                         fieldUpdateFunc.accept(floatVal);
                     }
                     if (!settings.isValid()) {
