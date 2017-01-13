@@ -14,6 +14,7 @@ class Toolbox extends JPanel {
     private ButtonGroup buttonGroup = new ButtonGroup();
     private BiConsumer<Tool, Settings> selectToolCallback;
     private SettingsBox settingsBox;
+    private AbstractButton selectionToolBtn;
 
     Toolbox(BiConsumer<Tool, Settings> selectToolCallback, Consumer<Result> changeSettingsResultCallback) {
         this.selectToolCallback = selectToolCallback;
@@ -25,7 +26,7 @@ class Toolbox extends JPanel {
         final GridLayout layout = new GridLayout(0, 1, 5, 5);
 
         setLayout(layout);
-        final AbstractButton selectionToolBtn = createAndAddButton("Selection Tool", Tool.Select);
+        selectionToolBtn = createAndAddButton("Selection Tool", Tool.Select);
         createAndAddButton("Removal Tool", Tool.Remove);
         createAndAddButton("Add Pump", Tool.AddPump);
         createAndAddButton("Add Sink", Tool.AddSink);
@@ -70,5 +71,9 @@ class Toolbox extends JPanel {
 
     void setCurrentSettingsReference(Settings settings) {
         settingsBox.setCurrentSettingsReference(settings);
+    }
+
+    void resetButtonsSelection(Object o) {
+        selectButton(selectionToolBtn);
     }
 }

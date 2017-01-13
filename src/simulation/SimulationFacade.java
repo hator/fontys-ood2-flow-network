@@ -20,7 +20,7 @@ public class SimulationFacade {
     public Result applyTool(Point point, Tool tool, Settings settings) {
         deselect();
         if (tool != Tool.AddPipeline) {
-            pipelineBuilder = new PipelineBuilder(); // reset builder
+            cancelPipelineBuild(); // reset builder
         }
 
         switch(tool){
@@ -66,6 +66,10 @@ public class SimulationFacade {
             }
             default: return Result.Failure; //TODO fix return result
         }
+    }
+
+    public void cancelPipelineBuild() {
+        pipelineBuilder = new PipelineBuilder();
     }
 
     private Result withValidSettingsAddToNetwork(Settings settings, Point position,

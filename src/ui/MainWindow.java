@@ -46,6 +46,7 @@ class MainWindow extends JFrame {
         add(toolbox, BorderLayout.WEST);
 
         diagram.setChangeSettingsReferenceCallback(toolbox::setCurrentSettingsReference);
+        diagram.setCancelActionReferenceCallback(toolbox::resetButtonsSelection);
 
         pack(); // resize the window
     }

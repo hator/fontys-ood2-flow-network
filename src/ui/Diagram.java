@@ -17,8 +17,9 @@ class Diagram extends JPanel {
     private Settings currentSettingsReference;
     private SimulationFacade simulation;
     private Consumer<Settings> changeSettingsReferenceCallback;
+    private Consumer resetToolButtonCallback;
     private boolean isResultNotSuccessful;
-    private String resultMessage = "OK";
+    private String resultMessage = "OK, press right mouse button to cancel operation.";
 
     Diagram(SimulationFacade simulation) {
         this.simulation = simulation;
@@ -29,7 +30,11 @@ class Diagram extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                mouseClickCallback(e.getX(), e.getY());
+                if(SwingUtilities.isLeftMouseButton(e)){
+                    mouseClickCallback(e.getX(), e.getY());
+                } else {
+                    cancelOperation();
+                }
             }
         });
     }
@@ -63,6 +68,10 @@ class Diagram extends JPanel {
         this.changeSettingsReferenceCallback = changeSettingsReferenceCallback;
     }
 
+    void setCancelActionReferenceCallback(Consumer resetToolButtonCallback) {
+        this.resetToolButtonCallback = resetToolButtonCallback;
+    }
+
     private void mouseClickCallback(int x, int y) {
         assert currentTool != null;
 
@@ -91,6 +100,16 @@ class Diagram extends JPanel {
         this.repaint();
     }
 
+    private void cancelOperation() {
+        cancelPipelineBuild();
+        resetToolButtonCallback.accept(null);
+    }
+
+    private void cancelPipelineBuild(){
+        simulation.cancelPipelineBuild();
+        this.repaint();
+    }
+
     private void changeCurrentSettings(Settings settings) {
         currentSettingsReference = settings;
         changeSettingsReferenceCallback.accept(settings);
@@ -99,6 +118,7 @@ class Diagram extends JPanel {
     void selectTool(Tool tool, Settings settings) {
         currentTool = tool;
         currentSettingsReference = settings;
+        cancelPipelineBuild();
     }
 
     void onSettingsChanged(Result result) {
@@ -111,7 +131,7 @@ class Diagram extends JPanel {
     private void setResultMessage(Result result) {
         if (result == Result.Success) {
             isResultNotSuccessful = false;
-            resultMessage = "OK";
+            resultMessage = "OK, press right mouse button to cancel operation.";
         } else {
             isResultNotSuccessful = true;
             if (result == Result.InvalidSettings) {
