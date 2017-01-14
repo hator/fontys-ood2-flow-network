@@ -13,13 +13,14 @@ import java.awt.event.MouseEvent;
 import java.util.function.Consumer;
 
 class Diagram extends JPanel {
+    private static final String OK_MESSAGE = "OK, press right mouse button to cancel operation.";
     private Tool currentTool;
     private Settings currentSettingsReference;
     private SimulationFacade simulation;
     private Consumer<Settings> changeSettingsReferenceCallback;
     private Runnable resetToolButtonCallback;
     private boolean isResultNotSuccessful;
-    private String resultMessage = "OK, press right mouse button to cancel operation.";
+    private String resultMessage = OK_MESSAGE;
 
     Diagram(SimulationFacade simulation) {
         this.simulation = simulation;
@@ -39,7 +40,6 @@ class Diagram extends JPanel {
         });
     }
 
-    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Dimension dim = getSize();
@@ -55,13 +55,11 @@ class Diagram extends JPanel {
     private void setStatusLabel(Graphics g) {
         g.setColor(Color.GREEN);
         g.setFont(new Font("Arial", Font.BOLD, 15));
-        if(isResultNotSuccessful)
-        {
+        if (isResultNotSuccessful) {
             g.setColor(Color.RED);
         }
 
         g.drawString("Status: " + resultMessage, 10, 10);
-
     }
 
     void setChangeSettingsReferenceCallback(Consumer<Settings> changeSettingsReferenceCallback) {
@@ -84,7 +82,7 @@ class Diagram extends JPanel {
                 break;
             case Remove:
                 if(simulation.remove(point) != Result.Success){
-                    //On failure
+                    // TODO On failure
                 }
                 break;
             default: // Add component
@@ -131,7 +129,7 @@ class Diagram extends JPanel {
     private void setResultMessage(Result result) {
         if (result == Result.Success) {
             isResultNotSuccessful = false;
-            resultMessage = "OK, press right mouse button to cancel operation.";
+            resultMessage = OK_MESSAGE;
         } else {
             isResultNotSuccessful = true;
             if (result == Result.InvalidSettings) {
