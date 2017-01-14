@@ -14,16 +14,16 @@ public class FixedSplitter extends Splitter implements java.io.Serializable {
 
     @Override
     public void recalculateFlow() {
-        this.settings.currentFlow = input.getFlow();
-        this.outputA.recalculateFlow(settings.currentFlow/2);
-        this.outputB.recalculateFlow(settings.currentFlow/2);
+        this.settings.setCurrentFlow(input.getFlow());
+        this.outputA.recalculateFlow(settings.getCurrentFlow()/2);
+        this.outputB.recalculateFlow(settings.getCurrentFlow()/2);
     }
 
     @Override
     public void render(Graphics graphics) {
-        if(settings.currentFlow > settings.maxFlow){
+        if(settings.getCurrentFlow() > settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.SplitterState2, graphics, getPosition());
-        } else if(settings.currentFlow == settings.maxFlow){
+        } else if(settings.getCurrentFlow() == settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.SplitterState0, graphics, getPosition());
         } else {
             ImageLibrary.drawImage(ImageLibrary.Images.SplitterState1, graphics, getPosition());

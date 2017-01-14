@@ -45,8 +45,8 @@ class SettingsBox extends JPanel {
         TitledBorder border = BorderFactory.createTitledBorder(TITLE);
         setBorder(border);
 
-        this.currentFlowInput = createFieldWithLabel("Current flow", (floatVal) -> settings.currentFlow = floatVal);
-        this.maximumFlowInput = createFieldWithLabel("Maximum flow", (floatVal) -> settings.maxFlow = floatVal);
+        this.currentFlowInput = createFieldWithLabel("Current flow", (floatVal) -> settings.setCurrentFlow(floatVal));
+        this.maximumFlowInput = createFieldWithLabel("Maximum flow", (floatVal) -> settings.setMaxFlow(floatVal));
         this.splitRatioInput = createFieldWithLabel("Split ratio", (floatVal) -> settings.splitRatio = floatVal);
 
         this.changeSettingsResultCallback = changeSettingsResultCallback;
@@ -135,8 +135,8 @@ class SettingsBox extends JPanel {
     }
 
     private void setFieldsWithSettings(Settings settings) {
-        currentFlowInput.textField.setText(Float.toString(settings.currentFlow));
-        maximumFlowInput.textField.setText(Float.toString(settings.maxFlow));
+        currentFlowInput.textField.setText(Float.toString(settings.getCurrentFlow()));
+        maximumFlowInput.textField.setText(Float.toString(settings.getMaxFlow()));
         if (settings.splitRatio != null) {
             splitRatioInput.textField.setText(settings.splitRatio.toString());
             splitRatioInput.setEnabled(true);
@@ -147,7 +147,7 @@ class SettingsBox extends JPanel {
         if(!settings.generatesFlow){
             currentFlowInput.setEnabled(false);
         } else {
-            currentFlowInput.textField.setText(Float.toString(settings.currentFlow));
+            currentFlowInput.textField.setText(Float.toString(settings.getCurrentFlow()));
             currentFlowInput.setEnabled(true);
         }
     }

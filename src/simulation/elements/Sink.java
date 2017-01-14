@@ -23,7 +23,7 @@ public class Sink extends Component implements java.io.Serializable {
 
     @Override
     public void recalculateFlow() {
-        this.settings.currentFlow = input.getFlow();
+        this.settings.setCurrentFlow(input.getFlow());
     }
 
     @Override
@@ -37,9 +37,9 @@ public class Sink extends Component implements java.io.Serializable {
 
     @Override
     public void render(Graphics graphics) {
-        if(settings.currentFlow > settings.maxFlow){
+        if(settings.getCurrentFlow() > settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.BarrelState2, graphics, getPosition());
-        } else if(settings.currentFlow == settings.maxFlow){
+        } else if(settings.getCurrentFlow() == settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.BarrelState0, graphics, getPosition());
         } else {
             ImageLibrary.drawImage(ImageLibrary.Images.BarrelState1, graphics, getPosition());

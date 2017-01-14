@@ -16,7 +16,7 @@ abstract public class Element implements java.io.Serializable {
     public abstract void recalculateFlow();
 
     float getFlow() {
-        return settings.currentFlow;
+        return settings.getCurrentFlow();
     }
 
     public Settings getSettings() {
@@ -29,14 +29,14 @@ abstract public class Element implements java.io.Serializable {
 
 
     static void renderFlowAtPosition(Graphics g, Settings settings, Point position) {
-        if (settings.currentFlow > settings.maxFlow) {
+        if (settings.getCurrentFlow() > settings.getMaxFlow()) {
             g.setColor(Color.RED);
         } else {
             g.setColor(Color.GREEN);
         }
 
         DecimalFormat df = new DecimalFormat("#.##");
-        String flowString = df.format(settings.currentFlow);
+        String flowString = df.format(settings.getCurrentFlow());
 
         g.setFont(new Font("Arial", Font.BOLD, 30));
         g.drawString(flowString, position.x, position.y);

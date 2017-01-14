@@ -30,8 +30,8 @@ public class Pipeline extends Element implements java.io.Serializable {
 
     @Override
     public void recalculateFlow() {
-        this.settings.currentFlow = output.getFlow();
-        input.recalculateFlow(this.settings.currentFlow);
+        this.settings.setCurrentFlow(output.getFlow());
+        input.recalculateFlow(this.settings.getCurrentFlow());
     }
 
     @Override
@@ -78,9 +78,9 @@ public class Pipeline extends Element implements java.io.Serializable {
         for(int i = 1; i < points.size(); i++){
             a = points.get(i - 1);
             b = points.get(i);
-            if(settings.currentFlow > settings.maxFlow){
+            if(settings.getCurrentFlow() > settings.getMaxFlow()){
                 g.setColor(new Color(134,55,29)); //red
-            } else if(settings.currentFlow == settings.maxFlow){
+            } else if(settings.getCurrentFlow() == settings.getMaxFlow()){
                 g.setColor(new Color(40,190,63)); //dark green
             } else {
                 g.setColor(new Color(124,255,0)); //light green

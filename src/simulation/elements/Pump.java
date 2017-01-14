@@ -22,7 +22,7 @@ public class Pump extends Component implements java.io.Serializable {
 
     @Override
     public void recalculateFlow() {
-        this.getOutput().recalculateFlow(this.settings.currentFlow);
+        this.getOutput().recalculateFlow(this.settings.getCurrentFlow());
     }
 
     @Override
@@ -32,9 +32,9 @@ public class Pump extends Component implements java.io.Serializable {
 
     @Override
     public void render(Graphics graphics) {
-        if(settings.currentFlow > settings.maxFlow){
+        if(settings.getCurrentFlow() > settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.PumpState2, graphics, getPosition());
-        } else if(settings.currentFlow == settings.maxFlow){
+        } else if(settings.getCurrentFlow() == settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.PumpState0, graphics, getPosition());
         } else {
             ImageLibrary.drawImage(ImageLibrary.Images.PumpState1, graphics, getPosition());

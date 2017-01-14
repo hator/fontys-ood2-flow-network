@@ -15,16 +15,16 @@ public class AdjustableSplitter extends Splitter implements java.io.Serializable
 
     @Override
     public void recalculateFlow() {
-        settings.currentFlow = input.getFlow();
-        outputA.recalculateFlow(settings.splitRatio * settings.currentFlow);
-        outputB.recalculateFlow((1 - settings.splitRatio) * settings.currentFlow);
+        settings.setCurrentFlow(input.getFlow());
+        outputA.recalculateFlow(settings.splitRatio * settings.getCurrentFlow());
+        outputB.recalculateFlow((1 - settings.splitRatio) * settings.getCurrentFlow());
     }
 
     @Override
     public void render(Graphics graphics) {
-        if(settings.currentFlow > settings.maxFlow){
+        if(settings.getCurrentFlow() > settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitterState2, graphics, getPosition());
-        } else if(settings.currentFlow == settings.maxFlow){
+        } else if(settings.getCurrentFlow() == settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitterState0, graphics, getPosition());
         } else {
             ImageLibrary.drawImage(ImageLibrary.Images.AdjustableSplitterState1, graphics, getPosition());

@@ -31,8 +31,8 @@ public class Merger extends Component implements java.io.Serializable {
 
     @Override
     public void recalculateFlow() {
-        this.settings.currentFlow = inputA.getFlow() + inputB.getFlow();
-        this.output.recalculateFlow(this.settings.currentFlow);
+        this.settings.setCurrentFlow(inputA.getFlow() + inputB.getFlow());
+        this.output.recalculateFlow(this.settings.getCurrentFlow());
     }
 
     Output getOutput() {
@@ -52,9 +52,9 @@ public class Merger extends Component implements java.io.Serializable {
 
     @Override
     public void render(Graphics graphics) {
-        if(settings.currentFlow > settings.maxFlow){
+        if(settings.getCurrentFlow() > settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.MergerState2, graphics, getPosition());
-        } else if(settings.currentFlow == settings.maxFlow){
+        } else if(settings.getCurrentFlow() == settings.getMaxFlow()){
             ImageLibrary.drawImage(ImageLibrary.Images.MergerState0, graphics, getPosition());
         } else {
             ImageLibrary.drawImage(ImageLibrary.Images.MergerState1, graphics, getPosition());
