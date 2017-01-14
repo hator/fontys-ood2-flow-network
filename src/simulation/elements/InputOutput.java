@@ -27,7 +27,8 @@ public abstract class InputOutput implements java.io.Serializable {
     }
 
     void attachPipeline(Pipeline pipeline) {
-        // TODO check if there is already a pipeline?
+        assert this.pipeline == null;
+
         this.pipeline = pipeline;
     }
 
