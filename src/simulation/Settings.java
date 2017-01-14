@@ -1,12 +1,16 @@
 package simulation;
 
 public class Settings implements java.io.Serializable{
+    private float currentFlow;
+    private float maxFlow;
+    public Float splitRatio;
+    public boolean generatesFlow = false;
     public float getCurrentFlow() {
         return currentFlow;
     }
 
     public void setCurrentFlow(float currentFlow) {
-        this.currentFlow = (float)Math.floor(currentFlow*1000) / 1000f;
+        this.currentFlow = (float)Math.floor(currentFlow*100) / 100f;
     }
 
     public float getMaxFlow() {
@@ -16,11 +20,6 @@ public class Settings implements java.io.Serializable{
     public void setMaxFlow(float maxFlow) {
         this.maxFlow = maxFlow;
     }
-
-    private float currentFlow;
-    private float maxFlow;
-    public Float splitRatio;
-    public boolean generatesFlow = false;
 
     public Settings(float currentFlow, float maxFlow, Float splitRatio) {
         this.currentFlow = currentFlow;
@@ -60,8 +59,5 @@ public class Settings implements java.io.Serializable{
         }
         return settings;
     }
-
-
-
 
 }
