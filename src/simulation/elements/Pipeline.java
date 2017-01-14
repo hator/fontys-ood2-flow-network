@@ -93,6 +93,7 @@ public class Pipeline extends Element implements java.io.Serializable {
 
     private void renderFlow(Graphics g) {
         Point middlePoint = getMiddlePoint();
+
         if (middlePoint != null) {
             Point flowLabelPosition = getMiddlePoint().plus(FLOW_LABEL_OFFSET);
             renderFlowAtPosition(g, settings, flowLabelPosition);

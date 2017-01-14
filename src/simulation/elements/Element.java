@@ -4,6 +4,7 @@ import simulation.Settings;
 import util.Point;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 abstract public class Element implements java.io.Serializable {
     Settings settings;
@@ -33,7 +34,10 @@ abstract public class Element implements java.io.Serializable {
             g.setColor(Color.GREEN);
         }
 
+        DecimalFormat df = new DecimalFormat("#.##");
+        String flowString = df.format(settings.currentFlow);
+
         g.setFont(new Font("Arial", Font.BOLD, 30));
-        g.drawString(Float.toString(settings.currentFlow), position.x, position.y);
+        g.drawString(flowString, position.x, position.y);
     }
 }
