@@ -73,7 +73,7 @@ class Toolbox extends JPanel {
         settingsBox.setCurrentSettingsReference(settings);
     }
 
-    void resetButtonsSelection(Object o) {
+    void resetButtonsSelection() {
         selectButton(selectionToolBtn);
     }
 }

@@ -17,7 +17,7 @@ class Diagram extends JPanel {
     private Settings currentSettingsReference;
     private SimulationFacade simulation;
     private Consumer<Settings> changeSettingsReferenceCallback;
-    private Consumer resetToolButtonCallback;
+    private Runnable resetToolButtonCallback;
     private boolean isResultNotSuccessful;
     private String resultMessage = "OK, press right mouse button to cancel operation.";
 
@@ -68,7 +68,7 @@ class Diagram extends JPanel {
         this.changeSettingsReferenceCallback = changeSettingsReferenceCallback;
     }
 
-    void setCancelActionReferenceCallback(Consumer resetToolButtonCallback) {
+    void setCancelActionReferenceCallback(Runnable resetToolButtonCallback) {
         this.resetToolButtonCallback = resetToolButtonCallback;
     }
 
@@ -102,7 +102,7 @@ class Diagram extends JPanel {
 
     private void cancelOperation() {
         cancelPipelineBuild();
-        resetToolButtonCallback.accept(null);
+        resetToolButtonCallback.run();
     }
 
     private void cancelPipelineBuild(){
