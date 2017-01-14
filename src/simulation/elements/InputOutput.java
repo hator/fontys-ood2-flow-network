@@ -39,7 +39,11 @@ public abstract class InputOutput implements java.io.Serializable {
         pipeline = null;
     }
 
-    public boolean pipelineConnected(){
+    public boolean hasPipelineConnected() {
         return pipeline != null;
+    }
+
+    public Point getPosition() {
+        return position;
     }
 }

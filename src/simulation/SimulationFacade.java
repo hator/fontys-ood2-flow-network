@@ -43,23 +43,25 @@ public class SimulationFacade {
                 if (!pipelineBuilder.hasOutput()) {
                     // First point of the pipeline has to be an output
                     Output output = flowNetwork.findOutput(point);
-                    if (output != null && !output.pipelineConnected()) {
-                        pipelineBuilder.addPoint(point);
+                    if (output != null && !output.hasPipelineConnected()) {
                         pipelineBuilder.setOutput(output);
+                        pipelineBuilder.addPoint(output.getPosition());
                     } else {
                         return Result.Failure;
                     }
                 } else {
-                    pipelineBuilder.addPoint(point);
 
                     Input input = flowNetwork.findInput(point);
-                    if (input != null && !input.pipelineConnected()) {
+                    if (input != null && !input.hasPipelineConnected()) {
+                        pipelineBuilder.addPoint(input.getPosition());
                         pipelineBuilder.setInput(input);
                         pipelineBuilder.setSettings(settings);
 
                         Pipeline pipeline = pipelineBuilder.build();
                         flowNetwork.addPipeline(pipeline);
                         pipelineBuilder = new PipelineBuilder();
+                    } else {
+                        pipelineBuilder.addPoint(point);
                     }
                 }
                 return Result.Success;
