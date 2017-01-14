@@ -57,7 +57,8 @@ abstract public class Component extends Element implements java.io.Serializable{
         return calculateSingleIOPosition(isInput).plus(new Point(0, (ioNumber - 1) * 30 - 15));
     }
 
-    void renderFlow(Graphics g){
-        settings.renderCurrentFlow(g, getPosition().plus(FLOW_LABEL_OFFSET));
+    void renderFlow(Graphics g) {
+        Point flowLabelPosition = getPosition().plus(FLOW_LABEL_OFFSET);
+        renderFlowAtPosition(g, settings, flowLabelPosition);
     }
 }

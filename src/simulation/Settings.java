@@ -1,9 +1,5 @@
 package simulation;
 
-import util.Point;
-
-import java.awt.*;
-
 public class Settings implements java.io.Serializable{
     public float currentFlow;
     public float maxFlow;
@@ -30,18 +26,6 @@ public class Settings implements java.io.Serializable{
         this.currentFlow = settings.currentFlow;
         this.maxFlow = settings.maxFlow;
         this.splitRatio = settings.splitRatio;
-    }
-
-    // TODO remove from Settings
-    public void renderCurrentFlow(Graphics g, Point position){
-        if (currentFlow > maxFlow) {
-            g.setColor(Color.RED);
-        } else {
-            g.setColor(Color.GREEN);
-        }
-
-        g.setFont(new Font("Arial", Font.BOLD, 30));
-        g.drawString(Float.toString(currentFlow), position.x, position.y);
     }
 
     public static Settings getDefault() {

@@ -26,5 +26,14 @@ abstract public class Element implements java.io.Serializable {
 
     public abstract void render(Graphics graphics);
 
+    static void renderFlowAtPosition(Graphics g, Settings settings, Point position) {
+        if (settings.currentFlow > settings.maxFlow) {
+            g.setColor(Color.RED);
+        } else {
+            g.setColor(Color.GREEN);
+        }
 
+        g.setFont(new Font("Arial", Font.BOLD, 30));
+        g.drawString(Float.toString(settings.currentFlow), position.x, position.y);
+    }
 }
